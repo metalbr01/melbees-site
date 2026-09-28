@@ -134,3 +134,9 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
   .facts th{width:42%}
   .facts th,.facts td{padding:9px 10px}
 }
+
+/* Google Play button state, set by assets/play.js */
+.play-soon .play-live{display:none!important}
+html:not(.play-soon) .play-wait{display:none!important}
+.btn.wait{background:var(--honey-wash);color:var(--ink);border-color:var(--honey-deep);cursor:default}
+.wait-note{margin-top:12px;font-size:15px;color:var(--ink3)}
