@@ -3,7 +3,7 @@
    Links carry the visitor's origin into the Play referrer: ?s=instagram (or utm_source=...) becomes
    utm_source=instagram, so the Play Console's UTM report credits the channel that sent the visit. */
 (function () {
-  var LIVE = false;
+  var LIVE = true;
   var d = document.documentElement;
   if (!LIVE) d.className += " play-soon";
   function clean(v) { return v && /^[a-z0-9_-]{1,40}$/i.test(v) ? v.toLowerCase() : null; }
