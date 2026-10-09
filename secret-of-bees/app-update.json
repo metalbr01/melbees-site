@@ -1,9 +1,4 @@
 {
   "schema": 1,
-  "android": [
-    {
-      "build": 999,
-      "update": "mandatory"
-    }
-  ]
+  "android": []
 }
