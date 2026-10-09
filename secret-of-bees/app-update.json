@@ -3,8 +3,7 @@
   "android": [
     {
       "build": 999,
-      "update": "optional",
-      "min_build": 1
+      "update": "mandatory"
     }
   ]
 }
