@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "android": [
+    {
+      "build": 999,
+      "update": "optional",
+      "min_build": 1
+    }
+  ]
+}
