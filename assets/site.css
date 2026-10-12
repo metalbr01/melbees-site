@@ -137,6 +137,10 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 
 /* Google Play button state, set by assets/play.js */
 .play-soon .play-live{display:none!important}
-html:not(.play-soon) .play-wait{display:none!important}
-.btn.wait{background:var(--honey-wash);color:var(--ink);border-color:var(--honey-deep);cursor:default}
-.wait-note{margin-top:12px;font-size:15px;color:var(--ink3)}
+.store-note{margin-top:12px;font-size:15px;color:var(--ink3)}
+
+/* Microsoft Store: the official badge, as tall as the Play button beside it */
+.msstore{display:inline-flex;align-items:center;border-radius:6px}
+.msstore img{height:54px;width:auto}
+html:not(.js) .msstore [data-l="en"]{display:none}
+.game .plat{font-size:14px;font-weight:600;color:var(--honey-ink);margin-top:4px}
