@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
-<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem("melbees-lang")}catch(e){}if(l!=="pt"&&l!=="en"){l=/^pt/i.test(navigator.language||"")?"pt":"en"}d.className+=" js lang-"+l;d.lang=l==="pt"?"pt-BR":"en"})();</script>
+<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem("melbees-lang")}catch(e){}if(!/^(pt|en|es|fr)$/.test(l||"")){var n=(navigator.language||"").toLowerCase();l=/^pt/.test(n)?"pt":/^es/.test(n)?"es":/^fr/.test(n)?"fr":"en"}d.className+=" js lang-"+l;d.lang=l==="pt"?"pt-BR":l})();</script>
 <script src="assets/play.js"></script>
 </head>
 <body>
@@ -31,10 +31,12 @@
   <div class="wrap">
     <a class="brand" href="./" aria-label="Melbees"><svg viewBox="0 0 18 20" aria-hidden="true"><polygon points="9,1 17,5.5 17,14.5 9,19 1,14.5 1,5.5" fill="var(--honey)" stroke="var(--honey-deep)" stroke-width="1.5"/></svg><span>Melbees</span></a>
     <nav class="nav" aria-label="Menu">
-      <a href="secret-of-bees/">The Secret of Bees</a>
-      <div class="langs" role="group" aria-label="Idioma / Language">
+      <a class="opt" href="secret-of-bees/">The Secret of Bees</a>
+      <div class="langs" role="group" aria-label="Idioma / Language / Langue">
         <button type="button" data-set="pt" aria-pressed="false">PT</button>
         <button type="button" data-set="en" aria-pressed="false">EN</button>
+        <button type="button" data-set="es" aria-pressed="false">ES</button>
+        <button type="button" data-set="fr" aria-pressed="false">FR</button>
       </div>
     </nav>
   </div>
@@ -44,9 +46,9 @@
 <div class="wrap">
   <div class="hero" style="grid-template-columns:1fr">
     <div>
-      <p class="eyebrow"><span data-l="pt" lang="pt-BR">Estúdio independente do Brasil</span><span data-l="en" lang="en">Independent studio from Brazil</span></p>
+      <p class="eyebrow"><span data-l="pt" lang="pt-BR">Estúdio independente do Brasil</span><span data-l="en" lang="en">Independent studio from Brazil</span><span data-l="es" lang="es">Estudio independiente de Brasil</span><span data-l="fr" lang="fr">Studio indépendant du Brésil</span></p>
       <h1>Melbees</h1>
-      <p class="lede"><span data-l="pt" lang="pt-BR">Jogos independentes feitos no Brasil, para jogar em português, inglês, espanhol e francês.</span><span data-l="en" lang="en">Independent games made in Brazil, to play in English, Portuguese, Spanish and French.</span></p>
+      <p class="lede"><span data-l="pt" lang="pt-BR">Jogos independentes feitos no Brasil, para jogar em português, inglês, espanhol e francês.</span><span data-l="en" lang="en">Independent games made in Brazil, to play in English, Portuguese, Spanish and French.</span><span data-l="es" lang="es">Juegos independientes hechos en Brasil, para jugar en español, inglés, portugués y francés.</span><span data-l="fr" lang="fr">Des jeux indépendants faits au Brésil, à jouer en français, anglais, portugais et espagnol.</span></p>
       <p class="nojs-note">Português · English</p>
     </div>
   </div>
@@ -54,22 +56,22 @@
 <section>
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow"><span data-l="pt" lang="pt-BR">Jogos</span><span data-l="en" lang="en">Games</span></p>
-      <h2><span data-l="pt" lang="pt-BR">Nossos jogos</span><span data-l="en" lang="en">Our games</span></h2>
+      <p class="eyebrow"><span data-l="pt" lang="pt-BR">Jogos</span><span data-l="en" lang="en">Games</span><span data-l="es" lang="es">Juegos</span><span data-l="fr" lang="fr">Jeux</span></p>
+      <h2><span data-l="pt" lang="pt-BR">Nossos jogos</span><span data-l="en" lang="en">Our games</span><span data-l="es" lang="es">Nuestros juegos</span><span data-l="fr" lang="fr">Nos jeux</span></h2>
     </div>
     <article class="card game">
       <img src="assets/icon-256.webp" width="120" height="120" alt="Ícone do Melbees: The Secret of Bees">
       <div>
         <h3>Melbees: The Secret of Bees</h3>
-        <p class="plat"><span data-l="pt" lang="pt-BR">Android e PC (Windows)</span><span data-l="en" lang="en">Android and PC (Windows)</span></p>
-        <p><span data-l="pt" lang="pt-BR">Combine e descarte letras e descubra segredos num mix de Forca e Campo Minado.</span><span data-l="en" lang="en">Match and discard letters to uncover secrets in a Hangman and Minesweeper mix.</span></p>
+        <p class="plat"><span data-l="pt" lang="pt-BR">Android e PC (Windows)</span><span data-l="en" lang="en">Android and PC (Windows)</span><span data-l="es" lang="es">Android y PC (Windows)</span><span data-l="fr" lang="fr">Android et PC (Windows)</span></p>
+        <p><span data-l="pt" lang="pt-BR">Combine e descarte letras e descubra segredos num mix de Forca e Campo Minado.</span><span data-l="en" lang="en">Match and discard letters to uncover secrets in a Hangman and Minesweeper mix.</span><span data-l="es" lang="es">Combina y descarta letras para descubrir secretos: Ahorcado y Buscaminas en uno.</span><span data-l="fr" lang="fr">Associez, écartez des lettres et percez des secrets&nbsp;: Pendu et Démineur réunis.</span></p>
         <div class="cta" style="margin-top:16px">
-          <a class="btn play play-live" href="https://play.google.com/store/apps/details?id=com.melbees.secretofbees&referrer=utm_source%3Dsite%26utm_medium%3Dweb%26utm_campaign%3Dportas_abertas" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5z"/></svg><span data-l="pt" lang="pt-BR">Baixar na Google Play</span><span data-l="en" lang="en">Get it on Google Play</span></a><a class="msstore" href="https://apps.microsoft.com/detail/9N72MD72DQBP?cid=site" rel="noopener"><picture data-l="pt" lang="pt-BR"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/pt-br%20dark.svg"><img src="https://get.microsoft.com/images/pt-br%20light.svg" width="161" height="44" alt="Baixar na Microsoft Store"></picture><picture data-l="en" lang="en"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/en-us%20light.svg"><img src="https://get.microsoft.com/images/en-us%20dark.svg" width="161" height="44" alt="Get it from Microsoft Store"></picture></a>
-          <a class="btn ghost keep-src" href="secret-of-bees/"><span data-l="pt" lang="pt-BR">Conhecer o jogo</span><span data-l="en" lang="en">About the game</span></a>
+          <a class="btn play play-live" href="https://play.google.com/store/apps/details?id=com.melbees.secretofbees&referrer=utm_source%3Dsite%26utm_medium%3Dweb%26utm_campaign%3Dportas_abertas" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5z"/></svg><span data-l="pt" lang="pt-BR">Baixar na Google Play</span><span data-l="en" lang="en">Get it on Google Play</span><span data-l="es" lang="es">Disponible en Google Play</span><span data-l="fr" lang="fr">Disponible sur Google Play</span></a><a class="msstore" href="https://apps.microsoft.com/detail/9N72MD72DQBP?cid=site" rel="noopener"><picture data-l="pt" lang="pt-BR"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/pt-br%20dark.svg"><img src="https://get.microsoft.com/images/pt-br%20light.svg" width="161" height="44" alt="Baixar na Microsoft Store"></picture><picture data-l="en" lang="en"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/en-us%20light.svg"><img src="https://get.microsoft.com/images/en-us%20dark.svg" width="161" height="44" alt="Get it from Microsoft Store"></picture><picture data-l="es" lang="es"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/es%20light.svg"><img src="https://get.microsoft.com/images/es%20dark.svg" width="161" height="44" alt="Disponible en Microsoft Store"></picture><picture data-l="fr" lang="fr"><source media="(prefers-color-scheme: dark)" srcset="https://get.microsoft.com/images/fr%20light.svg"><img src="https://get.microsoft.com/images/fr%20dark.svg" width="161" height="44" alt="Disponible sur le Microsoft Store"></picture></a>
+          <a class="btn ghost keep-src" href="secret-of-bees/"><span data-l="pt" lang="pt-BR">Conhecer o jogo</span><span data-l="en" lang="en">About the game</span><span data-l="es" lang="es">Conocer el juego</span><span data-l="fr" lang="fr">Découvrir le jeu</span></a>
         </div>
       </div>
     </article>
-    <p class="soon"><svg viewBox="0 0 18 20" aria-hidden="true"><polygon points="9,1 17,5.5 17,14.5 9,19 1,14.5 1,5.5" fill="var(--honey-wash)" stroke="var(--honey-deep)" stroke-width="1.5"/></svg><span data-l="pt" lang="pt-BR">Mais jogos a caminho.</span><span data-l="en" lang="en">More games on the way.</span></p>
+    <p class="soon"><svg viewBox="0 0 18 20" aria-hidden="true"><polygon points="9,1 17,5.5 17,14.5 9,19 1,14.5 1,5.5" fill="var(--honey-wash)" stroke="var(--honey-deep)" stroke-width="1.5"/></svg><span data-l="pt" lang="pt-BR">Mais jogos a caminho.</span><span data-l="en" lang="en">More games on the way.</span><span data-l="es" lang="es">Más juegos en camino.</span><span data-l="fr" lang="fr">D'autres jeux arrivent.</span></p>
   </div>
 </section>
 </main>
@@ -82,6 +84,6 @@
     </nav>
   </div>
 </footer>
-<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".langs button");function set(l){d.classList.remove("lang-pt","lang-en");d.classList.add("lang-"+l);d.lang=l==="pt"?"pt-BR":"en";try{localStorage.setItem("melbees-lang",l)}catch(e){}for(var i=0;i<b.length;i++){b[i].setAttribute("aria-pressed",b[i].getAttribute("data-set")===l?"true":"false")}}for(var i=0;i<b.length;i++){b[i].addEventListener("click",function(){set(this.getAttribute("data-set"))})}set(d.classList.contains("lang-pt")?"pt":"en")})();</script>
+<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".langs button");function set(l,save){d.classList.remove("lang-pt","lang-en","lang-es","lang-fr");d.classList.add("lang-"+l);d.lang=l==="pt"?"pt-BR":l;if(save){try{localStorage.setItem("melbees-lang",l)}catch(e){}}for(var i=0;i<b.length;i++){b[i].setAttribute("aria-pressed",b[i].getAttribute("data-set")===l?"true":"false")}}for(var i=0;i<b.length;i++){b[i].addEventListener("click",function(){set(this.getAttribute("data-set"),true)})}var m=/\blang-(pt|en|es|fr)\b/.exec(d.className);set(m?m[1]:"en",false)})();</script>
 </body>
 </html>

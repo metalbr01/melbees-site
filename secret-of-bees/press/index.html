@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../assets/site.css">
-<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem("melbees-lang")}catch(e){}if(l!=="pt"&&l!=="en"){l=/^pt/i.test(navigator.language||"")?"pt":"en"}d.className+=" js lang-"+l;d.lang=l==="pt"?"pt-BR":"en"})();</script>
+<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem("melbees-lang")}catch(e){}if(l==="es"||l==="fr"){l="en"}else if(l!=="pt"&&l!=="en"){l=/^pt/i.test(navigator.language||"")?"pt":"en"}d.className+=" js lang-"+l;d.lang=l==="pt"?"pt-BR":"en"})();</script>
 <script src="../../assets/play.js"></script>
 </head>
 <body>
@@ -139,6 +139,6 @@ Three ways to play: Run (10 phases, against the clock), Walk (1 phase, just for 
     </nav>
   </div>
 </footer>
-<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".langs button");function set(l){d.classList.remove("lang-pt","lang-en");d.classList.add("lang-"+l);d.lang=l==="pt"?"pt-BR":"en";try{localStorage.setItem("melbees-lang",l)}catch(e){}for(var i=0;i<b.length;i++){b[i].setAttribute("aria-pressed",b[i].getAttribute("data-set")===l?"true":"false")}}for(var i=0;i<b.length;i++){b[i].addEventListener("click",function(){set(this.getAttribute("data-set"))})}set(d.classList.contains("lang-pt")?"pt":"en")})();</script>
+<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".langs button");function set(l,save){d.classList.remove("lang-pt","lang-en");d.classList.add("lang-"+l);d.lang=l==="pt"?"pt-BR":l;if(save){try{localStorage.setItem("melbees-lang",l)}catch(e){}}for(var i=0;i<b.length;i++){b[i].setAttribute("aria-pressed",b[i].getAttribute("data-set")===l?"true":"false")}}for(var i=0;i<b.length;i++){b[i].addEventListener("click",function(){set(this.getAttribute("data-set"),true)})}var m=/\blang-(pt|en)\b/.exec(d.className);set(m?m[1]:"en",false)})();</script>
 </body>
 </html>
