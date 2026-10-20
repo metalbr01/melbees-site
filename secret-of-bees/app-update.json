@@ -1,4 +1,11 @@
 {
   "schema": 1,
-  "android": []
+  "android": [],
+  "windows": [
+    {
+      "build": 25,
+      "update": "optional",
+      "min_build": 1
+    }
+  ]
 }
