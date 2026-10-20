@@ -6,6 +6,11 @@
       "build": 25,
       "update": "optional",
       "min_build": 1
+    },
+    {
+      "build": 26,
+      "update": "optional",
+      "min_build": 1
     }
   ]
 }
