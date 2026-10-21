@@ -1,6 +1,12 @@
 {
   "schema": 1,
-  "android": [],
+  "android": [
+    {
+      "build": 25,
+      "update": "optional",
+      "min_build": 1
+    }
+  ],
   "windows": [
     {
       "build": 25,
