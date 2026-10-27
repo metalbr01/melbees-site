@@ -141,8 +141,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 .play-soon .play-live{display:none!important}
 .store-note{margin-top:12px;font-size:15px;color:var(--ink3)}
 
-/* Microsoft Store: the official badge, as tall as the Play button beside it */
-.msstore{display:inline-flex;align-items:center;border-radius:6px}
-.msstore img{height:54px;width:auto}
-html:not(.js) .msstore [data-l="en"]{display:none}
+/* Microsoft Store and App Store: the official badges, as tall as the Play button beside them */
+.msstore,.appstore{display:inline-flex;align-items:center;border-radius:6px}
+.msstore img,.appstore img{height:54px;width:auto}
+html:not(.js) .msstore [data-l="en"],html:not(.js) .appstore [data-l="en"]{display:none}
 .game .plat{font-size:14px;font-weight:600;color:var(--honey-ink);margin-top:4px}
