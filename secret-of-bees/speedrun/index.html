@@ -27,8 +27,7 @@
 <style>
 /* speedrun page only */
 .note{margin-top:14px;font-size:15px;color:var(--ink3);max-width:68ch}
-.pending{border:2px dashed var(--honey-deep);background:var(--honey-wash);border-radius:16px;padding:18px 20px;color:var(--ink2);max-width:68ch}
-.pending b{color:var(--ink)}
+.clock{max-width:68ch;color:var(--ink2)}
 .cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .cats .card p{color:var(--ink2);margin-top:8px;font-size:16px}
 .chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--honey-ink);background:var(--honey-wash);border-radius:999px;padding:2px 10px;margin-bottom:8px}
@@ -83,8 +82,8 @@
 <section id="tempo">
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow"><span data-l="pt" lang="pt-BR">Regras de tempo</span><span data-l="en" lang="en">Timing rules</span></p><h2><span data-l="pt" lang="pt-BR">O que o relógio mede</span><span data-l="en" lang="en">What the clock measures</span></h2></div>
-    <!-- C2: the Game Director's paragraph on the clock goes here, in both languages, word for word. Due Thu 29/10. Remove data-pending before publishing. -->
-    <div class="pending" data-pending="c2"><span data-l="pt" lang="pt-BR"><b>Lugar marcado (C2).</b> Aqui entra o parágrafo do Game Director sobre o relógio: em que toque o tempo começa, em que instante para e o que fica fora (transição, recompensa, continue). Chega até quinta 29/10.</span><span data-l="en" lang="en"><b>Placeholder (C2).</b> The Game Director's paragraph on the clock goes here: on which tap the time starts, at which moment it stops, and what is left out (transitions, reward, continue). Due Thursday 29/10.</span></div>
+    <!-- C2: the Game Director's paragraph on the clock (checked against main fbd551471), pt word for word, en faithful. -->
+    <p class="clock"><span data-l="pt" lang="pt-BR">O relógio do speedrun começa sozinho, assim que o tabuleiro da primeira fase aparece, sem esperar nenhum toque seu. Ele soma só o tempo em que você está jogando as 10 fases e para na jogada que revela a última letra do último segredo. Ficam de fora a tela de vitória de cada fase, a escolha das cartas, a oferta de continuar com anúncio ou compra e o tempo com a partida salva e fechada. Não existe pausa: abrir o menu não para o relógio, e a carta Isa congela só a contagem regressiva da fase, não o seu tempo. Cada pétala que você ganha ao continuar soma 30 segundos ao seu tempo, seja por anúncio, compra ou cortesia do Premium. Perder a partida ou desistir não gera tempo oficial nem entra no ranking. O tempo oficial é o que aparece na tela de fim, em minutos, segundos e centésimos, e é o mesmo número que o servidor confere e mostra no ranking. O Desafio diário segue as mesmas regras.</span><span data-l="en" lang="en">The speedrun clock starts on its own as soon as the first phase's board appears, without waiting for any tap. It adds up only the time you spend playing the 10 phases and stops on the move that reveals the last letter of the last secret. Left out: each phase's victory screen, the card pick, the offer to continue with an ad or a purchase, and the time while a run is saved and closed. There is no pause: opening the menu does not stop the clock, and the Isa card freezes only the phase countdown, not your time. Each Petal you get when you continue adds 30 seconds to your time, whether it comes from an ad, a purchase or Premium's free continue. Losing the run or giving up gives no official time and does not go into the ranking. The official time is the one on the end screen, in minutes, seconds and hundredths, and it is the same number the server checks and shows in the ranking. The Daily Challenge follows the same rules.</span></p>
   </div>
 </section>
 
@@ -132,18 +131,18 @@
     <div class="daily">
       <ol class="steps" data-l="pt" lang="pt-BR">
         <li><span><b>Um corredor abre a sala:</b> uma corrida no therun.gg (sem obrigação de live) ou na Miscellaneous do racetime.gg (que pede live, por padrão). A sala é dos corredores: o desenvolvedor não abre sala, não corre e não modera.</span></li>
-        <li><span><b>A sala diz qual favo:</b> a data, o nível e o idioma, como no exemplo ao lado, e a versão do jogo (Ajustes &gt; Sobre).</span></li>
+        <li><span><b>A sala diz qual favo:</b> a data, o nível e o idioma, como no exemplo ao lado, e a versão do jogo (Configurações &gt; Sobre).</span></li>
         <li><span><b>A largada vem logo depois da virada</b> das 00:00 UTC, para ninguém ter visto o favo. Por exemplo, sábado 00:15 UTC (sexta 21:15 em Brasília, 19:15 em Nova York). Abra o Diário só na largada.</span></li>
-        <li><span><b>Regras:</b> uma tentativa (o jogo já garante); sem continue (um continue é abandono); live ou vídeo de antes de abrir o Diário até a tela final; nenhuma palavra no chat até todos terminarem.</span></li>
-        <li><span><b>Vale o tempo da tela final.</b> O tempo real da sala fica como segundo número. Se o jogo fechar no meio, a tentativa do dia acabou: é abandono.</span></li>
+        <li><span><b>Regras:</b> uma tentativa (o jogo já garante); sem continue (um continue é abandono); live ou vídeo de antes de abrir o Diário até a tela de fim; nenhuma palavra no chat até todos terminarem.</span></li>
+        <li><span><b>Vale o tempo da tela de fim.</b> O tempo real da sala fica como segundo número.</span></li>
         <li><span><b>Sem prêmio,</b> sem inscrição paga, sem sorteio. Só a corrida.</span></li>
       </ol>
       <ol class="steps" data-l="en" lang="en">
         <li><span><b>A runner opens the room:</b> a race on therun.gg (no stream needed) or in racetime.gg's Miscellaneous (which asks for a stream by default). Rooms belong to the runners: the developer does not open rooms, race or moderate.</span></li>
         <li><span><b>The room names the board:</b> the date, the level and the language, as in the example, and the game version (Settings &gt; About).</span></li>
         <li><span><b>Start right after the 00:00 UTC change,</b> so nobody has seen the board. For example Saturday 00:15 UTC (Friday 21:15 in Brasília, 19:15 in New York). Open the Daily only at the start.</span></li>
-        <li><span><b>Rules:</b> one attempt (the game makes sure of it); no continue (a continue is a forfeit); a stream or video from before you open the Daily to the final screen; no words in the chat until everyone is done.</span></li>
-        <li><span><b>The time on the final screen counts.</b> The room's real time is the second number. If the game closes mid-run, that day's attempt is gone: it is a forfeit.</span></li>
+        <li><span><b>Rules:</b> one attempt (the game makes sure of it); no continue (a continue is a forfeit); a stream or video from before you open the Daily to the end screen; no words in the chat until everyone is done.</span></li>
+        <li><span><b>The time on the end screen counts.</b> The room's real time is the second number.</span></li>
         <li><span><b>No prizes,</b> no entry fee, no giveaway. Just the race.</span></li>
       </ol>
       <div class="side">
@@ -168,12 +167,12 @@
       <a href="splits/melbees-expert.lss" download><b>Expert</b><span><span data-l="pt" lang="pt-BR">10 fases · .lss</span><span data-l="en" lang="en">10 phases · .lss</span></span></a>
     </div>
     <ul class="rules" data-l="pt" lang="pt-BR">
-      <li>O LiveSplit não lê o relógio do jogo: marque a parcial na mão, quando cada fase termina. O tempo oficial é o da tela final.</li>
+      <li>O LiveSplit não lê o relógio do jogo: comece o LiveSplit quando o tabuleiro da primeira fase aparecer e marque cada parcial na jogada que revela a última letra do último segredo da fase. O tempo oficial é só o da tela de fim, em minutos, segundos e centésimos; o relógio no alto da tela mostra só minutos e segundos.</li>
       <li>Para o Diário, guarde uma cópia e mude a categoria para "Daily Intermediate" (Edit Splits), e as tentativas do Diário ficam separadas das da Run.</li>
       <li>No therun.gg, o jogo aparece pelo nome que está no arquivo: deixe "Melbees: The Secret of Bees" como está, para todas as runs caírem na mesma página.</li>
     </ul>
     <ul class="rules" data-l="en" lang="en">
-      <li>LiveSplit does not read the game's clock: split by hand when each phase ends. The official time is the one on the final screen.</li>
+      <li>LiveSplit does not read the game's clock: start LiveSplit when the first phase's board appears, and split on the move that reveals the last letter of each phase's last secret. Only the end screen's time is official, in minutes, seconds and hundredths; the clock at the top of the screen shows minutes and seconds only.</li>
       <li>For the Daily, keep a copy and rename the category to "Daily Intermediate" (Edit Splits), so your Daily attempts stay apart from your Runs.</li>
       <li>On therun.gg, the game shows up by the name in the file: keep "Melbees: The Secret of Bees" as it is, so every run lands on the same page.</li>
     </ul>
