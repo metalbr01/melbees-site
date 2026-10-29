@@ -39,11 +39,5 @@
       "min_build": 1
     }
   ],
-  "ios": [
-    {
-      "build": 27,
-      "update": "optional",
-      "min_build": 1
-    }
-  ]
+  "ios": []
 }
