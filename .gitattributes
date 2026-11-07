@@ -1,0 +1,9 @@
+*.html text eol=lf
+*.mjs text eol=lf
+*.md text eol=lf
+assets/language.js text eol=lf
+assets/navigation.js text eol=lf
+assets/site.css text eol=lf
+sitemap.xml text eol=lf
+robots.txt text eol=lf
+_fonte/** text eol=lf

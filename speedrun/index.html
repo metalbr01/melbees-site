@@ -1,19 +1,75 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR" data-idioma="pt">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Melbees: The Secret of Bees · Speedrun</title>
+<title>Speedrun · Melbees</title>
+<meta name="description" content="Speedrun · Melbees">
+<link rel="canonical" href="https://melbees.games/speedrun/">
+<link rel="alternate" hreflang="pt-BR" href="https://melbees.games/secret-of-bees/speedrun/">
+<link rel="alternate" hreflang="en" href="https://melbees.games/en/secret-of-bees/speedrun/">
+<link rel="alternate" hreflang="es" href="https://melbees.games/es/secret-of-bees/speedrun/">
+<link rel="alternate" hreflang="fr" href="https://melbees.games/fr/secret-of-bees/speedrun/">
+<link rel="alternate" hreflang="x-default" href="https://melbees.games/secret-of-bees/speedrun/">
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://melbees.games/secret-of-bees/speedrun/">
-<meta property="og:title" content="Melbees: The Secret of Bees · Speedrun">
-<meta property="og:description" content="Timing rules, proposed categories, how to race the Daily and LiveSplit split files. No prizes: just races and records.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Melbees">
+<meta property="og:title" content="Speedrun · Melbees">
+<meta property="og:description" content="Speedrun · Melbees">
+<meta property="og:url" content="https://melbees.games/speedrun/">
 <meta property="og:image" content="https://melbees.games/assets/og.jpg">
-<!-- Short address for invites and race rooms: keeps the visitor's ?s=, or marks a typed visit as s=curto. -->
-<script>location.replace("/secret-of-bees/speedrun/" + (location.search || "?s=curto") + location.hash);</script>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4B82E">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+/* speedrun page only */
+.note{margin-top:14px;font-size:15px;color:var(--ink3);max-width:68ch}
+.clock{max-width:68ch;color:var(--ink2)}
+.cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.cats .card p{color:var(--ink2);margin-top:8px;font-size:16px}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--honey-ink);background:var(--honey-wash);border-radius:999px;padding:2px 10px;margin-bottom:8px}
+.rules{margin:12px 0 0;padding-left:20px;color:var(--ink2);font-size:16px}
+.rules li{margin:6px 0}
+.rules b{color:var(--ink)}
+.daily{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:32px;align-items:start}
+.goal-label{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.goal{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:15px;line-height:1.5;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;overflow-wrap:anywhere;color:var(--ink)}
+.side p{color:var(--ink2);font-size:16px;margin-top:14px}
+.files{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.files a{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
+.files a:hover{border-color:var(--border2);background:var(--surface2)}
+.files b{font-family:var(--font-display);font-size:20px;font-weight:700}
+.files a>span{font-size:14px;color:var(--ink3)}
+@media (max-width:820px){
+  .cats,.daily{grid-template-columns:1fr}
+  .files{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+<script src="/assets/play.js" defer></script>
+<script src="/assets/navigation.js" defer></script>
+<script src="/assets/language.js" defer></script>
 <meta http-equiv="refresh" content="0;url=/secret-of-bees/speedrun/?s=curto">
 </head>
 <body>
-<p><a href="/secret-of-bees/speedrun/?s=curto">Melbees: The Secret of Bees · Speedrun</a></p>
+<header class="top">
+  <div class="wrap">
+    <a class="brand keep-src" href="/" aria-label="Melbees"><svg viewBox="0 0 18 20" aria-hidden="true"><polygon points="9,1 17,5.5 17,14.5 9,19 1,14.5 1,5.5" fill="var(--honey)" stroke="var(--honey-deep)" stroke-width="1.5"/></svg><span>Melbees</span></a>
+    <nav class="nav" aria-label="Menu"><a class="keep-src" href="/secret-of-bees/">Jogo</a><a class="keep-src" href="/secret-of-bees/professores/">Professores</a><a class="keep-src" href="/secret-of-bees/speedrun/">Speedrun</a><a class="keep-src" href="/secret-of-bees/press/">Imprensa</a><a class="keep-src" href="/sobre/">Sobre</a><a class="keep-src" href="/contato/">Contato</a><a class="keep-src" href="/privacidade/">Privacidade</a></nav>
+
+    <nav class="langs" aria-label="Idioma"><a data-idioma="pt" lang="pt-BR" hreflang="pt-BR" href="/secret-of-bees/speedrun/" aria-current="page">PT</a><a data-idioma="en" lang="en" hreflang="en" href="/en/secret-of-bees/speedrun/">EN</a><a data-idioma="es" lang="es" hreflang="es" href="/es/secret-of-bees/speedrun/">ES</a><a data-idioma="fr" lang="fr" hreflang="fr" href="/fr/secret-of-bees/speedrun/">FR</a></nav>
+  </div>
+</header>
+<aside id="language-suggestion" class="language-suggestion" hidden><div class="wrap"><a id="language-suggestion-link" href="/"></a><button type="button" id="language-dismiss" aria-label="Fechar">×</button></div></aside>
+<main>
+<div class="wrap editorial"><h1>Speedrun</h1><p><a id="redirect-target" href="/secret-of-bees/speedrun/?s=curto">Speedrun</a></p></div>
+</main>
+<footer><div class="wrap"><span>© 2026 Melbee Games</span><nav aria-label="Rodapé"><a class="keep-src" href="/secret-of-bees/">Jogo</a><a class="keep-src" href="/secret-of-bees/professores/">Professores</a><a class="keep-src" href="/secret-of-bees/speedrun/">Speedrun</a><a class="keep-src" href="/secret-of-bees/press/">Imprensa</a><a class="keep-src" href="/sobre/">Sobre</a><a class="keep-src" href="/contato/">Contato</a><a class="keep-src" href="/privacidade/">Privacidade</a><a class="keep-src" href="/termos/">Termos</a><a href="mailto:contact@melbees.games">contact@melbees.games</a></nav></div></footer>
+<script>(function(){var a=document.getElementById("redirect-target");a.href="/secret-of-bees/speedrun/"+(location.search||"?s=curto")+location.hash;location.replace(a.href)})();</script>
 </body>
 </html>

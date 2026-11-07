@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
 
 Sitemap: https://melbees.games/sitemap.xml

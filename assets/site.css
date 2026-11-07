@@ -41,16 +41,47 @@ p{margin:0}
 .nav{display:flex;gap:4px;margin-left:auto;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .nav a{font-size:15px;font-weight:500;color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:999px}
 .nav a:hover{background:var(--surface2);color:var(--ink)}
-.langs{display:none;border:1px solid var(--border2);border-radius:999px;overflow:hidden;margin-left:4px}
-.js .langs{display:flex}
-.langs button{font:inherit;font-size:13px;font-weight:700;padding:5px 10px;border:0;background:transparent;color:var(--ink2);cursor:pointer}
-.langs button[aria-pressed="true"]{background:var(--honey-soft);color:var(--ink)}
-
-/* language blocks: the chosen one shows; without JS pt and en show */
-.js:not(.lang-pt) [data-l="pt"],.js:not(.lang-en) [data-l="en"],.js:not(.lang-es) [data-l="es"],.js:not(.lang-fr) [data-l="fr"]{display:none!important}
-html:not(.js) [data-l="es"],html:not(.js) [data-l="fr"]{display:none!important}
-.nojs-note{font-size:13px;color:var(--ink3)}
-.js .nojs-note{display:none}
+.langs{display:flex;border:1px solid var(--border2);border-radius:999px;overflow:hidden;flex-shrink:0}
+.langs a{font-size:13px;font-weight:700;padding:5px 10px;color:var(--ink2);text-decoration:none}
+.langs a[aria-current="page"]{background:var(--honey-soft);color:var(--ink)}
+[hidden]{display:none!important}
+.language-suggestion{background:var(--surface2);font-size:14px;border-bottom:1px solid var(--border)}
+.language-suggestion .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:6px}
+.language-suggestion button{font:inherit;font-size:24px;background:none;border:0;color:var(--ink);cursor:pointer;padding:0 10px}
+.resources nav{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:16px}
+.editorial{padding-block:40px;min-height:40vh;max-width:78ch}
+.editorial p{margin-top:20px}
+.legal-link{padding-bottom:40px}
+.draft{padding:16px;border:1px dashed var(--border2)}
+.puzzles>p,.puzzles>h2{margin-bottom:20px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-block:24px;font-size:15px}
+.legend .li{display:flex;align-items:center;gap:8px}
+.legend svg{width:30px;height:30px;flex:none}
+.puzzle{border-top:1px solid var(--border);padding-block:28px}
+.puzzle>p{margin-top:8px}
+.puzzle .board{max-width:500px;margin:20px auto}
+.board>svg{display:block;width:100%;height:auto}
+.masked-words{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 28px;margin-top:20px}
+.masked{font-family:monospace;font-size:22px;letter-spacing:.12em;overflow-wrap:anywhere}
+.secret-1{color:#1F8A2E}.secret-2{color:#1B6FB5}
+details summary{cursor:pointer;font-weight:700;margin-block:16px}
+details p{margin-top:12px}
+@media(max-width:900px){.top{position:static}.top .wrap{flex-wrap:wrap;padding-block:12px}.nav{order:3;width:100%;justify-content:flex-start;margin:0}.langs{margin-left:auto}}
+@media(max-width:600px){.legend{grid-template-columns:1fr}.legend .li{grid-column:auto!important}.puzzle .board{max-width:100%}}
+@media print{
+  @page{size:A4;margin:12mm}
+  :root{color-scheme:light;--bg:#fff;--ink:#000;--ink2:#222;--ink3:#333;--border:#999}
+  body{background:#fff;color:#000;font-size:12pt}
+  .top,footer,.language-suggestion,.draft,.puzzles>p,.editorial{display:none!important}
+  .puzzles{padding:0;max-width:none}.puzzles>h2{font-size:20pt}
+  .legend{font-size:10pt}.puzzle{break-before:page;border:0;padding:0;break-inside:avoid}
+  .puzzle:first-of-type{break-before:auto}
+  .puzzle .board{width:145mm;max-width:100%;margin:8mm auto}
+  .puzzle svg{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .puzzle details:not([open]){display:none}
+  .puzzle details[open]{break-before:page;break-inside:avoid}
+  a{color:#000}
+}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:36px;align-items:center;padding-block:48px 40px}
@@ -130,8 +161,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
   body{font-size:16px}
   .game{grid-template-columns:1fr}
   .game img{width:96px;height:96px;border-radius:22px}
-  .nav a.opt{display:none}
-  .langs button{padding:5px 7px}
+  .langs a{padding:5px 7px}
   .nav a{padding:6px 8px}
   .facts th{width:42%}
   .facts th,.facts td{padding:9px 10px}
@@ -144,5 +174,4 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 /* Microsoft Store and App Store: the official badges, as tall as the Play button beside them */
 .msstore,.appstore{display:inline-flex;align-items:center;border-radius:6px}
 .msstore img,.appstore img{height:54px;width:auto}
-html:not(.js) .msstore [data-l="en"],html:not(.js) .appstore [data-l="en"]{display:none}
 .game .plat{font-size:14px;font-weight:600;color:var(--honey-ink);margin-top:4px}
