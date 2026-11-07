@@ -35,6 +35,7 @@ function render(page, lang, redirect) {
   if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
   if (page.id === 'jogo' || (page.id === 'home' && !metadata[`home/${lang}`]?.recursos)) body += '\n' + resourceLinks(lang);
   if (page.id === 'desafios') body += '\n' + renderBoards(boardData, lang);
+  if (page.id === 'estrategia') { const favos = boardData.boards.filter(b => b.lang === 'pt'); body = body.replace(/<!--FAVO:(\d)-->/g, (_, n) => `<figure class="board">${favos[n - 1].svg}</figure>`); }
   if (['privacidade', 'termos'].includes(page.id)) {
     const legalLang = lang === 'pt' ? 'pt-BR' : 'en';
     const legalPage = page.id === 'privacidade' ? 'privacy' : 'terms';

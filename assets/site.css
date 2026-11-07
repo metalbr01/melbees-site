@@ -183,3 +183,5 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 .editorial li{margin-top:8px}
 .editorial table{border-collapse:collapse;margin-top:20px;width:100%}
 .editorial th,.editorial td{border:1px solid var(--border);padding:8px 12px;text-align:left}
+.editorial figure.board{margin:20px 0 0;max-width:340px}
+.editorial figure.board svg{width:100%;height:auto}

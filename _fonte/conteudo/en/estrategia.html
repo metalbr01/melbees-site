@@ -1,1 +1,30 @@
-RASCUNHO: texto a caminho
+<p>Pollen is the Minesweeper part of Melbees. Each number counts the right letters around it, and almost every decision comes from looking at a number and asking: how many right letters can it already see, and how many are still missing?</p>
+<h2>Start with what's free</h2>
+<p>A phase usually starts with one letter open in each Secret and an area of zeros open. The first useful numbers sit on the edge of that area. Go for numbers with few closed neighbors. A corner hex has only 3 neighbors, and an edge hex has 4. The fewer closed cells around a number, the easier its count is to settle.</p>
+<h2>Rule 1: the full number</h2>
+<p>If a number already shows as many right letters as it says, its other closed neighbors are wrong letters. Discard them. If there are several, Reveal neighbors with Discard opens them all at once.</p>
+<h2>Rule 2: the number that needs them all</h2>
+<p>If the letters a number is still missing equal its closed neighbors, all of those neighbors are right letters. Match them.</p>
+<h2>Rule 3: chain it</h2>
+<p>Every hex you solve changes the count for the numbers around it. After each step, go back to the neighboring numbers: often one of them just became full.</p>
+<h2>How to read the examples</h2>
+<p>The examples use the honeycombs from Paper Honeycomb, the printable challenges. Count the rows from top to bottom: row 1 has 4 hexes, and row 4, the middle one, has 7. Within each row, count the cells from left to right. "R3C5" is row 3 (R for row), fifth cell. Heads up: the examples solve part of Challenges 1, 3 and 4.</p>
+<p>These honeycombs use Portuguese words, because they come from the Paper Honeycomb PDF. The reasoning is the same in any language.</p>
+<h2>Example 1: Challenge 1 (School: Geography)</h2>
+<!--FAVO:1-->
+<ol><li>R1C2 shows 2. Its neighbors are R1C1 and R2C3, which already show letters, and R1C3 and R2C2, which are closed. Both right letters are already in view, so R1C3 and R2C2 are ones to Discard (rule 1).</li><li>R4C1 shows 1. Its only closed neighbor is R3C1: Match (rule 2).</li><li>R4C5 shows 1. Of its six neighbors, the only closed one is R3C5: Match.</li><li>R4C6 shows 2. Its closed neighbors are R3C5, which we already know is right, and R3C6. One letter is missing, and only R3C6 can be it: Match.</li><li>R3C4 shows 2. R2C3 and R3C5 already add up to 2, so the closed neighbor R2C4 is one to Discard.</li><li>R2C5 shows 3. Its neighbors are R3C5 and R3C6, which are right, R2C4, which is discarded, and R1C4. To reach 3, R1C4 has to be right: Match.</li></ol>
+<p>That's six hexes solved with just rules 1 and 2, each one leading to the next.</p>
+<h2>Rule 4: compare two numbers</h2>
+<p>Sometimes no single number decides. Then look for two numbers that share closed neighbors. If one of them says "exactly one of these two cells is right", those two cells count as 1 toward the other number, even if you don't know which of the two it is.</p>
+<h2>Example 2: Challenge 3 (Geography: Capitals)</h2>
+<!--FAVO:3-->
+<ol><li>R7C2 shows 1 and already has a neighboring letter, R6C3. The closed neighbor R7C3 is one to Discard.</li><li>R4C5 shows 1, and its only closed neighbors are R4C6 and R5C5. One of those two cells is right and the other isn't, but there's no telling which yet.</li><li>R5C6 shows 2, and its closed neighbors are R4C6, R5C5 and R6C5. The pair from step 2 counts as exactly 1, so the other right letter can only be R6C5: Match.</li><li>R7C4 shows 1. R6C5 is already right, so the closed neighbor R6C4 is one to Discard.</li><li>R5C4 shows 2. The letter at R6C3 counts as 1, R6C4 is discarded, and the only neighbor still closed is R5C5: Match.</li><li>Back to the pair from step 2: since R5C5 is right, R4C6 is one to Discard.</li><li>R4C7 shows 1. R4C6 is discarded, and the only closed neighbor is R3C6: Match.</li></ol>
+<h2>Example 3: Challenge 4 (School: Language Arts, Stories)</h2>
+<!--FAVO:4-->
+<ol><li>R4C5 shows 1 and already has the letter at R5C5 next to it. The closed neighbors R3C5 and R4C6 are ones to Discard.</li><li>R4C2 shows 1, and its only closed neighbor is R3C2: Match.</li><li>R2C5 shows 2. It has the letter at R3C6 next to it, R3C5 is discarded, and that leaves R1C4 and R2C4. It needs 1 more, so exactly one of those two is right.</li><li>R1C3 shows 3, and all four of its neighbors are closed: R1C2, R1C4, R2C3 and R2C4. The pair R1C4 and R2C4 gives at most 1. To reach 3, R1C2 and R2C3 have to be right: Match both.</li><li>R3C4 shows 1, and R2C3 is already right. The closed neighbor R2C4 is one to Discard.</li><li>From step 3, R1C4 is right: Match. Check it: R1C3 now has R1C2, R2C3 and R1C4, three letters.</li><li>R3C3 shows 2, with R3C2 and R2C3, both right, next to it. R2C2 is one to Discard.</li></ol>
+<h2>Use the Hangman</h2>
+<p>The number tells you where the right letters are, and the word with blanks helps you tell which letters they are. When the honeycomb leaves two possibilities open, the category and the letters that have already shown up often tip it one way. Remember that a colored cell answers only for the Secret of its color: the same letter can be right in one Secret and wrong in another. The rare cells in the middle are risky, because often the letter isn't in any Secret. But a hit there moves several Secrets forward at once, and a miss shows a number that can go as high as 6.</p>
+<h2>When the honeycomb doesn't decide</h2>
+<p>Reasoning over luck doesn't mean luck never comes into it. Sometimes the numbers you can see don't decide anything. Before you risk a petal, remember your cards: Mel reveals a right letter from each Secret, Pow opens the wrong letters with the lowest numbers, which often gets the honeycomb unstuck, and Red shows the word tips. Use the ✓ and ✕ marks, which cost nothing, to keep track of your hypotheses.</p>
+<h2>Watch out for foes</h2>
+<p>The Paper Honeycomb sheets have no foes, but in the game they change the count. Mic hides on a wrong hex, and that hex adds 1 to each neighbor's number for good: uncovering it won't undo the lie. Fed covers an area with a cloud, and inside it a wrong number shows up as two values, one true and one fake. Stu hides the number on two cells. When a number looks impossible, suspect one of them.</p>

@@ -7,15 +7,21 @@
   },
   "home/en": {
     "title": "Melbees",
-    "styles": ""
+    "styles": "",
+    "description": "Learn to play Melbees, read Pollen with strategy, print the six Paper Honeycomb challenges and use the game in the classroom.",
+    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Learn, practice and bring it to the classroom</h2><p>Melbees fits in one sentence: on each hex you match or discard the letter, the Pollen number counts the right letters among its neighbors, and a mistake costs a petal. To go beyond that sentence:</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/how-to-play/\">How to play.</a></strong> The Daily Challenge, the honeycomb, what the number tells you, petals and what changes from one day to the next. Start with Beginner: one word, a small honeycomb.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/strategy/\">Strategy.</a></strong> Reasoning from the simplest to the subtlest, with three examples solved step by step on real game honeycombs.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/puzzles/\">Printable challenges.</a></strong> Six Paper Honeycomb boards, with Language Arts, Geography and Literature words, and an answer key.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/professores/\">For teachers.</a></strong> A 10 to 20 minute activity, per student or in pairs, that brings vocabulary and reasoning together. The answer key has each word's definition, for the discussion afterward.</li></ul></div></section>"
   },
   "home/es": {
     "title": "Melbees",
-    "styles": ""
+    "styles": "",
+    "description": "Aprende a jugar Melbees, lee el Polen con estrategia, imprime los seis desafíos del Panal de papel y usa el juego en el aula.",
+    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Aprende, practica y llévalo al aula</h2><p>Melbees cabe en una frase: en cada hexágono combinas o descartas la letra, el número de Polen cuenta las letras correctas entre los vecinos, y un error cuesta un pétalo. Para ir más allá de la frase:</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/es/secret-of-bees/como-jugar/\">Cómo jugar.</a></strong> El Desafío diario, el panal, lo que dice el número, los pétalos y lo que cambia de un día a otro. Empieza por Principiante: una palabra, un panal pequeño.</li><li><strong><a class=\"keep-src\" href=\"/es/secret-of-bees/estrategia/\">Estrategia.</a></strong> Razonamientos del más simple al más fino, con tres ejemplos resueltos paso a paso en panales reales del juego.</li><li><strong><a class=\"keep-src\" href=\"/es/secret-of-bees/desafios/\">Desafíos para imprimir.</a></strong> Seis panales del Panal de papel, con palabras de Portugués, Geografía y Literatura, y solucionario.</li><li><strong><a class=\"keep-src\" href=\"/es/secret-of-bees/professores/\">Para docentes.</a></strong> Una actividad de 10 a 20 minutos, individual o en pareja, que une vocabulario y razonamiento. El solucionario trae la definición de cada palabra, para conversar después.</li></ul></div></section>"
   },
   "home/fr": {
     "title": "Melbees",
-    "styles": ""
+    "styles": "",
+    "description": "Apprenez à jouer à Melbees, lisez le Pollen en stratège, imprimez les six défis du Rayon de papier et utilisez le jeu en classe.",
+    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Apprendre, s'entraîner et l'emmener en classe</h2><p>Melbees tient en une phrase : sur chaque hexagone, vous associez ou écartez la lettre, le nombre de Pollen compte les bonnes lettres parmi les voisins, et une erreur coûte un pétale. Pour aller plus loin :</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/fr/secret-of-bees/comment-jouer/\">Comment jouer.</a></strong> Le Défi du jour, le rayon, ce que dit le nombre, les pétales et ce qui change d'un jour à l'autre. Commencez par Débutant : un mot, un petit rayon.</li><li><strong><a class=\"keep-src\" href=\"/fr/secret-of-bees/strategie/\">Stratégie.</a></strong> Des raisonnements du plus simple au plus fin, avec trois exemples résolus pas à pas sur de vrais rayons du jeu.</li><li><strong><a class=\"keep-src\" href=\"/fr/secret-of-bees/defis/\">Défis à imprimer.</a></strong> Six rayons du Rayon de papier, avec des mots de portugais, de géographie et de littérature, et le corrigé.</li><li><strong><a class=\"keep-src\" href=\"/fr/secret-of-bees/professores/\">Pour les enseignants.</a></strong> Une activité de 10 à 20 minutes, en solo ou en binôme, qui mêle vocabulaire et raisonnement. Le corrigé donne la définition de chaque mot, pour en discuter ensuite.</li></ul></div></section>"
   },
   "jogo/pt": {
     "title": "Melbees: The Secret of Bees",
@@ -96,5 +102,89 @@
   "termos/pt": {
     "description": "O que os Termos de Uso do Melbees: The Secret of Bees cobrem e onde ler o texto completo, que é o que vale.",
     "title": "Termos de Uso"
+  },
+  "como-jogar/en": {
+    "description": "How Melbees works: the honeycomb, the Pollen number, matching and discarding letters, petals and the Daily Challenge, the same for everyone.",
+    "title": "How to play Melbees: the Daily Challenge, the honeycomb and Pollen"
+  },
+  "estrategia/en": {
+    "description": "How to read Pollen in Melbees, from the simplest reasoning to the subtlest, with three examples solved step by step on real game honeycombs.",
+    "title": "Melbees strategy: how to read Pollen, with solved examples"
+  },
+  "desafios/en": {
+    "description": "Six printable Melbees honeycombs, with Language Arts, Geography and Literature words. For the classroom or for home, with an answer key.",
+    "title": "Paper Honeycomb: 6 printable Melbees challenges"
+  },
+  "sobre/en": {
+    "description": "Who makes Melbees, why the game blends Hangman and Minesweeper, and who Mel, Hug and the other honeycomb characters are.",
+    "title": "About Melbee Games and Melbees: The Secret of Bees"
+  },
+  "contato/en": {
+    "description": "Reach Melbee Games at contact@melbees.games: questions about the game, words, privacy, press and schools.",
+    "title": "Contact"
+  },
+  "privacidade/en": {
+    "description": "What the Melbees: The Secret of Bees Privacy Policy covers and where to read the full text, which is the version that applies.",
+    "title": "Privacy in Melbees"
+  },
+  "termos/en": {
+    "description": "What the Melbees: The Secret of Bees Terms of Use cover and where to read the full text, which is the version that applies.",
+    "title": "Terms of Use"
+  },
+  "como-jogar/es": {
+    "description": "Cómo funciona Melbees: el panal, el número de Polen, combinar y descartar letras, los pétalos y el Desafío diario, que es igual para todos.",
+    "title": "Cómo jugar Melbees: el Desafío diario, el panal y el Polen"
+  },
+  "estrategia/es": {
+    "description": "Razonamientos para leer el Polen en Melbees, del más simple al más fino, con tres ejemplos resueltos paso a paso en panales reales del juego.",
+    "title": "Estrategia en Melbees: cómo leer el Polen, con ejemplos resueltos"
+  },
+  "desafios/es": {
+    "description": "Seis panales de Melbees para imprimir, con palabras de Portugués, Geografía y Literatura. Para el aula o para la casa, con solucionario.",
+    "title": "Panal de papel: 6 desafíos de Melbees para imprimir"
+  },
+  "sobre/es": {
+    "description": "Quién hace Melbees, por qué el juego une el Ahorcado y el Buscaminas, y quiénes son Mel, Hug y los demás personajes del panal.",
+    "title": "Acerca de Melbee Games y Melbees: The Secret of Bees"
+  },
+  "contato/es": {
+    "description": "Habla con Melbee Games en contact@melbees.games: dudas sobre el juego, palabras, privacidad, prensa y escuelas.",
+    "title": "Contacto"
+  },
+  "privacidade/es": {
+    "description": "Qué cubre la Política de Privacidad de Melbees: The Secret of Bees y dónde leer el texto completo, en inglés, que es el que vale.",
+    "title": "Privacidad en Melbees"
+  },
+  "termos/es": {
+    "description": "Qué cubren los Términos de Uso de Melbees: The Secret of Bees y dónde leer el texto completo, en inglés, que es el que vale.",
+    "title": "Términos de Uso"
+  },
+  "como-jogar/fr": {
+    "description": "Comment fonctionne Melbees : le rayon, le nombre de Pollen, associer et écarter des lettres, les pétales et le Défi du jour, le même pour tous.",
+    "title": "Comment jouer à Melbees : le Défi du jour, le rayon et le Pollen"
+  },
+  "estrategia/fr": {
+    "description": "Des raisonnements pour lire le Pollen dans Melbees, du plus simple au plus fin, avec trois exemples résolus pas à pas sur de vrais rayons du jeu.",
+    "title": "Stratégie Melbees : lire le Pollen, avec des exemples résolus"
+  },
+  "desafios/fr": {
+    "description": "Six rayons Melbees à imprimer, avec des mots de portugais, de géographie et de littérature. Pour la classe ou la maison, avec le corrigé.",
+    "title": "Rayon de papier : 6 défis Melbees à imprimer"
+  },
+  "sobre/fr": {
+    "description": "Qui fait Melbees, pourquoi le jeu réunit le Pendu et le Démineur, et qui sont Mel, Hug et les autres personnages du rayon.",
+    "title": "À propos de Melbee Games et de Melbees: The Secret of Bees"
+  },
+  "contato/fr": {
+    "description": "Écrivez à Melbee Games à contact@melbees.games : questions sur le jeu, mots, confidentialité, presse et écoles.",
+    "title": "Contact"
+  },
+  "privacidade/fr": {
+    "description": "Ce que couvre la Politique de confidentialité de Melbees: The Secret of Bees, et où lire le texte complet, en anglais, qui fait foi.",
+    "title": "Confidentialité dans Melbees"
+  },
+  "termos/fr": {
+    "description": "Ce que couvrent les Conditions d'utilisation de Melbees: The Secret of Bees, et où lire le texte complet, en anglais, qui fait foi.",
+    "title": "Conditions d'utilisation"
   }
 }
