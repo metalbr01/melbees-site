@@ -9,7 +9,7 @@
     "title": "Melbees",
     "styles": "",
     "description": "Learn to play Melbees, read Pollen with strategy, print the six Paper Honeycomb challenges and use the game in the classroom.",
-    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Learn, practice and bring it to the classroom</h2><p>Melbees fits in one sentence: on each hex you match or discard the letter, the Pollen number counts the right letters among its neighbors, and a mistake costs a petal. To go beyond that sentence:</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/how-to-play/\">How to play.</a></strong> The Daily Challenge, the honeycomb, what the number tells you, petals and what changes from one day to the next. Start with Beginner: one word, a small honeycomb.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/strategy/\">Strategy.</a></strong> Reasoning from the simplest to the subtlest, with three examples solved step by step on real game honeycombs.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/puzzles/\">Printable challenges.</a></strong> Six Paper Honeycomb boards, with Language Arts, Geography and Literature words, and an answer key.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/professores/\">For teachers.</a></strong> A 10 to 20 minute activity, per student or in pairs, that brings vocabulary and reasoning together. The answer key has each word's definition, for the discussion afterward.</li></ul></div></section>"
+    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Learn, practice and bring it to the classroom</h2><p>Melbees fits in one sentence: on each hex you match or discard the letter, the Pollen number counts the right letters among its neighbors, and a mistake costs a petal. To go beyond that sentence:</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/how-to-play/\">How to play.</a></strong> The Daily Challenge, the honeycomb, what the number tells you, petals and what changes from one day to the next. Start with Beginner: one word, a small honeycomb.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/strategy/\">Strategy.</a></strong> Reasoning from the simplest to the subtlest, with three examples solved step by step on real game honeycombs.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/puzzles/\">Printable challenges.</a></strong> Six Paper Honeycomb boards, with Language Arts, Geography and Literature words, and an answer key.</li><li><strong><a class=\"keep-src\" href=\"/en/secret-of-bees/professores/\">For teachers.</a></strong> A 10- to 20-minute activity, per student or in pairs, that brings vocabulary and reasoning together. The answer key has each word's definition, for the discussion afterward.</li></ul></div></section>"
   },
   "home/es": {
     "title": "Melbees",
@@ -152,11 +152,11 @@
     "title": "Contacto"
   },
   "privacidade/es": {
-    "description": "Qué cubre la Política de Privacidad de Melbees: The Secret of Bees y dónde leer el texto completo, en inglés, que es el que vale.",
+    "description": "Qué cubre la Política de Privacidad de Melbees: The Secret of Bees y dónde leer el texto completo, que es el que vale.",
     "title": "Privacidad en Melbees"
   },
   "termos/es": {
-    "description": "Qué cubren los Términos de Uso de Melbees: The Secret of Bees y dónde leer el texto completo, en inglés, que es el que vale.",
+    "description": "Qué cubren los Términos de Uso de Melbees: The Secret of Bees y dónde leer el texto completo, que es el que vale.",
     "title": "Términos de Uso"
   },
   "como-jogar/fr": {
@@ -180,11 +180,11 @@
     "title": "Contact"
   },
   "privacidade/fr": {
-    "description": "Ce que couvre la Politique de confidentialité de Melbees: The Secret of Bees, et où lire le texte complet, en anglais, qui fait foi.",
+    "description": "Ce que couvre la Politique de confidentialité de Melbees: The Secret of Bees, et où lire le texte complet, qui fait foi.",
     "title": "Confidentialité dans Melbees"
   },
   "termos/fr": {
-    "description": "Ce que couvrent les Conditions d'utilisation de Melbees: The Secret of Bees, et où lire le texte complet, en anglais, qui fait foi.",
+    "description": "Ce que couvrent les Conditions d'utilisation de Melbees: The Secret of Bees, et où lire le texte complet, qui fait foi.",
     "title": "Conditions d'utilisation"
   }
 }
