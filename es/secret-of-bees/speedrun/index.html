@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Speedrun · Melbees</title>
-<meta name="description" content="Speedrun · Melbees">
+<meta name="description" content="El Ahorcado se junta con el Buscaminas en un panal: el razonamiento por encima de la suerte. Esta página es para runners: las reglas de tiempo, las categorías propuestas, cómo correr el Desafío diario y archivos de splits para LiveSplit.">
 <link rel="canonical" href="https://melbees.games/es/secret-of-bees/speedrun/">
 <link rel="alternate" hreflang="pt-BR" href="https://melbees.games/secret-of-bees/speedrun/">
 <link rel="alternate" hreflang="en" href="https://melbees.games/en/secret-of-bees/speedrun/">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Melbees">
 <meta property="og:title" content="Speedrun · Melbees">
-<meta property="og:description" content="Speedrun · Melbees">
+<meta property="og:description" content="El Ahorcado se junta con el Buscaminas en un panal: el razonamiento por encima de la suerte. Esta página es para runners: las reglas de tiempo, las categorías propuestas, cómo correr el Desafío diario y archivos de splits para LiveSplit.">
 <meta property="og:url" content="https://melbees.games/es/secret-of-bees/speedrun/">
 <meta property="og:image" content="https://melbees.games/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -44,7 +44,104 @@
 </header>
 <aside id="language-suggestion" class="language-suggestion" hidden><div class="wrap"><a id="language-suggestion-link" href="/es/"></a><button type="button" id="language-dismiss" aria-label="Cerrar">×</button></div></aside>
 <main>
-<div class="wrap editorial"><h1>Speedrun</h1><p class="draft">RASCUNHO: texto a caminho</p></div>
+<div class="wrap">
+  <div class="hero" style="grid-template-columns:1fr">
+    <div>
+      <p class="eyebrow"><span lang="es">Speedrun · para runners</span></p>
+      <h1>Melbees: The Secret of Bees</h1>
+      <p class="lede"><span lang="es">El Ahorcado se junta con el Buscaminas en un <span class="hl">panal</span>: el razonamiento por encima de la suerte. Esta página es para runners: las reglas de tiempo, las categorías propuestas, cómo correr el Desafío diario y archivos de splits para LiveSplit.</span></p>
+      <p class="note"><span lang="es">Las reglas, las categorías y los tableros son de los runners y de sus moderadores. El desarrollador no modera.</span></p>
+      <div class="cta">
+        <a class="btn" lang="es" data-daily="https://daily.melbees.games/" href="https://daily.melbees.games/?utm_source=site&amp;utm_medium=web&amp;utm_campaign=speedrun" rel="noopener">Juega el Desafío diario en tu navegador</a>
+        <a class="btn ghost" href="#parciais"><span lang="es">Archivos de splits</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="tempo">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow"><span lang="es">Reglas de tiempo</span></p><h2><span lang="es">Qué mide el reloj</span></h2></div>
+    <!-- C2: the Game Director's paragraph on the clock (checked against main fbd551471), pt word for word, en faithful. -->
+    <p class="clock"><span lang="es">El reloj del speedrun arranca solo en cuanto aparece el tablero de la primera fase, sin esperar ningún toque. Suma solo el tiempo que pasas jugando las 10 fases y se detiene en la jugada que revela la última letra del último secreto. Quedan fuera: la pantalla de victoria de cada fase, la elección de cartas, la oferta de continuar con un anuncio o una compra, y el tiempo mientras un Run se guarda y se cierra. No hay pausa: abrir el menú o la Configuración, o salir de la app, no detiene el reloj, y la carta de Isa congela solo la cuenta regresiva de la fase, no tu tiempo. Cada Pétalo que recibes al continuar suma 30 segundos a tu tiempo, ya venga de un anuncio, de una compra o del continuar gratis de Premium. Perder el Run o rendirte no da tiempo oficial y no entra en la clasificación. El tiempo oficial es el de la pantalla final, en minutos, segundos y centésimas, y es el mismo número que el servidor verifica y muestra en la clasificación. El Desafío diario sigue las mismas reglas.</span></p>
+  </div>
+</section>
+
+<section id="categorias">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow"><span lang="es">Categorías</span></p><h2><span lang="es">Categorías propuestas</span></h2>
+      <p><span lang="es">Un borrador para quien modere. Los runners deciden.</span></p></div>
+    <div class="cats">
+      <div class="card">
+        <span class="chip"><span lang="es">Principal</span></span>
+        <h3><span lang="es">Run, por nivel</span></h3>
+        <p><span lang="es">10 fases, semilla aleatoria: cada Run es un panal nuevo, así que puedes practicar todo lo que quieras. Una categoría por nivel: Principiante, Intermedio, Avanzado y Experto.</span></p>
+
+        <ul class="rules" lang="es">
+          <li><b>Sin pétalos extra:</b> cualquier continuar (de un anuncio, de una compra o de Premium) termina el intento.</li>
+          <li><b>El idioma es obligatorio:</b> cada idioma tiene sus propias palabras, así que los tiempos solo se comparan dentro de un mismo idioma.</li>
+          <li><b>Categoría del juego:</b> un Run se juega en una de las Categorías del juego, cada una con sus propias palabras. El tablero indica cuál cuenta, o las separa.</li>
+          <li><b>Conjunto de Secretos:</b> sin Premium, un Run sortea solo los Secretos gratis de la Categoría; con Premium, todos. El tablero indica qué conjunto cuenta, o mantiene los dos separados.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="chip"><span lang="es">Larga</span></span>
+        <h3><span lang="es">Los cuatro niveles</span></h3>
+        <p><span lang="es">Principiante, Intermedio, Avanzado y Experto, uno tras otro; se suman los cuatro tiempos. La categoría larga, en lugar de un 100%. Mismas reglas que Run, por nivel.</span></p>
+      </div>
+      <div class="card">
+        <span class="chip"><span lang="es">Carreras</span></span>
+        <h3><span lang="es">El Desafío diario</span></h3>
+        <p><span lang="es">Ideal para carreras, no para un tablero: cada Desafío diario se juega una sola vez, así que nadie puede practicar una fecha. Abajo ves cómo correrlo.</span></p>
+      </div>
+    </div>
+    <p class="note"><span lang="es">Any% y 100% no encajan: terminar el Run es el único objetivo, y nada en el juego es opcional.</span></p>
+  </div>
+</section>
+
+<section id="diario">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow"><span lang="es">Carrera del Desafío diario</span></p><h2><span lang="es">Cómo correr el Desafío diario</span></h2>
+      <p><span lang="es">El Desafío diario es el mismo panal para todos en la misma fecha, nivel e idioma. Cambia a las 00:00 UTC y se juega una vez al día. Una semilla de carrera, lista para usar.</span></p></div>
+    <div class="daily">
+
+      <ol class="steps" lang="es">
+        <li><span><b>Un runner abre la sala:</b> una carrera en therun.gg (no hace falta stream) o en Miscellaneous de racetime.gg (que pide stream por defecto). Las salas son de los runners: el desarrollador no abre salas, no corre ni modera.</span></li>
+        <li><span><b>La sala indica el tablero:</b> la fecha, el nivel y el idioma, como en el ejemplo, y la versión del juego (Configuración &gt; Acerca de).</span></li>
+        <li><span><b>Empiecen justo después del cambio de las 00:00 UTC,</b> para que nadie haya visto el tablero. Por ejemplo, sábado 00:15 UTC (viernes 21:15 en Brasilia, 19:15 en Nueva York). Abre el Desafío diario solo al empezar.</span></li>
+        <li><span><b>Reglas:</b> un intento (el juego se encarga de eso); sin continuar (continuar es abandonar); stream o video desde antes de abrir el Desafío diario hasta la pantalla final; nada de palabras en el chat hasta que todos terminen.</span></li>
+        <li><span><b>Cuenta el tiempo de la pantalla final.</b> El tiempo real de la sala es el segundo número.</span></li>
+
+      </ol>
+      <div class="side">
+        <div class="goal-label"><span lang="es">Ejemplo de objetivo de la sala</span></div>
+        <div class="goal">Melbees: The Secret of Bees · Desafío diario 2026-11-07 · Intermedio · Inglés</div>
+        <p><span lang="es"><b>Una carrera más larga:</b> los cuatro Desafíos diarios del día seguidos, de Principiante a Experto, todos a ciegas.</span></p>
+        <p><span lang="es"><b>En portugués,</b> una carrera usa el Desafío diario en portugués, que tiene otras palabras. Si dos runners ven palabras distintas en el mismo Desafío diario, comparen versiones y jueguen en la más reciente.</span></p>
+        <p><span lang="es"><b>Dónde jugar:</b> en tu navegador, gratis y sin instalar nada (<a data-daily="https://daily.melbees.games/" href="https://daily.melbees.games/?utm_source=site&amp;utm_medium=web&amp;utm_campaign=speedrun" rel="noopener">Desafío diario en inglés</a>, <a data-daily="https://diario.melbees.games/" href="https://diario.melbees.games/?utm_source=site&amp;utm_medium=web&amp;utm_campaign=speedrun" rel="noopener">Desafío diario en portugués</a>), en Android (<a class="play" href="https://play.google.com/store/apps/details?id=com.melbees.secretofbees&amp;referrer=utm_source%3Dsite%26utm_medium%3Dweb%26utm_campaign%3Dspeedrun" rel="noopener">Google Play</a>) y en PC con Windows (<a class="msstore-id" href="https://apps.microsoft.com/detail/9N72MD72DQBP?cid=speedrun" rel="noopener">Microsoft Store</a>).</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="parciais">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">LiveSplit</p><h2><span lang="es">Archivos de splits</span></h2>
+      <p><span lang="es">Un archivo .lss por nivel, con las 10 fases. Cada uno sirve para el Run y para el Desafío diario.</span></p></div>
+    <div class="files">
+      <a href="/secret-of-bees/speedrun/splits/melbees-beginner.lss" download><b><span lang="es">Principiante</span></b><span><span lang="es">10 fases · .lss</span></span></a>
+      <a href="/secret-of-bees/speedrun/splits/melbees-intermediate.lss" download><b><span lang="es">Intermedio</span></b><span><span lang="es">10 fases · .lss</span></span></a>
+      <a href="/secret-of-bees/speedrun/splits/melbees-advanced.lss" download><b><span lang="es">Avanzado</span></b><span><span lang="es">10 fases · .lss</span></span></a>
+      <a href="/secret-of-bees/speedrun/splits/melbees-expert.lss" download><b>Experto</b><span><span lang="es">10 fases · .lss</span></span></a>
+    </div>
+
+    <ul class="rules" lang="es">
+      <li>LiveSplit no lee el reloj del juego: inicia LiveSplit cuando aparezca el tablero de la primera fase, y marca el split en la jugada que revela la última letra del último secreto de cada fase. Solo el tiempo de la pantalla final es oficial, en minutos, segundos y centésimas; el reloj de la parte superior de la pantalla muestra solo minutos y segundos.</li>
+      <li>Para el Desafío diario, guarda una copia y cambia el nombre de la categoría a "Desafío diario Intermedio" (Edit Splits), así tus intentos del Desafío diario quedan separados de tus Runs.</li>
+      <li>En therun.gg, el juego aparece con el nombre del archivo: deja "Melbees: The Secret of Bees" tal como está, para que todos los runs caigan en la misma página.</li>
+    </ul>
+  </div>
+</section>
 </main>
 <footer><div class="wrap"><span>© 2026 Melbee Games</span><nav aria-label="Pie de página"><a class="keep-src" href="/es/secret-of-bees/">Juego</a><a class="keep-src" href="/es/secret-of-bees/professores/">Profesores</a><a class="keep-src" href="/es/secret-of-bees/speedrun/">Speedrun</a><a class="keep-src" href="/es/secret-of-bees/press/">Prensa</a><a class="keep-src" href="/es/sobre/">Sobre</a><a class="keep-src" href="/es/contacto/">Contacto</a><a class="keep-src" href="/es/privacidad/">Privacidad</a><a class="keep-src" href="/es/terminos/">Términos</a><a href="mailto:contact@melbees.games">contact@melbees.games</a></nav></div></footer>
 
