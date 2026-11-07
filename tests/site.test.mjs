@@ -83,6 +83,18 @@ test('canonicals, four reciprocal alternates and x-default match the route map',
   }
 });
 
+test('indexable pages carry exactly one AdSense tag for the ads.txt publisher; noindex pages carry none', () => {
+  const publisher = /google\.com,\s*(pub-\d+),\s*DIRECT/.exec(read('ads.txt'))[1];
+  const tag = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${publisher}" crossorigin="anonymous"></script>`;
+  for (const item of generated) {
+    const html = read(item.file);
+    const head = /<head>([\s\S]*?)<\/head>/.exec(html)[1];
+    const noindex = Boolean(item.redirect) || item.page.id === '404';
+    assert.equal(head.split(tag).length - 1, noindex ? 0 : 1, item.file);
+    assert.equal(html.split('googlesyndication').length - 1, noindex ? 0 : 1, item.file);
+  }
+});
+
 test('prohibited copy is absent from generated HTML', () => {
   const banned = /\u2014|\bduelo\b|adsense|destaque do google|loja em destaque|sem anúncios|sem chutar|feito no brasil|from brazil|nova temporada|\bwordle\b|\btermo\b|\bpr[eê]mios?\b|\bsorteios?\b|\bprizes?\b|\bsweepstakes?\b/iu;
   for (const { file } of generated) assert.doesNotMatch(read(file), banned, file);

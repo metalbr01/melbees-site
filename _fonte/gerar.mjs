@@ -7,6 +7,7 @@ import { renderBoards } from './tabuleiros.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = p => fs.readFileSync(path.join(root, p), 'utf8');
 const write = (p, text) => { const dest = path.join(root, p); fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.writeFileSync(dest, text.replaceAll('\r\n', '\n'), 'utf8'); };
+const adsenseClient = 'ca-pub-6020962423041240';
 const partials = Object.fromEntries(['head', 'header', 'menu', 'footer'].map(name => [name, read(`_fonte/partials/${name}.html`)]));
 const partial = (name, values) => partials[name].replace(/\{\{(\w+)\}\}/g, (_, key) => {
   if (!(key in values)) throw new Error(`Missing ${name}.${key}`);
@@ -47,6 +48,9 @@ function render(page, lang, redirect) {
   const head = partial('head', {
     title: escape(title), description: metadata[`${page.id}/${lang}`]?.description ? escape(metadata[`${page.id}/${lang}`].description) : lede ? textOnly(lede).replaceAll('"', '&quot;') : escape(title), canonical: origin + urlPath, alternates,
     robots: noindex ? '<meta name="robots" content="noindex">' : '',
+    // The same tag for every visitor and robot; error and alias pages carry no ad code.
+    adsense: noindex ? '' : `
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>`,
     image: origin + (page.id === 'professores' ? '/secret-of-bees/professores/og.jpg' : '/assets/og.jpg'),
     styles: metadata[`${page.id}/${lang}`]?.styles ? `<style>${metadata[`${page.id}/${lang}`].styles}</style>` : '',
   });
