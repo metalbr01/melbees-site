@@ -33,7 +33,7 @@ function render(page, lang, redirect) {
   if (draft) body = `<div class="wrap editorial"><h1>${t[page.id]}</h1><p class="draft">${escape(body)}</p></div>`;
   else if (!page.existing) body = `<article class="wrap editorial"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
   if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
-  if (['home', 'jogo'].includes(page.id)) body += '\n' + resourceLinks(lang);
+  if (page.id === 'jogo' || (page.id === 'home' && !metadata[`home/${lang}`]?.recursos)) body += '\n' + resourceLinks(lang);
   if (page.id === 'desafios') body += '\n' + renderBoards(boardData, lang);
   if (['privacidade', 'termos'].includes(page.id)) {
     const legalLang = lang === 'pt' ? 'pt-BR' : 'en';
