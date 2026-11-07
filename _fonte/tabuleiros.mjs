@@ -24,7 +24,7 @@ export function renderBoards(data, lang) {
 <p><a href="/secret-of-bees/professores/favo-de-papel.pdf">${t.pdf}</a></p>
 <div class="legend">${data.legends[lang]}</div>
 ${data.boards.filter(b => b.lang === lang).map((b, i) => {
-    const name = `${t.desafios} ${i + 1}`;
+    const name = `${t.favo} ${i + 1}`;
     const masks = b.view.masked.map((row, slot) => `<p class="masked secret-${slot + 1}">${slot + 1}: ${row.map(l => escape(l || '_')).join(' ')}</p>`).join('');
     return `<article class="puzzle" id="puzzle-${i + 1}" data-board="${escape(b.id || b.n)}"><h3>${name}</h3><p>${escape(b.category)} · ${escape(b.sub)}</p>
 <div class="masked-words">${masks}</div>
