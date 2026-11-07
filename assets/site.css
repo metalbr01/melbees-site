@@ -175,3 +175,11 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 .msstore,.appstore{display:inline-flex;align-items:center;border-radius:6px}
 .msstore img,.appstore img{height:54px;width:auto}
 .game .plat{font-size:14px;font-weight:600;color:var(--honey-ink);margin-top:4px}
+
+.editorial h1{font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.15}
+.editorial h2{margin-top:36px}
+.editorial ul,.editorial ol{margin:16px 0 0 1.4em;padding:0;list-style-position:outside}
+.editorial ul{list-style-type:disc}.editorial ol{list-style-type:decimal}
+.editorial li{margin-top:8px}
+.editorial table{border-collapse:collapse;margin-top:20px;width:100%}
+.editorial th,.editorial td{border:1px solid var(--border);padding:8px 12px;text-align:left}

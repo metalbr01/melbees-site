@@ -31,7 +31,8 @@ function render(page, lang, redirect) {
   const title = page.id === '404' ? 'Melbees · 404' : page.id === 'home' ? 'Melbees' : page.id === 'jogo' ? 'Melbees: The Secret of Bees' : `${t[page.id]} · Melbees`;
   // The body files are trusted, reviewed HTML fragments. Draft markers stay literal.
   if (draft) body = `<div class="wrap editorial"><h1>${t[page.id]}</h1><p class="draft">${escape(body)}</p></div>`;
-  else if (!page.existing) body = `<article class="wrap editorial"><h1>${t[page.id]}</h1>${body}</article>`;
+  else if (!page.existing) body = `<article class="wrap editorial"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
+  if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
   if (['home', 'jogo'].includes(page.id)) body += '\n' + resourceLinks(lang);
   if (page.id === 'desafios') body += '\n' + renderBoards(boardData, lang);
   if (['privacidade', 'termos'].includes(page.id)) {
@@ -43,7 +44,7 @@ function render(page, lang, redirect) {
   const alternates = [...languages.map(l => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${origin}${page.paths[l]}">`), `<link rel="alternate" hreflang="x-default" href="${origin}${page.paths.pt}">`].join('\n');
   const lede = /<p class="lede">([\s\S]*?)<\/p>/.exec(body)?.[1];
   const head = partial('head', {
-    title: escape(title), description: lede ? textOnly(lede).replaceAll('"', '&quot;') : escape(title), canonical: origin + urlPath, alternates,
+    title: escape(title), description: metadata[`${page.id}/${lang}`]?.description ? escape(metadata[`${page.id}/${lang}`].description) : lede ? textOnly(lede).replaceAll('"', '&quot;') : escape(title), canonical: origin + urlPath, alternates,
     robots: noindex ? '<meta name="robots" content="noindex">' : '',
     image: origin + (page.id === 'professores' ? '/secret-of-bees/professores/og.jpg' : '/assets/og.jpg'),
     styles: metadata[`${page.id}/${lang}`]?.styles ? `<style>${metadata[`${page.id}/${lang}`].styles}</style>` : '',

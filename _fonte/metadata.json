@@ -1,7 +1,9 @@
 {
   "home/pt": {
     "title": "Melbees",
-    "styles": ""
+    "styles": "",
+    "description": "Aprenda a jogar Melbees, leia o Pólen com estratégia, imprima os seis desafios do Favo de papel e use o jogo em sala de aula.",
+    "recursos": "<section class=\"resources\"><div class=\"wrap editorial\"><h2>Aprenda, pratique e leve para a sala de aula</h2><p>O Melbees cabe numa frase: em cada hexágono você combina ou descarta a letra, o número de Pólen conta as letras certas entre os vizinhos, e um erro custa uma pétala. Para ir além da frase:</p>\n<ul><li><strong><a class=\"keep-src\" href=\"/secret-of-bees/como-jogar/\">Como jogar.</a></strong> O Desafio diário, o favo, o que o número diz, as pétalas e o que muda de um dia para o outro. Comece pelo Iniciante: uma palavra, um favo pequeno.</li><li><strong><a class=\"keep-src\" href=\"/secret-of-bees/estrategia/\">Estratégia.</a></strong> Raciocínios do mais simples ao mais fino, com três exemplos resolvidos passo a passo em favos reais do jogo.</li><li><strong><a class=\"keep-src\" href=\"/secret-of-bees/desafios/\">Desafios para imprimir.</a></strong> Seis favos do Favo de papel, com palavras de Português, Geografia e Literatura, e gabarito.</li><li><strong><a class=\"keep-src\" href=\"/secret-of-bees/professores/\">Para professores.</a></strong> Uma atividade de 10 a 20 minutos, por aluno ou em dupla, que junta vocabulário e raciocínio. O gabarito traz a definição de cada palavra, para a conversa depois.</li></ul></div></section>"
   },
   "home/en": {
     "title": "Melbees",
@@ -66,5 +68,33 @@
   "404/fr": {
     "title": "Melbees · 404",
     "styles": ""
+  },
+  "como-jogar/pt": {
+    "description": "Como funciona o Melbees: o favo, o número de Pólen, combinar e descartar letras, as pétalas e o Desafio diário, que é igual para todos.",
+    "title": "Como jogar Melbees: o Desafio diário, o favo e o Pólen"
+  },
+  "estrategia/pt": {
+    "description": "Raciocínios para ler o Pólen no Melbees, do mais simples ao mais fino, com três exemplos resolvidos passo a passo em favos reais do jogo.",
+    "title": "Estratégia no Melbees: como ler o Pólen, com exemplos resolvidos"
+  },
+  "desafios/pt": {
+    "description": "Seis favos de Melbees para imprimir, com palavras de Português, Geografia e Literatura. Para a sala de aula ou para casa, com gabarito.",
+    "title": "Favo de papel: 6 desafios de Melbees para imprimir"
+  },
+  "sobre/pt": {
+    "description": "Quem faz o Melbees, por que o jogo junta Forca e Campo Minado, e quem são a Mel, o Hug e os outros personagens do favo.",
+    "title": "Sobre a Melbee Games e o Melbees: The Secret of Bees"
+  },
+  "contato/pt": {
+    "description": "Fale com a Melbee Games pelo contact@melbees.games: dúvidas sobre o jogo, palavras, privacidade, imprensa e escolas.",
+    "title": "Contato"
+  },
+  "privacidade/pt": {
+    "description": "O que a Política de Privacidade do Melbees: The Secret of Bees cobre e onde ler o texto completo, que é o que vale.",
+    "title": "Privacidade no Melbees"
+  },
+  "termos/pt": {
+    "description": "O que os Termos de Uso do Melbees: The Secret of Bees cobrem e onde ler o texto completo, que é o que vale.",
+    "title": "Termos de Uso"
   }
 }
