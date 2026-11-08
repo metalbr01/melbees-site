@@ -10,6 +10,11 @@
       "build": 27,
       "update": "optional",
       "min_build": 1
+    },
+    {
+      "build": 44,
+      "update": "optional",
+      "min_build": 1
     }
   ],
   "windows": [
