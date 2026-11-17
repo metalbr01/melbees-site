@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { root, read } from './helpers.mjs';
-import { refusal } from '../tools/hooks/pre-push.mjs';
+import { refusal } from '../tools/lib/stamp.mjs';
 import { ship, writeStamp } from '../tools/ship.mjs';
 
 const hook = path.join(root, 'tools', 'hooks', 'pre-push.mjs');
@@ -143,4 +143,13 @@ test('a stamp for the pushed sha lets a plain push through; a stamp of another t
   assert.equal(git(wt, 'push', 'origin', 'HEAD:main').status, 0);
   assert.equal(gitOut(remote, 'rev-parse', 'main'), sha1);
   assert.ok(read('tools/hooks/pre-push').startsWith('#!/bin/sh'));
+});
+
+test('the wrapper with node present, run by a relative path, refuses an unstamped main (the guard runs unconditionally)', () => {
+  const exec = gitOut(root, '--exec-path');
+  const sh = [path.resolve(exec, '../../../usr/bin/sh.exe'), path.resolve(exec, '../../../bin/sh.exe'), '/bin/sh'].find((p) => fs.existsSync(p));
+  if (!sh) return;
+  const r = spawnSync(sh, ['tools/hooks/pre-push', 'origin', 'url'], { cwd: root, input: `refs/heads/x ${sha} refs/heads/main ${zero}\n`, encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '' } });
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /no ship stamp for aaaaaaaaaa/);
 });

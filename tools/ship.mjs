@@ -8,7 +8,7 @@
 // Exit 0 landed, 1 a step failed or the generated site is out of date, 2 misuse, 3 could not run.
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const MAX_TRIES = 3;
@@ -34,7 +34,12 @@ export function writeStamp(root, sha, tree) {
 
 function land(root, log, steps) {
   for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
-    git(root, 'fetch', '--quiet', 'origin', 'main');
+    const fetched = git(root, 'fetch', '--quiet', 'origin', 'main');
+    if (fetched.code !== 0) {
+      log(`ship: git fetch failed; nothing validated or pushed:
+${fetched.err}`);
+      return 3;
+    }
     if (git(root, 'rebase', 'origin/main').code !== 0) {
       log('ship: rebase conflict, left in progress. Resolve, `git rebase --continue`, ship again.');
       return 3;
@@ -100,4 +105,5 @@ export function ship({ log = console.log, cwd = process.cwd(), steps = STEPS } =
   return 0;
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) process.exit(ship());
+const same = (a, b) => resolve(a).toLowerCase() === resolve(b).toLowerCase();
+if (process.argv[1] && same(fileURLToPath(import.meta.url), process.argv[1])) process.exit(ship());
