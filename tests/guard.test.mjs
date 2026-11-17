@@ -153,3 +153,39 @@ test('the wrapper with node present, run by a relative path, refuses an unstampe
   assert.equal(r.status, 1);
   assert.match(r.stderr, /no ship stamp for aaaaaaaaaa/);
 });
+
+test('bootstrap: without any core.hooksPath the ship still runs the worktree\'s own hook for its push', () => {
+  const { remote, primary, wt } = fixture();
+  git(primary, 'config', '--unset', 'core.hooksPath');
+  const marker = path.join(wt, '..', 'hook-ran.txt').split(path.sep).join('/');
+  const wrapperPath = path.join(wt, 'tools', 'hooks', 'pre-push');
+  fs.appendFileSync(wrapperPath, `\n# test marker\n`);
+  fs.writeFileSync(wrapperPath, fs.readFileSync(wrapperPath, 'utf8').replace('exec node', `echo ran >> "${marker}"\nexec node`));
+  git(wt, 'commit', '-q', '-am', 'marker');
+  const logs = [];
+  assert.equal(ship({ cwd: wt, steps: [node('0')], log: (l) => logs.push(l) }), 0, logs.join('\n'));
+  assert.ok(fs.existsSync(marker), "the worktree's guard ran although core.hooksPath was never set");
+  assert.equal(gitOut(remote, 'rev-parse', 'main'), gitOut(wt, 'rev-parse', 'HEAD'));
+});
+
+test('a main that moves during validation is rebased onto, revalidated in full, stamped and pushed as the new sha', () => {
+  const { remote, wt } = fixture();
+  const other = path.join(path.dirname(remote), 'other');
+  const counter = path.join(path.dirname(remote), 'runs.txt').split(path.sep).join('/');
+  git(path.dirname(remote), 'clone', '-q', remote, other);
+  git(other, 'config', 'user.email', 't@example.invalid');
+  git(other, 'config', 'user.name', 't');
+  fs.writeFileSync(path.join(other, 'b.txt'), 'other\n');
+  git(other, 'add', '-A');
+  git(other, 'commit', '-q', '-m', 'other work');
+  const advance = `const fs=require('fs');const n=fs.existsSync('${counter}')?Number(fs.readFileSync('${counter}','utf8')):0;fs.writeFileSync('${counter}',String(n+1));if(n===0)require('child_process').execFileSync('git',['-C','${other.split(path.sep).join('/')}','push','-q','origin','HEAD:main']);`;
+  const first = gitOut(wt, 'rev-parse', 'HEAD');
+  const logs = [];
+  assert.equal(ship({ cwd: wt, steps: [node(advance)], log: (l) => logs.push(l) }), 0, logs.join('\n'));
+  assert.equal(fs.readFileSync(counter, 'utf8'), '2', 'the step ran again on the rebased commit');
+  const landed = gitOut(remote, 'rev-parse', 'main');
+  assert.equal(landed, gitOut(wt, 'rev-parse', 'HEAD'));
+  assert.notEqual(landed, first, 'the rebased sha, not the first one, was stamped and pushed');
+  assert.ok(logs.some((l) => /main moved meanwhile/.test(l)));
+  assert.equal(git(remote, 'merge-base', '--is-ancestor', gitOut(other, 'rev-parse', 'HEAD'), landed).status, 0, "the other work is in main's history");
+});
