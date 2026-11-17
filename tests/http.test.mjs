@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { execFileSync } from 'node:child_process';
 import { createServer } from './serve.mjs';
-import { root, read, generated } from './helpers.mjs';
+import { root, read, generated, blogGenerated } from './helpers.mjs';
 const server = createServer();
 server.listen(0, '127.0.0.1');
 await once(server, 'listening');
@@ -22,6 +22,15 @@ try {
     assert.equal(response.status, 200); assert.equal(await response.text(), read(item.file), item.path);
     const visitor = await fetch(base + item.path + query, { headers: { 'Accept-Language': 'en-US', 'User-Agent': 'Mozilla/5.0' } }); requests++;
     assert.equal(await visitor.text(), read(item.file), item.path);
+  }
+  // Blog pages and feeds of the committed sources (none while every article is a draft).
+  for (const page of blogGenerated.pages) {
+    const response = await fetch(base + page.path); requests++;
+    assert.equal(response.status, 200, page.path); assert.equal(await response.text(), read(page.file), page.path);
+  }
+  for (const feed of blogGenerated.feeds) {
+    const response = await fetch(base + feed.path); requests++;
+    assert.equal(response.status, 200, feed.path); assert.match(response.headers.get('content-type'), /xml/); assert.equal(await response.text(), read(feed.file));
   }
   for (const alias of ['/about', '/contact', '/privacy', '/terms', '/professores', '/speedrun']) {
     const response = await fetch(base + alias + '?s=test&cid=campaign', { redirect: 'manual' }); requests++;

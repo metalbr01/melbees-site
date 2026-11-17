@@ -1,0 +1,55 @@
+/* Blog pages only. Uses the variables and the .btn/.cta/.eyebrow/.muted classes of site.css. */
+.blog{padding-block:32px 56px;max-width:78ch}
+.blog h1{font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.15}
+.blog .lede{font-size:19px;color:var(--ink2);margin-top:14px}
+.blog .meta{font-size:15px;color:var(--ink3);margin-top:14px}
+.blog .author{font-weight:600;color:var(--ink2)}
+.breadcrumbs{font-size:14px;margin-bottom:20px}
+.breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px 8px;list-style:none;margin:0;padding:0;color:var(--ink3)}
+.breadcrumbs li+li::before{content:"/";margin-right:8px;color:var(--border2)}
+.breadcrumbs a{color:var(--ink2)}
+.blog-series{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.blog-series a{font-size:15px;font-weight:600;color:var(--ink);text-decoration:none;padding:6px 14px;border:1px solid var(--border2);border-radius:999px;background:var(--surface)}
+.blog-series a:hover{background:var(--honey-wash)}
+.blog-all{margin-top:16px}
+.post-list{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:16px}
+.post-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px}
+.post-card h2{font-size:clamp(1.3rem,3vw,1.7rem);margin-top:6px}
+.post-card h2 a{color:var(--ink);text-decoration:none}
+.post-card h2 a:hover{text-decoration:underline}
+.post-card p{margin-top:8px}
+.post-card .eyebrow{margin-top:0}
+.post-card .eyebrow a{color:var(--honey-ink);text-decoration:none}
+.post-head .eyebrow a{color:var(--honey-ink);text-decoration:none}
+.pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:28px}
+.pager a{font-weight:600}
+.blog-rss{margin-top:28px;font-size:15px}
+.video{position:relative;margin:28px 0;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border)}
+.video iframe,.video-play{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-play{display:block;color:#fff;text-decoration:none}
+.video-play img{width:100%;height:100%;object-fit:cover}
+.video-icon{position:absolute;left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:var(--honey);box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.video-icon::after{content:"";position:absolute;left:27px;top:20px;border-left:22px solid #2E1F0A;border-top:14px solid transparent;border-bottom:14px solid transparent}
+.video-label{position:absolute;left:12px;bottom:12px;padding:4px 12px;border-radius:999px;background:rgba(0,0,0,.65);font-size:14px;font-weight:600}
+.video-play:hover .video-icon{filter:brightness(1.08)}
+.post-body{margin-top:28px}
+.post-body p{margin-top:20px}
+.post-body h2{margin-top:36px;font-size:clamp(1.4rem,3.4vw,1.9rem)}
+.post-body h3{margin-top:28px}
+.post-body ul,.post-body ol{margin:16px 0 0 1.4em;padding:0}
+.post-body ul{list-style:disc}.post-body ol{list-style:decimal}
+.post-body li{margin-top:8px}
+.post-body img{border-radius:12px;margin-top:20px}
+.post-body blockquote{margin:20px 0 0;padding:4px 18px;border-left:4px solid var(--honey)}
+.post-body table{border-collapse:collapse;margin-top:20px;width:100%}
+.post-body th,.post-body td{border:1px solid var(--border);padding:8px 12px;text-align:left}
+.post-cta{margin-top:40px;padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--honey-wash)}
+.post-cta p{font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1.25}
+.related{margin-top:36px;padding-top:8px;border-top:1px solid var(--border)}
+.related h2{font-size:clamp(1.3rem,3vw,1.6rem);margin-top:20px}
+.related ul{margin:12px 0 0;padding:0;list-style:none}
+.related li{margin-top:8px}
+.related p{margin-top:16px}
+@media(max-width:480px){.video-icon{width:56px;height:56px;margin:-28px 0 0 -28px}.video-icon::after{left:22px;top:16px;border-left-width:18px;border-top-width:12px;border-bottom-width:12px}.post-cta p{font-size:19px}}
+@media print{.video,.post-cta,.pager,.blog-rss,.blog-series{display:none!important}}
+.video-play:focus-visible{outline:3px solid var(--honey);outline-offset:-5px}
