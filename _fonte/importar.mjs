@@ -82,7 +82,7 @@ for (const lang of languages) {
   legends[lang] = /<div class="legend">([\s\S]*?)<\/div>\s*<p class="goal">/.exec(html)[1];
 }
 write('tabuleiros.json', JSON.stringify({ boards, legends }, null, 2) + '\n');
-const protectedPaths = ['ads.txt', 'app-ads.txt', 'CNAME', '.nojekyll', 'secret-of-bees/app-update.json', 'assets/play.js', ...fs.readdirSync(path.join(root, 'secret-of-bees/speedrun/splits')).map(n => `secret-of-bees/speedrun/splits/${n}`)];
+const protectedPaths = ['ads.txt', 'app-ads.txt', 'CNAME', '.nojekyll', 'assets/play.js', ...fs.readdirSync(path.join(root, 'secret-of-bees/speedrun/splits')).map(n => `secret-of-bees/speedrun/splits/${n}`)];
 const { createHash } = await import('node:crypto');
 write('protegidos.json', JSON.stringify(Object.fromEntries(protectedPaths.map(p => [p, createHash('sha256').update(fs.readFileSync(path.join(root, p))).digest('hex')])), null, 2) + '\n');
 console.log(`Imported ${boards.length} boards and localized source pages.`);
