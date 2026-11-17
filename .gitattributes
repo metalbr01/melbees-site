@@ -7,3 +7,4 @@ assets/site.css text eol=lf
 sitemap.xml text eol=lf
 robots.txt text eol=lf
 _fonte/** text eol=lf
+tools/hooks/pre-push text eol=lf

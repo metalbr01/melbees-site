@@ -9,3 +9,11 @@ Rotas, títulos e rótulos: `_fonte/site.mjs`. Partes compartilhadas: `_fonte/pa
 Validar: `node --test tests/play.test.mjs tests/site.test.mjs`. Servir e verificar as URLs via HTTP local: `node tests/http.test.mjs`.
 
 Os aliases `/professores/`, `/speedrun/`, `/about/`, `/contact/`, `/privacy/` e `/terms/` usam redirecionamento com fallback sem JavaScript. Preferências de idioma exibem somente uma sugestão com link; cada URL entrega o próprio idioma. `?lang=` é aceito como preferência para a faixa, sem redirecionamento automático.
+
+## Publicar (guarda de push e ship leve)
+
+Cada tarefa roda numa worktree ao lado do checkout principal (`git worktree add ../<nome> -b <branch> origin/main`) e chega ao `main` só por `node tools/ship.mjs`: árvore limpa, fetch, rebase em `origin/main`, `node _fonte/gerar.mjs` (a árvore tem de continuar limpa, os HTMLs gerados são commitados), `node --test tests/play.test.mjs tests/site.test.mjs tests/guard.test.mjs`, `node tests/http.test.mjs`, carimbo e push. Não há gate pesado: o site não tem build.
+
+O carimbo é `<git-common-dir>/ship-stamps/<sha>.json` (sha e árvore). `tools/hooks/pre-push` (a lógica está em `pre-push.mjs`) recusa push ao `main` sem o carimbo do sha empurrado: `no ship stamp for <sha>`. Para ligar a guarda, uma vez, no checkout principal: `git -C C:\Melbees_marketing\site\melbees-site config core.hooksPath tools/hooks` (relativo: cada worktree roda a própria cópia versionada; uma worktree criada antes de `tools/hooks` existir precisa de rebase para ter a guarda). Só o Owner, por palavra dele, ignora a guarda com `MELBEES_SITE_ALLOW_UNGATED_PUSH=1`. Sem `node` no PATH o hook avisa e deixa passar. O GitHub Pages também serve `tools/`; ali só há código sem segredo.
+
+O claude2-plus (modo escrita, conta 3) aceita worktrees deste repo quando o `core.hooksPath` está ligado e a guarda recusa um push sem carimbo.

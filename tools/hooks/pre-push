@@ -1,0 +1,8 @@
+#!/bin/sh
+# Git pre-push hook (core.hooksPath = tools/hooks). The logic lives in pre-push.mjs.
+# Fails open only when node is missing, and says so.
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-push: node not found, ship stamp NOT checked" >&2
+  exit 0
+fi
+exec node "$(dirname "$0")/pre-push.mjs" "$@"
