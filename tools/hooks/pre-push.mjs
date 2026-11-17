@@ -1,7 +1,7 @@
 // pre-push guard: a push to `main` needs the stamp `node tools/ship.mjs` writes for the exact sha being
 // pushed (<git-common-dir>/ship-stamps/<sha>.json, naming the sha and its tree). Installed with
 // `git config core.hooksPath tools/hooks` (relative: each worktree runs its own tracked copy).
-// The Owner, and only on his word, can bypass with MELBEES_SITE_ALLOW_UNGATED_PUSH=1.
+// Deleting main is refused too. The Owner, and only on his word, can bypass with MELBEES_SITE_ALLOW_UNGATED_PUSH=1.
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -42,8 +42,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   for (const line of readFileSync(0, 'utf8').split('\n').filter(Boolean)) {
     const [, localSha, remoteRef] = line.split(' ');
-    if (remoteRef !== 'refs/heads/main' || ZERO.test(localSha)) continue;
-    const why = refusal(localSha, commonDir);
+    if (remoteRef !== 'refs/heads/main') continue;
+    const why = ZERO.test(localSha) ? 'deleting main is not allowed' : refusal(localSha, commonDir);
     if (why) {
       console.error(`pre-push: refused push to main. ${why}`);
       process.exit(1);

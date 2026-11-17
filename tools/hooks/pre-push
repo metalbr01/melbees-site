@@ -1,8 +1,17 @@
 #!/bin/sh
 # Git pre-push hook (core.hooksPath = tools/hooks). The logic lives in pre-push.mjs.
-# Fails open only when node is missing, and says so.
+# Without node it fails CLOSED for pushes to main (the stamp cannot be checked) and open for every other ref.
 if ! command -v node >/dev/null 2>&1; then
-  echo "pre-push: node not found, ship stamp NOT checked" >&2
+  if [ "$MELBEES_SITE_ALLOW_UNGATED_PUSH" = "1" ]; then
+    echo "pre-push: node not found and MELBEES_SITE_ALLOW_UNGATED_PUSH=1, ship stamp NOT checked (Owner override)" >&2
+    exit 0
+  fi
+  while read -r _local _lsha rref _rsha; do
+    if [ "$rref" = "refs/heads/main" ]; then
+      echo "pre-push: refused push to main. node not found, the ship stamp cannot be checked" >&2
+      exit 1
+    fi
+  done
   exit 0
 fi
 exec node "$(dirname "$0")/pre-push.mjs" "$@"
