@@ -4,11 +4,13 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import vm from "node:vm";
-import { generated } from './helpers.mjs';
+import { generated as sitePages, blogGenerated } from './helpers.mjs';
 import { byId, languages, filename } from '../_fonte/site.mjs';
 
 const ROOT = new URL("../", import.meta.url);
 const SCRIPT = readFileSync(new URL("assets/play.js", ROOT), "utf8");
+// Every page the generator writes: the site's pages and, once an article is published, the blog's (same shell, same play.js).
+const generated = [...sitePages, ...blogGenerated.pages.map(p => ({ file: p.file, path: p.path, lang: p.lang }))];
 const DEFAULT_TAGS = "utm_source=site&utm_medium=web&utm_campaign=botao_site";
 
 function anchors(html) {

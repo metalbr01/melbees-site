@@ -31,8 +31,8 @@ export function publicFiles(dir = root, prefix = '') {
 }
 
 /** A header + body article file, as an editor would write it. */
-export function article({ title = 'Título de teste', description = 'Descrição de teste.', published = '2026-11-20', updated, series = 'bastidores-do-dev', video, translation, state = 'publicado', body = '<p>Texto de teste.</p>' } = {}) {
-  const lines = ['---', ...(title === null ? [] : [`titulo: ${title}`]), `descricao: ${description}`, `publicado: ${published}`, ...(updated ? [`atualizado: ${updated}`] : []), `serie: ${series}`, ...(video ? [`video: ${video}`] : []), ...(translation ? [`traducao: ${translation}`] : []), `estado: ${state}`, '---', body];
+export function article({ title = 'Título de teste', description = 'Descrição de teste.', published = '2026-11-20', updated, categories = 'news', balloon, gallery, video, translation, state = 'publicado', body = '<p>Texto de teste.</p>' } = {}) {
+  const lines = ['---', ...(title === null ? [] : [`titulo: ${title}`]), `descricao: ${description}`, `publicado: ${published}`, ...(updated ? [`atualizado: ${updated}`] : []), ...(categories === null ? [] : [`categorias: ${categories}`]), ...(balloon ? [`balao: ${balloon}`] : []), ...(gallery ? [`galeria: ${gallery}`] : []), ...(video ? [`video: ${video}`] : []), ...(translation ? [`traducao: ${translation}`] : []), `estado: ${state}`, '---', body];
   return lines.join('\n') + '\n';
 }
 

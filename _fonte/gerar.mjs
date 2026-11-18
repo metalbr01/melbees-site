@@ -42,7 +42,7 @@ function renderBlogPage(page) {
   return shell({
     lang: page.lang, title: escape(parts.title), description: escape(parts.description), canonical: origin + page.path,
     alternates: hreflangs(page).map(h => `<link rel="alternate" hreflang="${h.hreflang}" href="${h.href}">`).join('\n'),
-    adsense: adsenseTag(false), image: origin + '/assets/og.jpg', extra: parts.extra, ogtype: parts.ogtype,
+    adsense: adsenseTag(Boolean(page.empty)), robots: page.empty ? '<meta name="robots" content="noindex">' : '', image: origin + '/assets/og.jpg', extra: parts.extra, ogtype: parts.ogtype,
     body: renderBody(blog, page), langHrefs: selector(blog, page),
   });
 }
