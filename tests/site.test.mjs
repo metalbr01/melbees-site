@@ -14,7 +14,9 @@ import { blogCategories, blogText, daily, bannedCopy } from '../_fonte/site.mjs'
 const banned = /\u2014|adsense|destaque do google|loja em destaque|sem anúncios|sem chutar|feito no brasil|from brazil|nova temporada|\bwordle\b|\btermo\b|\bpr[eê]mios?\b|\bsorteios?\b|\bprizes?\b|\bsweepstakes?\b/iu;
 
 test('every published HTML page is covered, with shared navigation and privacy', () => {
-  assert.deepEqual(publicFiles().filter(p => p.endsWith('.html')).sort(), [...generated.map(p => p.file), ...blogGenerated.pages.map(p => p.file)].sort());
+  // A standalone page pinned in _fonte/protegidos.json (the Diario QR install redirect, Secret #492) is not generated.
+  const pinned = new Set(Object.keys(JSON.parse(read('_fonte/protegidos.json'))));
+  assert.deepEqual(publicFiles().filter(p => p.endsWith('.html') && !pinned.has(p)).sort(), [...generated.map(p => p.file), ...blogGenerated.pages.map(p => p.file)].sort());
   for (const item of generated) {
     const html = read(item.file);
     assert.match(html, /<header\b/); assert.match(html, /<main>/); assert.match(html, /<footer>/);
