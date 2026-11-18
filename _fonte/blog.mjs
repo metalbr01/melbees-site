@@ -226,8 +226,7 @@ const time = (iso, lang) => `<time datetime="${iso}">${escape(formatDate(iso, la
 const categoryName = (id, lang) => blogCategories[id].name[lang];
 const firstCategory = a => blogCategories[a.categories[0]];
 const colors = c => `--c:${c.bg};--ci:${c.ink}`;
-const HOST_SIZE = { hug: [332, 360], mel: [287, 360], red: [282, 360] };
-const hostImg = (key, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="/assets/blog/hosts/${key}.webp" alt="" width="${HOST_SIZE[key][0]}" height="${HOST_SIZE[key][1]}" decoding="async">`;
+const hostImg = (key, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="/assets/blog/hosts/${key}.webp" alt="" width="${blogHosts[key].size[0]}" height="${blogHosts[key].size[1]}" decoding="async">`;
 const avatarImg = key => `<img src="/assets/blog/hosts/${key}-avatar.webp" alt="" width="34" height="34" loading="lazy" decoding="async">`;
 const hexIcon = fill => `<svg class="hx" viewBox="0 0 18 20" width="18" height="20" aria-hidden="true" focusable="false"><polygon points="9,1 17,5.5 17,14.5 9,19 1,14.5 1,5.5" fill="${fill}" stroke="rgba(46,31,10,.35)" stroke-width="1.5"/></svg>`;
 const pagerNav = (page, link, t) => {
@@ -255,7 +254,7 @@ function card(a, t) {
   return `<li class="card${a.thumb ? '' : ' contain'}" style="${colors(c)}"><div class="ph">${photo}</div><div class="tags">${tags}${a.video ? `<span class="vtag">${PLAY_ICON}${t.video}</span>` : ''}</div><h2><a href="${articlePath(a)}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p><p class="m">${meta(a, t)}</p></li>`;
 }
 // Category buttons (Favo Vivo v3): "all" is a honey hexagon; every category shows the avatar of its host
-// (blogCategories[id].host: Hug in Ciência, Red in Jogos, Mel in the others).
+// (blogCategories[id].host, one per category: Hug, Lil, Flo, Dot, Red, Mel and Lum).
 function filters(lang, current, t) {
   const item = (href, label, icon, on) => `<a href="${href}"${on ? ' aria-current="page"' : ''}><span class="av">${icon}</span><span class="fl">${escape(label)}</span></a>`;
   const all = item(indexPath(lang), t.allCategories, hexIcon('#F4B82E'), current === 'all');

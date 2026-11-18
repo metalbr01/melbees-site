@@ -10,7 +10,7 @@ import { origin, pages, byId, languages, htmlLang, labels, filename } from '../_
 import { centers } from '../_fonte/tabuleiros.mjs';
 import { root, read, generated, attrs, publicFiles, blogGenerated, article, makeSite } from './helpers.mjs';
 import { loadBlog, parseArticle, imageSources, PAGE_SIZE, STATES } from '../_fonte/blog.mjs';
-import { blogCategories, blogText, daily, bannedCopy } from '../_fonte/site.mjs';
+import { blogCategories, blogHosts, blogText, daily, bannedCopy } from '../_fonte/site.mjs';
 const banned = /\u2014|adsense|destaque do google|loja em destaque|sem anúncios|sem chutar|feito no brasil|from brazil|nova temporada|\bwordle\b|\btermo\b|\bpr[eê]mios?\b|\bsorteios?\b|\bprizes?\b|\bsweepstakes?\b/iu;
 
 test('every published HTML page is covered, with shared navigation and privacy', () => {
@@ -506,9 +506,9 @@ test('blog: every empty category page is noindex, carries no AdSense, and is out
   assert.deepEqual(hreflangs(pageOf(site, '/blog/categoria/news/')).sort(), [`pt-BR ${origin}/blog/categoria/news/`, `en ${origin}/en/blog/category/news/`, `x-default ${origin}/blog/categoria/news/`].sort());
 });
 
-test('blog: the category buttons and the article badges show the host avatar: Hug in Ciência, Red in Jogos, Mel in the others', () => {
+test('blog: the category buttons and the article badges show the host avatar of each category', () => {
   const hosts = Object.fromEntries(Object.entries(blogCategories).map(([id, c]) => [id, c.host]));
-  assert.deepEqual(hosts, { ciencia: 'hug', educacao: 'mel', cultura: 'mel', puzzle: 'mel', jogos: 'red', musical: 'mel', news: 'mel' });
+  assert.deepEqual(hosts, { ciencia: 'hug', educacao: 'lil', cultura: 'flo', puzzle: 'dot', jogos: 'red', musical: 'mel', news: 'lum' });
   const site = build({ 'pt/a': article({ title: 'A', categories: 'ciencia, jogos, puzzle' }), 'en/b': article({ title: 'B', categories: 'jogos' }) });
   const avatars = part => [...part.matchAll(/<img src="\/assets\/blog\/hosts\/([a-z]+)-avatar\.webp" alt=""/g)].map(m => m[1]);
   for (const urlPath of ['/blog/', '/blog/categoria/cultura/', '/en/blog/', '/en/blog/category/games/']) {
@@ -519,11 +519,39 @@ test('blog: the category buttons and the article badges show the host avatar: Hu
     assert.deepEqual(buttons.slice(1).map(b => avatars(b)), Object.values(hosts).map(h => [h]), urlPath);
   }
   const chips = [...pageOf(site, '/blog/a/').matchAll(/<a class="chip" href="[^"]+">([\s\S]*?)<\/a>/g)].map(m => m[1]);
-  assert.deepEqual(chips.map(c => avatars(c)), [['hug'], ['red'], ['mel']]);
+  assert.deepEqual(chips.map(c => avatars(c)), [['hug'], ['red'], ['dot']]);
   assert.deepEqual(chips.map(c => c.replace(/<[^>]+>/g, '')), ['Ciência', 'Jogos', 'Puzzle']);
   assert.doesNotMatch(pageOf(site, '/blog/a/'), /class="dot"/);
-  for (const host of ['hug', 'mel', 'red']) assert.ok(site.exists(`assets/blog/hosts/${host}-avatar.webp`), host);
   checkBlogPages(site);
+});
+
+// Width and height of a webp canvas, read from its header (VP8X, VP8 or VP8L) without a decoder.
+function webpSize(buf) {
+  assert.equal(buf.toString('ascii', 0, 4) + buf.toString('ascii', 8, 12), 'RIFFWEBP');
+  const chunk = buf.toString('ascii', 12, 16);
+  if (chunk === 'VP8X') return [1 + buf.readUIntLE(24, 3), 1 + buf.readUIntLE(27, 3)];
+  if (chunk === 'VP8 ') return [buf.readUInt16LE(26) & 0x3fff, buf.readUInt16LE(28) & 0x3fff];
+  if (chunk === 'VP8L') { const b = buf.readUInt32LE(21); return [1 + (b & 0x3fff), 1 + ((b >>> 14) & 0x3fff)]; }
+  return assert.fail(`unknown webp chunk ${chunk}`);
+}
+
+test('blog: the 7 categories have 7 different hosts, and every host has its art at the declared size and its avatar', () => {
+  const hosts = Object.values(blogCategories).map(c => c.host);
+  assert.equal(hosts.length, 7);
+  assert.equal(new Set(hosts).size, hosts.length, `one host per category: ${hosts.join(', ')}`);
+  assert.deepEqual(Object.keys(blogHosts).sort(), [...hosts].sort(), 'every host in blogHosts is the host of a category');
+  for (const key of hosts) {
+    const h = blogHosts[key];
+    assert.ok(h.id.startsWith(`friend_${key}_`), `${key}: Melbees Arts id ${h.id}`);
+    for (const lang of languages) assert.ok(h.name[lang], `${key}: name ${lang}`);
+    for (const [file, size] of [[`${key}.webp`, h.size], [`${key}-avatar.webp`, [96, 96]]]) {
+      const p = path.join(root, 'assets/blog/hosts', file);
+      assert.ok(fs.existsSync(p), `assets/blog/hosts/${file}`);
+      assert.deepEqual(webpSize(fs.readFileSync(p)), size, file);
+    }
+    assert.equal(h.size[1], 360, `${key}: the art is 360 px high, like the others`);
+  }
+  assert.deepEqual(fs.readdirSync(path.join(root, 'assets/blog/hosts')).sort(), hosts.flatMap(k => [`${k}-avatar.webp`, `${k}.webp`]).sort(), 'no other file in assets/blog/hosts');
 });
 
 test('blog: a post in several categories shows one badge each, appears in each filter, and takes colour, host and breadcrumb from the first', () => {
@@ -538,8 +566,8 @@ test('blog: a post in several categories shows one badge each, appears in each f
   const html = pageOf(site, '/blog/enem/');
   assert.ok(html.includes(`<div class="hero-b" style="--c:${blogCategories.educacao.bg};--ci:${blogCategories.educacao.ink}">`));
   assert.deepEqual([...html.matchAll(/<a class="chip" href="([^"]+)"/g)].map(m => m[1]), ['/blog/categoria/educacao/', '/blog/categoria/musical/']);
-  assert.match(html, /<img src="\/assets\/blog\/hosts\/mel\.webp"/, 'Educação host is Mel');
-  assert.match(html, /<div class="bub"><p>Cante junto\.<\/p><small>Mel<\/small><\/div>/);
+  assert.match(html, /<div class="host"><div class="bub"><p>Cante junto\.<\/p><small>Lil<\/small><\/div><img src="\/assets\/blog\/hosts\/lil\.webp" alt="" width="396" height="360"/, 'Educação host is Lil');
+  assert.deepEqual([...html.matchAll(/<a class="chip" href="[^"]+"><img src="\/assets\/blog\/hosts\/([a-z]+)-avatar\.webp"/g)].map(m => m[1]), ['lil', 'mel']);
   assert.match(pageOf(site, '/blog/hug/'), /hosts\/hug\.webp/);
   const crumbs = [...(/<nav class="breadcrumbs"[^>]*>([\s\S]*?)<\/nav>/.exec(html)[1]).matchAll(/<li>([\s\S]*?)<\/li>/g)].map(m => m[1].replace(/<[^>]+>/g, ''));
   assert.deepEqual(crumbs, ['Início', 'Blog', 'Educação', 'Música do Enem'.replace('Música', 'Música')]);

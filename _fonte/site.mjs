@@ -15,23 +15,29 @@ export const blogRoutes = {
   es: { category: 'categoria', page: 'pagina' }, fr: { category: 'categorie', page: 'page' },
 };
 // The ids are what an article writes in `categorias:`. Each language has its own URL slug and display name; bg/ink are the card and badge colours.
-// host is the host character of the category: its art heads the article and its avatar marks the category button and badge.
+// host is the host character of the category (a key of blogHosts, a different one per category, Owner 18/11/2026): its art heads
+// the article and its avatar marks the category button and badge.
 // Owner copy rules for blog articles (title, description, body). Wordle and Termo are allowed in posts (CLAUDE.md), so they are not listed.
 export const bannedCopy = /\u2014|adsense|destaque do google|loja em destaque|sem anúncios|sem chutar|feito no brasil|from brazil|nova temporada|\bpr[eê]mios?\b|\bsorteios?\b|\bprizes?\b|\bsweepstakes?\b/iu;
 export const blogCategories = {
   ciencia: { slug: { pt: 'ciencia', en: 'science', es: 'ciencia', fr: 'science' }, name: { pt: 'Ciência', en: 'Science', es: 'Ciencia', fr: 'Science' }, bg: '#DFF2E7', ink: '#16774A', host: 'hug' },
-  educacao: { slug: { pt: 'educacao', en: 'education', es: 'educacion', fr: 'education' }, name: { pt: 'Educação', en: 'Education', es: 'Educación', fr: 'Éducation' }, bg: '#FCE3A0', ink: '#8A5A06', host: 'mel' },
-  cultura: { slug: { pt: 'cultura', en: 'culture', es: 'cultura', fr: 'culture' }, name: { pt: 'Cultura', en: 'Culture', es: 'Cultura', fr: 'Culture' }, bg: '#F9DDE1', ink: '#A3324A', host: 'mel' },
-  puzzle: { slug: { pt: 'puzzle', en: 'puzzle', es: 'puzzle', fr: 'puzzle' }, name: { pt: 'Puzzle', en: 'Puzzle', es: 'Puzzle', fr: 'Puzzle' }, bg: '#E9E2F6', ink: '#5B3FA0', host: 'mel' },
+  educacao: { slug: { pt: 'educacao', en: 'education', es: 'educacion', fr: 'education' }, name: { pt: 'Educação', en: 'Education', es: 'Educación', fr: 'Éducation' }, bg: '#FCE3A0', ink: '#8A5A06', host: 'lil' },
+  cultura: { slug: { pt: 'cultura', en: 'culture', es: 'cultura', fr: 'culture' }, name: { pt: 'Cultura', en: 'Culture', es: 'Cultura', fr: 'Culture' }, bg: '#F9DDE1', ink: '#A3324A', host: 'flo' },
+  puzzle: { slug: { pt: 'puzzle', en: 'puzzle', es: 'puzzle', fr: 'puzzle' }, name: { pt: 'Puzzle', en: 'Puzzle', es: 'Puzzle', fr: 'Puzzle' }, bg: '#E9E2F6', ink: '#5B3FA0', host: 'dot' },
   jogos: { slug: { pt: 'jogos', en: 'games', es: 'juegos', fr: 'jeux' }, name: { pt: 'Jogos', en: 'Games', es: 'Juegos', fr: 'Jeux' }, bg: '#F1E4CB', ink: '#4A3414', host: 'red' },
   musical: { slug: { pt: 'musical', en: 'music', es: 'musical', fr: 'musique' }, name: { pt: 'Musical', en: 'Music', es: 'Musical', fr: 'Musique' }, bg: '#DCEBF7', ink: '#1F5E9A', host: 'mel' },
-  news: { slug: { pt: 'news', en: 'news', es: 'noticias', fr: 'actualites' }, name: { pt: 'News', en: 'News', es: 'Noticias', fr: 'Actualités' }, bg: '#FBE2CC', ink: '#A4520E', host: 'mel' },
+  news: { slug: { pt: 'news', en: 'news', es: 'noticias', fr: 'actualites' }, name: { pt: 'News', en: 'News', es: 'Noticias', fr: 'Actualités' }, bg: '#FBE2CC', ink: '#A4520E', host: 'lum' },
 };
-// Host characters of the blog (Melbees Arts ids); the file names live in assets/blog/.
+// Host characters of the blog (Melbees Arts ids). Each key has assets/blog/hosts/<key>.webp (the hub's fullbody/default.512.webp
+// at 360 px high; size is its width and height) and <key>-avatar.webp (portrait/avatar.png at 96x96), both webp quality 80.
 export const blogHosts = {
-  hug: { id: 'friend_hug_hummingbird', name: { pt: 'Hug, o professor', en: 'Hug, the teacher', es: 'Hug, el profesor', fr: 'Hug, le professeur' } },
-  mel: { id: 'friend_mel_queen', name: { pt: 'Mel', en: 'Mel', es: 'Mel', fr: 'Mel' } },
-  red: { id: 'friend_red_miningbee', name: { pt: 'Red', en: 'Red', es: 'Red', fr: 'Red' } },
+  hug: { id: 'friend_hug_hummingbird', size: [332, 360], name: { pt: 'Hug, o professor', en: 'Hug, the teacher', es: 'Hug, el profesor', fr: 'Hug, le professeur' } },
+  lil: { id: 'friend_lil_worker', size: [396, 360], name: { pt: 'Lil', en: 'Lil', es: 'Lil', fr: 'Lil' } },
+  flo: { id: 'friend_flo_butterfly', size: [370, 360], name: { pt: 'Flo', en: 'Flo', es: 'Flo', fr: 'Flo' } },
+  dot: { id: 'friend_dot_ladybug', size: [286, 360], name: { pt: 'Dot', en: 'Dot', es: 'Dot', fr: 'Dot' } },
+  red: { id: 'friend_red_miningbee', size: [282, 360], name: { pt: 'Red', en: 'Red', es: 'Red', fr: 'Red' } },
+  mel: { id: 'friend_mel_queen', size: [287, 360], name: { pt: 'Mel', en: 'Mel', es: 'Mel', fr: 'Mel' } },
+  lum: { id: 'friend_lum_firefly', size: [361, 360], name: { pt: 'Lum', en: 'Lum', es: 'Lum', fr: 'Lum' } },
 };
 const months = {
   pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
