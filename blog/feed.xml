@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Blog · Melbees</title>
+<link>https://melbees.games/blog/</link>
+<description>Ciência, educação, cultura, puzzles, jogos e música. Tudo o que postamos nas redes, explicado com calma.</description>
+<language>pt-BR</language>
+<lastBuildDate>Fri, 20 Nov 2026 12:00:00 GMT</lastBuildDate>
+<atom:link href="https://melbees.games/blog/feed.xml" rel="self" type="application/rss+xml"/>
+<item><title>Duelo no Melbees: como desafiar um amigo ao vivo no navegador</title><link>https://melbees.games/blog/desafie-um-amigo-ao-vivo/</link><guid isPermaLink="true">https://melbees.games/blog/desafie-um-amigo-ao-vivo/</guid><pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate><category>Jogos</category><description>O Duelo coloca você e um amigo no mesmo desafio, ao vivo. Veja como criar a sala, a diferença entre Um Favo e Dois Favos, dicas e um desafio de lógica.</description></item>
+<item><title>Média, mediana e moda: o macete que vira musiquinha</title><link>https://melbees.games/blog/enem-media-mediana-moda/</link><guid isPermaLink="true">https://melbees.games/blog/enem-media-mediana-moda/</guid><pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate><category>Educação</category><category>Musical</category><description>Aprenda a diferença entre média, mediana e moda com uma musiquinha, exemplos resolvidos, um desafio e o que a pesquisa mostra sobre essas questões no Enem.</description></item>
+<item><title>A maioria das abelhas não mora em colmeia: mora no chão</title><link>https://melbees.games/blog/hug-abelhas-do-chao/</link><guid isPermaLink="true">https://melbees.games/blog/hug-abelhas-do-chao/</guid><pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate><category>Ciência</category><description>Quase toda abelha vive sozinha, e boa parte cava o ninho na terra. Veja como é esse ninho, quem é a abelha-mineira e o que o Brasil tem a ver com isso.</description></item>
+</channel>
+</rss>
