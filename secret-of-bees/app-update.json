@@ -114,6 +114,11 @@
       "build": 2026110800,
       "update": "optional",
       "min_build": 1
+    },
+    {
+      "build": 2026112000,
+      "update": "optional",
+      "min_build": 1
     }
   ]
 }
