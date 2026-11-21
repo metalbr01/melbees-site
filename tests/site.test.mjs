@@ -688,11 +688,11 @@ test('blog: the committed articles have the decided categories, and never use th
     assert.ok(fs.existsSync(path.join(root, src.slice(1))), `${slug}: ${src}`);
   }
   for (const f of files) assert.ok(fs.statSync(path.join(root, f)).size < 1024 * 1024, f);
-  // The Duelo figure is the web Daily's Duelo tab (Criar sala, Entrar em sala): no board, word or Secret on it.
+  // The Duelo figure is the web Daily's Duelo tab (Criar sala, Encontrar Sala): no board, word or Secret on it.
   const duelo = read('_fonte/conteudo/pt/blog/desafie-um-amigo-ao-vivo.html');
   const figure = attrs(/<img\b[^>]*duelo-salas\.webp[^>]*>/.exec(duelo)[0]);
   assert.equal(figure.src, '/assets/blog/desafie-um-amigo-ao-vivo/duelo-salas.webp');
-  assert.match(figure.alt, /aba Duelo/); assert.match(figure.alt, /Criar sala/); assert.match(figure.alt, /Entrar em sala/);
+  assert.match(figure.alt, /aba Duelo/); assert.match(figure.alt, /Criar sala/); assert.match(figure.alt, /Encontrar Sala/);
   assert.ok(Number(figure.width) > 0 && Number(figure.height) > 0);
   assert.equal(imageSources(duelo)[0], figure.src, 'the first picture of the text, so also the card thumbnail');
 });
