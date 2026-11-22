@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { origin, pages, byId, languages, htmlLang, labels, redirects, filename, escape } from './site.mjs';
 import { renderBoards } from './tabuleiros.mjs';
-import { loadBlog, planPages, hreflangs, selector, renderBody, headParts, renderFeed, sitemapEntries, blogBase, indexPath, feedPath, homeBlog } from './blog.mjs';
+import { loadBlog, planPages, hreflangs, selector, renderBody, headParts, renderFeed, sitemapEntries, blogBase, indexPath, categoryPath, feedPath, homeBlog } from './blog.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = p => fs.readFileSync(path.join(root, p), 'utf8');
@@ -22,9 +22,12 @@ const blog = loadBlog(path.join(root, '_fonte/conteudo'));
 const blogPages = planPages(blog);
 // Blog first (Owner, 22/11/2026): the content is what a visitor and a search engine should meet before anything else.
 const menuFor = lang => blog.has(lang) ? ['blog', ...menuIds] : menuIds;
+// Top menu (Owner, 22/11/2026): content, the game, the tool and the speedrun hub first; the institutional pages live in the footer.
+// "speedrun-hub" is the blog's Speedrun category once it has a published article; before that it is the Melbees speedrun page.
+const headerFor = lang => blog.has(lang) ? ['blog', 'jogo', 'campo-minado', blog.inCategory(lang, 'speedrun').length ? 'speedrun-hub' : 'speedrun', 'professores'] : menuIds;
 const textOnly = s => s.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 function links(ids, lang) {
-  return ids.map(id => `<a class="keep-src" href="${id === 'blog' ? indexPath(lang) : byId[id].paths[lang]}">${labels[lang][id]}</a>`).join('');
+  return ids.map(id => `<a class="keep-src" href="${id === 'blog' ? indexPath(lang) : id === 'speedrun-hub' ? categoryPath(lang, 'speedrun') : byId[id].paths[lang]}">${id === 'speedrun-hub' ? labels[lang].speedrun : labels[lang][id]}</a>`).join('');
 }
 // The same tag for every visitor and robot; error and alias pages carry no ad code.
 const adsenseTag = noindex => noindex ? '' : `
@@ -32,7 +35,7 @@ const adsenseTag = noindex => noindex ? '' : `
 function shell({ lang, title, description, canonical, alternates, robots = '', adsense, image, styles = '', extra = '', ogtype = 'website', body, langHrefs, refresh = '', redirectScript = '' }) {
   const t = labels[lang];
   const head = partial('head', { title, description, canonical, alternates, robots, adsense, image, styles, extra, ogtype });
-  const menu = partial('menu', { links: links(menuFor(lang), lang) });
+  const menu = partial('menu', { links: links(headerFor(lang), lang) });
   const languageLinks = languages.map(l => `<a data-idioma="${l}" lang="${htmlLang[l]}" hreflang="${htmlLang[l]}" href="${langHrefs[l]}"${l === lang ? ' aria-current="page"' : ''}>${l.toUpperCase()}</a>`).join('');
   const header = partial('header', { home: byId.home.paths[lang], menu, languageLabel: t.language, languages: languageLinks, close: t.close });
   const footer = partial('footer', { footerLabel: t.footer, links: links([...menuFor(lang), 'termos'], lang) });

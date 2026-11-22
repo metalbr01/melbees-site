@@ -17,6 +17,7 @@ test('every published HTML page is covered, with shared navigation and privacy',
   // A standalone page pinned in _fonte/protegidos.json (the Diario QR install redirect, Secret #492) is not generated.
   const pinned = new Set(Object.keys(JSON.parse(read('_fonte/protegidos.json'))));
   assert.deepEqual(publicFiles().filter(p => p.endsWith('.html') && !pinned.has(p)).sort(), [...generated.map(p => p.file), ...blogGenerated.pages.map(p => p.file)].sort());
+  const blogLangs = new Set(blogGenerated.pages.map(p => p.lang));
   for (const item of generated) {
     const html = read(item.file);
     assert.match(html, /<header\b/); assert.match(html, /<main>/); assert.match(html, /<footer>/);
@@ -24,7 +25,8 @@ test('every published HTML page is covered, with shared navigation and privacy',
     const footer = /<footer>([\s\S]*?)<\/footer>/.exec(html)?.[1];
     for (const id of ['jogo', 'professores', 'speedrun', 'imprensa', 'sobre', 'contato', 'privacidade']) {
       const link = `href="${byId[id].paths[item.lang]}"`;
-      assert.ok(menu?.includes(link), `${item.file}: menu ${id}`);
+      // The top menu keeps the content, the game, the tool and the speedrun; the institutional pages are in the footer (Owner, 22/11/2026).
+      if (['jogo', 'professores'].includes(id) || !blogLangs.has(item.lang)) assert.ok(menu?.includes(link), `${item.file}: menu ${id}`);
       assert.ok(footer?.includes(link), `${item.file}: footer ${id}`);
     }
     assert.ok(footer.includes(`href="${byId.termos.paths[item.lang]}"`));
@@ -452,7 +454,7 @@ test('blog: the index paginates at 10 and recomputes as articles come and go', (
 test('blog: every fixed category has a page in a language with a blog; the empty ones say so, are noindex and stay out of the sitemap', () => {
   const site = rich();
   const ids = Object.keys(blogCategories);
-  assert.deepEqual(ids, ['ciencia', 'educacao', 'cultura', 'puzzle', 'jogos', 'musical', 'news']);
+  assert.deepEqual(ids, ['ciencia', 'educacao', 'cultura', 'puzzle', 'speedrun', 'jogos', 'musical', 'news']);
   for (const id of ids) {
     assert.ok(site.exists(`blog/categoria/${blogCategories[id].slug.pt}/index.html`), `pt ${id}`);
     assert.ok(site.exists(`en/blog/category/${blogCategories[id].slug.en}/index.html`), `en ${id}`);
@@ -477,7 +479,7 @@ test('blog: every fixed category has a page in a language with a blog; the empty
   assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), ['/blog/', ...ids.map(id => `/blog/categoria/${blogCategories[id].slug.pt}/`)]);
   assert.match(nav, /<a href="\/blog\/" aria-current="page">/);
   assert.match(/<nav class="filtros"[\s\S]*?<\/nav>/.exec(empty)[0], /<a href="\/blog\/categoria\/ciencia\/" aria-current="page">/);
-  assert.deepEqual(nav.match(/<span class="fl">[^<]*<\/span>/g).map(x => x.replace(/<[^>]+>/g, '')), ['Todas', 'Ciência', 'Educação', 'Cultura', 'Puzzle', 'Jogos', 'Musical', 'News']);
+  assert.deepEqual(nav.match(/<span class="fl">[^<]*<\/span>/g).map(x => x.replace(/<[^>]+>/g, '')), ['Todas', 'Ciência', 'Educação', 'Cultura', 'Puzzle', 'Speedrun', 'Jogos', 'Musical', 'News']);
   // The language button of a category page goes to the same category in the other language.
   assert.match(empty, /<a data-idioma="en"[^>]*href="\/en\/blog\/category\/science\/"/);
   checkBlogPages(site);
@@ -492,7 +494,7 @@ test('blog: every empty category page is noindex, carries no AdSense, and is out
     if (pageOf(site, urlPath).includes('<p class="vazio">')) empties.push(urlPath);
   }
   // rich(): pt has News and Jogos, en has News and Puzzle; the other categories are empty.
-  assert.deepEqual(empties, ['/blog/categoria/ciencia/', '/blog/categoria/educacao/', '/blog/categoria/cultura/', '/blog/categoria/puzzle/', '/blog/categoria/musical/', '/en/blog/category/science/', '/en/blog/category/education/', '/en/blog/category/culture/', '/en/blog/category/games/', '/en/blog/category/music/']);
+  assert.deepEqual(empties, ['/blog/categoria/ciencia/', '/blog/categoria/educacao/', '/blog/categoria/cultura/', '/blog/categoria/puzzle/', '/blog/categoria/speedrun/', '/blog/categoria/musical/', '/en/blog/category/science/', '/en/blog/category/education/', '/en/blog/category/culture/', '/en/blog/category/speedrun/', '/en/blog/category/games/', '/en/blog/category/music/']);
   const allHreflangs = blogFiles(site).flatMap(f => hreflangs(site.read(f)));
   for (const urlPath of empties) {
     const html = pageOf(site, urlPath);
@@ -509,13 +511,13 @@ test('blog: every empty category page is noindex, carries no AdSense, and is out
 
 test('blog: the category buttons and the article badges show the host avatar of each category', () => {
   const hosts = Object.fromEntries(Object.entries(blogCategories).map(([id, c]) => [id, c.host]));
-  assert.deepEqual(hosts, { ciencia: 'hug', educacao: 'lil', cultura: 'flo', puzzle: 'dot', jogos: 'red', musical: 'mel', news: 'lum' });
+  assert.deepEqual(hosts, { ciencia: 'hug', educacao: 'lil', cultura: 'flo', puzzle: 'dot', speedrun: 'pow', jogos: 'red', musical: 'mel', news: 'lum' });
   const site = build({ 'pt/a': article({ title: 'A', categories: 'ciencia, jogos, puzzle' }), 'en/b': article({ title: 'B', categories: 'jogos' }) });
   const avatars = part => [...part.matchAll(/<img src="\/assets\/blog\/hosts\/([a-z]+)-avatar\.webp" alt=""/g)].map(m => m[1]);
   for (const urlPath of ['/blog/', '/blog/categoria/cultura/', '/en/blog/', '/en/blog/category/games/']) {
     const nav = /<nav class="filtros"[^>]*>([\s\S]*?)<\/nav>/.exec(pageOf(site, urlPath))[1];
     const buttons = [...nav.matchAll(/<a [^>]*>([\s\S]*?)<\/a>/g)].map(m => m[1]);
-    assert.equal(buttons.length, 8, urlPath);
+    assert.equal(buttons.length, 9, urlPath);
     assert.match(buttons[0], /<svg class="hx"/, `${urlPath}: "all" keeps the honey hexagon`);
     assert.deepEqual(buttons.slice(1).map(b => avatars(b)), Object.values(hosts).map(h => [h]), urlPath);
   }
@@ -536,9 +538,9 @@ function webpSize(buf) {
   return assert.fail(`unknown webp chunk ${chunk}`);
 }
 
-test('blog: the 7 categories have 7 different hosts, and every host has its art at the declared size and its avatar', () => {
+test('blog: the 8 categories have 8 different hosts, and every host has its art at the declared size and its avatar', () => {
   const hosts = Object.values(blogCategories).map(c => c.host);
-  assert.equal(hosts.length, 7);
+  assert.equal(hosts.length, 8);
   assert.equal(new Set(hosts).size, hosts.length, `one host per category: ${hosts.join(', ')}`);
   assert.deepEqual(Object.keys(blogHosts).sort(), [...hosts].sort(), 'every host in blogHosts is the host of a category');
   for (const key of hosts) {

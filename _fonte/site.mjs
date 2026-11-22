@@ -24,6 +24,7 @@ export const blogCategories = {
   educacao: { slug: { pt: 'educacao', en: 'education', es: 'educacion', fr: 'education' }, name: { pt: 'Educação', en: 'Education', es: 'Educación', fr: 'Éducation' }, bg: '#FCE3A0', ink: '#8A5A06', host: 'lil' },
   cultura: { slug: { pt: 'cultura', en: 'culture', es: 'cultura', fr: 'culture' }, name: { pt: 'Cultura', en: 'Culture', es: 'Cultura', fr: 'Culture' }, bg: '#F9DDE1', ink: '#A3324A', host: 'flo' },
   puzzle: { slug: { pt: 'puzzle', en: 'puzzle', es: 'puzzle', fr: 'puzzle' }, name: { pt: 'Puzzle', en: 'Puzzle', es: 'Puzzle', fr: 'Puzzle' }, bg: '#E9E2F6', ink: '#5B3FA0', host: 'dot' },
+  speedrun: { slug: { pt: 'speedrun', en: 'speedrun', es: 'speedrun', fr: 'speedrun' }, name: { pt: 'Speedrun', en: 'Speedrun', es: 'Speedrun', fr: 'Speedrun' }, bg: '#E0F0F5', ink: '#0F6B80', host: 'pow' },
   jogos: { slug: { pt: 'jogos', en: 'games', es: 'juegos', fr: 'jeux' }, name: { pt: 'Jogos', en: 'Games', es: 'Juegos', fr: 'Jeux' }, bg: '#F1E4CB', ink: '#4A3414', host: 'red' },
   musical: { slug: { pt: 'musical', en: 'music', es: 'musical', fr: 'musique' }, name: { pt: 'Musical', en: 'Music', es: 'Musical', fr: 'Musique' }, bg: '#DCEBF7', ink: '#1F5E9A', host: 'mel' },
   news: { slug: { pt: 'news', en: 'news', es: 'noticias', fr: 'actualites' }, name: { pt: 'News', en: 'News', es: 'Noticias', fr: 'Actualités' }, bg: '#FBE2CC', ink: '#A4520E', host: 'lum' },
@@ -37,6 +38,7 @@ export const blogHosts = {
   dot: { id: 'friend_dot_ladybug', size: [286, 360], name: { pt: 'Dot', en: 'Dot', es: 'Dot', fr: 'Dot' } },
   red: { id: 'friend_red_miningbee', size: [282, 360], name: { pt: 'Red', en: 'Red', es: 'Red', fr: 'Red' } },
   mel: { id: 'friend_mel_queen', size: [287, 360], name: { pt: 'Mel', en: 'Mel', es: 'Mel', fr: 'Mel' } },
+  pow: { id: 'friend_pow_drone', size: [380, 360], name: { pt: 'Pow', en: 'Pow', es: 'Pow', fr: 'Pow' } },
   lum: { id: 'friend_lum_firefly', size: [361, 360], name: { pt: 'Lum', en: 'Lum', es: 'Lum', fr: 'Lum' } },
 };
 const months = {
