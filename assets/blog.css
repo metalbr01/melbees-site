@@ -201,3 +201,6 @@
 .home-blog-all{margin-top:18px;font-weight:600}
 @media(max-width:900px){.home-blog .cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.home-blog .cards{grid-template-columns:1fr}.idx-main .cards{grid-template-columns:1fr}.card .ph.vid{width:62%}}
+.home-guide{margin:14px 0;padding-left:20px;max-width:66ch}
+.home-guide li{margin:6px 0}
+.hero .lede + p, .hero p + p{margin-top:12px;max-width:66ch}

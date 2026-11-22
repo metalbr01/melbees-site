@@ -112,7 +112,7 @@ test('prohibited copy is absent from generated HTML', () => {
 
 test('every source fragment is rendered, and remaining draft markers stay literal', () => {
   for (const page of pages) for (const lang of languages) {
-    const source = read(`_fonte/conteudo/${lang}/${page.id}.html`);
+    const source = read(`_fonte/conteudo/${lang}/${page.id}.html`).replace(/<!--BLOG-->([\s\S]*?)<!--\/BLOG-->/g, (_, inner) => ['pt', 'en'].includes(lang) ? inner : '');
     for (const part of source.trim().split(/<!--FAVO:\d-->/)) assert.ok(read(filename(page.paths[lang])).replace(/<section class="blog home-blog"[\s\S]*?<\/section>/, '').includes(part.trim()), `${page.id}/${lang}: source fragment`);
     if (source.startsWith('RASCUNHO:')) assert.equal(source, 'RASCUNHO: texto a caminho\n');
   }

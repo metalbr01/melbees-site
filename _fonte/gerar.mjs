@@ -65,6 +65,7 @@ function render(page, lang, redirect) {
   if (draft) body = `<div class="wrap editorial"><h1>${t[page.id]}</h1><p class="draft">${escape(body)}</p></div>`;
   else if (!page.existing) body = `<article class="wrap editorial${page.tool ? ' editorial-wide' : ''}"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
   if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
+  if (page.id === 'home') body = body.replace(/<!--BLOG-->([\s\S]*?)<!--\/BLOG-->/g, (_, inner) => blog.has(lang) ? inner : '');
   const homeStrip = page.id === 'home' && !redirect && blog.has(lang);
   // The blog strip sits right under the hero, before the games: content first.
   if (homeStrip) { const at = body.indexOf('<section'); body = at < 0 ? body + '\n' + homeBlog(blog, lang) : body.slice(0, at) + homeBlog(blog, lang) + body.slice(at); }
