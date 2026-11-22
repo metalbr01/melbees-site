@@ -34,7 +34,8 @@ const adsenseTag = noindex => noindex ? '' : `
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>`;
 function shell({ lang, title, description, canonical, alternates, robots = '', adsense, image, styles = '', extra = '', ogtype = 'website', body, langHrefs, refresh = '', redirectScript = '' }) {
   const t = labels[lang];
-  const head = partial('head', { title, description, canonical, alternates, robots, adsense, image, styles, extra, ogtype });
+  // Indexable pages ask for large image previews (Google Discover and image results); noindex pages keep their own tag.
+  const head = partial('head', { title, description, canonical, alternates, robots: robots || '<meta name="robots" content="max-image-preview:large">', adsense, image, styles, extra, ogtype });
   const menu = partial('menu', { links: links(headerFor(lang), lang) });
   const languageLinks = languages.map(l => `<a data-idioma="${l}" lang="${htmlLang[l]}" hreflang="${htmlLang[l]}" href="${langHrefs[l]}"${l === lang ? ' aria-current="page"' : ''}>${l.toUpperCase()}</a>`).join('');
   const header = partial('header', { home: byId.home.paths[lang], menu, languageLabel: t.language, languages: languageLinks, close: t.close });
@@ -101,7 +102,10 @@ const sitemap = pages.filter(p => p.id !== '404').flatMap(page => languages.map(
   return `  <url><loc>${origin}${page.paths[lang]}</loc>${alts}</url>`;
 }));
 outputs.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${[...sitemap, ...sitemapEntries(blogPages)].join('\n')}\n</urlset>\n`);
-outputs.set('robots.txt', `User-agent: *\nAllow: /\nDisallow: /kit/\nDisallow: /_fonte/\nDisallow: /tests/\n\nSitemap: ${origin}/sitemap.xml\n`);
+// Search crawlers (classic and AI search) are named and welcome; training crawlers follow the generic rule (allowed; the Owner may change it).
+const searchBots = ['Googlebot', 'Bingbot', 'OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot'];
+const robotsRules = 'Allow: /\nDisallow: /kit/\nDisallow: /_fonte/\nDisallow: /tests/\n';
+outputs.set('robots.txt', `${[...searchBots, '*'].map(b => `User-agent: ${b}\n${robotsRules}`).join('\n')}\nSitemap: ${origin}/sitemap.xml\n`);
 
 // Everything above rendered without error, so only now touch the disk. Blog output left by an earlier run
 // (an article since unpublished, a series or page that no longer exists) is removed: only *.html and feed.xml

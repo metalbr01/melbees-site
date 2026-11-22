@@ -1,3 +1,33 @@
+User-agent: Googlebot
+Allow: /
+Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /kit/
+Disallow: /_fonte/
+Disallow: /tests/
+
 User-agent: *
 Allow: /
 Disallow: /kit/
