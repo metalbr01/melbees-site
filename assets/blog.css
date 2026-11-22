@@ -169,3 +169,35 @@
 @media(max-width:480px){.video-icon{width:64px;height:72px;margin:-36px 0 0 -32px}.video-icon::after{left:25px;top:23px;border-left-width:18px;border-top-width:12px;border-bottom-width:12px}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 @media print{.vbox,.post-cta,.pager,.blog-rss,.filtros,.cast,.host{display:none!important}}
+/* index with a side column of games (the width of a wide screen is used, not left blank) */
+.band .wrap,.blog .idx{max-width:1360px}
+.idx-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:36px;align-items:start}
+.idx-main .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:1300px){.idx-main .cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.lateral{position:sticky;top:76px;margin-top:28px;padding:22px 18px 20px;border-radius:26px;background:#2E1F0A;color:#FFF3D6;text-align:center}
+.lateral-mel{display:block;height:130px;width:auto;margin:-64px auto 6px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.lateral h2{font-size:26px;color:#FFF3D6}
+.lateral ul{list-style:none;margin:14px 0 18px;padding:0;display:grid;gap:10px;text-align:left}
+.lateral li a{display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:16px;background:rgba(255,243,214,.09);color:#FFF3D6;text-decoration:none}
+.lateral li a:hover{background:rgba(255,243,214,.18)}
+.lateral li strong{font-family:var(--font-display);font-size:18px;color:var(--honey)}
+.lateral li span{font-size:14px;line-height:1.35;color:#F3E3BC}
+.lateral .btn{background:var(--honey);color:#2E1F0A}
+@media(max-width:1100px){.idx-grid{grid-template-columns:1fr}.lateral{position:static;margin-top:40px}.lateral-mel{margin-top:-70px}}
+/* "trending" strip, first index page */
+.em-alta{margin-top:30px}
+.em-alta>h2{display:flex;align-items:center;gap:12px;font-size:clamp(1.5rem,3.4vw,2rem)}
+.em-alta>h2::before{content:"";flex:none;width:20px;height:22px;background:var(--honey);clip-path:var(--hex)}
+.em-alta .cards{margin-top:16px}
+.em-alta+.cards{margin-top:34px}
+/* a card that plays its Short in place: portrait player above the title, above the whole-card link */
+.card .ph.vid{position:relative;z-index:2;aspect-ratio:9/16;width:74%;margin-inline:auto;background:#000;border:5px solid var(--frame);border-radius:20px}
+.card .ph.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card .ph.vid .video-icon{transform:scale(.8)}
+.card .ph.vid .video-label{display:none}
+/* home page strip */
+.home-blog{padding-block:36px 8px}
+.home-blog .cards{margin-top:20px}
+.home-blog-all{margin-top:18px;font-weight:600}
+@media(max-width:900px){.home-blog .cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.home-blog .cards{grid-template-columns:1fr}.idx-main .cards{grid-template-columns:1fr}.card .ph.vid{width:62%}}

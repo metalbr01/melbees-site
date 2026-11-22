@@ -7,7 +7,7 @@ import { origin, languages, htmlLang, labels, byId, filename, blogRoutes, blogCa
 export const PAGE_SIZE = 10;
 export const RSS_LIMIT = 50;
 export const STATES = ['rascunho', 'publicado'];
-const KEYS = new Set(['titulo', 'descricao', 'publicado', 'atualizado', 'categorias', 'balao', 'galeria', 'video', 'traducao', 'estado']);
+const KEYS = new Set(['titulo', 'descricao', 'publicado', 'atualizado', 'categorias', 'balao', 'galeria', 'video', 'traducao', 'destaque', 'estado']);
 const IMAGE_FILE = /^[a-z0-9][a-z0-9._-]*\.(?:webp|png|jpe?g)$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const VIDEO = /^[A-Za-z0-9_-]{11}$/;
@@ -78,6 +78,7 @@ export function parseArticle(source, { lang, slug, file }) {
   const body = lines.slice(end + 1).join('\n').trim();
   if (!STATES.includes(meta.estado)) fail(`estado deve ser ${STATES.join(' ou ')}`);
   for (const key of ['publicado', 'atualizado']) if (meta[key] !== undefined && !realDate(meta[key])) fail(`${key} deve ser uma data real AAAA-MM-DD`);
+  if (meta.destaque !== undefined && !/^[1-9]\d?$/.test(meta.destaque)) fail('destaque deve ser a posição na faixa de destaques, de 1 a 99 (1 aparece primeiro)');
   if (meta.video !== undefined && !VIDEO.test(meta.video)) fail('video deve ser o id do YouTube (11 caracteres: letras, números, - e _)');
   const categories = (meta.categorias || '').split(',').map(c => c.trim()).filter(Boolean);
   if (meta.categorias !== undefined && !categories.length) fail('categorias está vazia (use ids separados por vírgula)');
@@ -103,7 +104,7 @@ export function parseArticle(source, { lang, slug, file }) {
     if (!m || !languages.includes(m[1]) || m[1] === lang || !SLUG.test(m[2])) fail(`traducao "${item}": use idioma/slug de outro idioma (${languages.filter(l => l !== lang).join(', ')})`);
     return { lang: m[1], slug: m[2] };
   });
-  const article = { lang, slug, file, state: meta.estado, title: meta.titulo, description: meta.descricao, published: meta.publicado, updated: meta.atualizado, categories, balloon: meta.balao, gallery, video: meta.video, translations, body };
+  const article = { lang, slug, file, state: meta.estado, title: meta.titulo, description: meta.descricao, published: meta.publicado, updated: meta.atualizado, categories, balloon: meta.balao, gallery, video: meta.video, featured: meta.destaque === undefined ? undefined : Number(meta.destaque), translations, body };
   if (meta.estado === 'publicado') {
     for (const [key, value] of [['titulo', meta.titulo], ['descricao', meta.descricao], ['publicado', meta.publicado], ['categorias', categories.length]]) if (!value) fail(`${key} é obrigatório em artigo publicado`);
     if (!body) fail('o corpo está vazio');
@@ -169,6 +170,9 @@ export function loadBlog(contentRoot, { pageSize = PAGE_SIZE } = {}) {
   };
 }
 
+/** Articles with `destaque:`, position order (1 first), newest first among equals; at most FEATURED_MAX. */
+export const FEATURED_MAX = 3;
+export const featuredOf = (blog, lang) => blog.inLang[lang].filter(a => a.featured !== undefined).sort((a, b) => a.featured - b.featured || byNewest(a, b)).slice(0, FEATURED_MAX);
 const chunk = (items, size) => Array.from({ length: Math.max(1, Math.ceil(items.length / size)) }, (_, i) => items.slice(i * size, (i + 1) * size));
 const latest = items => items.reduce((m, a) => (a.updated > m ? a.updated : m), '') || undefined;
 const xDefault = members => (members.find(m => m.lang === 'pt') || members[0]);
@@ -179,8 +183,10 @@ export function planPages(blog) {
   for (const lang of blog.langs) {
     const list = blog.inLang[lang];
     const others = blog.langs.filter(l => l !== lang);
-    chunk(list, blog.pageSize).forEach((items, i, all) => pages.push({
-      kind: 'index', lang, page: i + 1, pages: all.length, items, path: indexPath(lang, i + 1),
+    // The "trending" strip of the first index page shows the featured articles, so the list below leaves them out.
+    const featured = featuredOf(blog, lang);
+    chunk(list.filter(a => !featured.includes(a)), blog.pageSize).forEach((items, i, all) => pages.push({
+      kind: 'index', lang, page: i + 1, pages: all.length, items, featured: i === 0 ? featured : [], path: indexPath(lang, i + 1),
       alternates: i === 0 ? others.map(l => ({ lang: l, path: indexPath(l) })) : [], lastmod: latest(list), sitemap: i === 0,
     }));
     // Every fixed category has a page in a language that has a blog, so the filter buttons never lead to a 404.
@@ -251,7 +257,11 @@ function card(a, t) {
   const c = firstCategory(a);
   const photo = a.thumb ? `<img src="${escape(a.thumb)}" alt="" loading="lazy" decoding="async">` : hostImg(c.host);
   const tags = a.categories.map(id => `<span class="tag" style="background:${blogCategories[id].ink}">${escape(categoryName(id, lang))}</span>`).join('');
-  return `<li class="card${a.thumb ? '' : ' contain'}" style="${colors(c)}"><div class="ph">${photo}</div><div class="tags">${tags}${a.video ? `<span class="vtag">${PLAY_ICON}${t.video}</span>` : ''}</div><h2><a href="${articlePath(a)}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p><p class="m">${meta(a, t)}</p></li>`;
+  // A card with a Short plays it right there (blog.js swaps the thumbnail for the player on click); the title link still opens the article.
+  const media = a.video
+    ? `<div class="ph vid"><a class="video-play" href="https://www.youtube.com/watch?v=${a.video}" rel="noopener" data-video-id="${a.video}" data-title="${escape(a.title)}" aria-label="${escape(`${t.watch}: ${a.title}`)}"><img src="https://i.ytimg.com/vi/${a.video}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-icon" aria-hidden="true"></span><span class="video-label">${t.watch}</span></a></div>`
+    : `<div class="ph">${photo}</div>`;
+  return `<li class="card${a.video || a.thumb ? '' : ' contain'}${a.video ? ' has-video' : ''}" style="${colors(c)}">${media}<div class="tags">${tags}${a.video ? `<span class="vtag">${PLAY_ICON}${t.video}</span>` : ''}</div><h2><a href="${articlePath(a)}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p><p class="m">${meta(a, t)}</p></li>`;
 }
 // Category buttons (Favo Vivo v3): "all" is a honey hexagon; every category shows the avatar of its host
 // (blogCategories[id].host, one per category: Hug, Lil, Flo, Dot, Red, Mel and Lum).
@@ -263,6 +273,24 @@ function filters(lang, current, t) {
 }
 function cta(lang, t) {
   return `<aside class="post-cta">${hostImg('mel', 'cta-mel')}<p>${t.lead}</p><div class="cta"><a class="btn" lang="${htmlLang[lang]}" href="${daily[lang]}?utm_source=site&amp;utm_medium=web&amp;utm_campaign=blog" rel="noopener">${t.play}</a></div></aside>`;
+}
+// Side column of the index and category pages: the games, so the width of a wide screen is not left empty.
+function sidebar(lang, t) {
+  const utm = `?utm_source=site&amp;utm_medium=web&amp;utm_campaign=blog-lateral`;
+  const items = [
+    [`${daily[lang]}${utm}`, t.side.daily, true],
+    [`${daily[lang]}${utm}`, t.side.duel, true],
+    [byId['como-jogar'].paths[lang], t.side.how, false],
+    [byId.professores.paths[lang], t.side.teachers, false],
+  ].map(([href, [title, text], external]) => `<li><a ${external ? 'rel="noopener" ' : 'class="keep-src" '}href="${href}"><strong>${escape(title)}</strong><span>${escape(text)}</span></a></li>`).join('');
+  return `<aside class="lateral" aria-labelledby="lateral-t">${hostImg('mel', 'lateral-mel')}<h2 id="lateral-t">${t.side.title}</h2><ul>${items}</ul><a class="btn" lang="${htmlLang[lang]}" href="${daily[lang]}${utm}" rel="noopener">${t.play}</a></aside>`;
+}
+/** Strip of the home page: the featured articles first, then the newest, three in all. */
+export function homeBlog(blog, lang) {
+  const t = blogText[lang];
+  const featured = featuredOf(blog, lang);
+  const picks = [...featured, ...blog.inLang[lang].filter(a => !featured.includes(a))].slice(0, 3);
+  return `<section class="blog home-blog" aria-labelledby="home-blog-t"><div class="wrap"><div class="sec-head"><p class="eyebrow">${escape(labels[lang].blog)}</p><h2 id="home-blog-t">${t.homeTitle}</h2></div><ol class="cards">${picks.map(a => card(a, t)).join('')}</ol><p class="home-blog-all"><a class="keep-src" href="${indexPath(lang)}">${t.all}</a></p></div></section>`;
 }
 function videoBlock(a, t) {
   const id = a.video;
@@ -298,7 +326,8 @@ export function renderBody(blog, page) {
     const title = isCategory ? categoryName(page.category, lang) : labels[lang].blog;
     const link = n => (isCategory ? categoryPath(lang, page.category, n) : indexPath(lang, n));
     const list = page.items.length ? `<ol class="cards">${page.items.map(a => card(a, t)).join('')}</ol>` : `<p class="vazio">${t.emptyCategory}</p>`;
-    return `<div class="blog">${band(page, t, title)}<div class="wrap idx">${filters(lang, isCategory ? page.category : 'all', t)}${list}${pagerNav(page, link, t)}${rss}</div></div>`;
+    const trending = page.featured?.length ? `<section class="em-alta" aria-labelledby="em-alta-t"><h2 id="em-alta-t">${t.trending}</h2><ol class="cards">${page.featured.map(a => card(a, t)).join('')}</ol></section>` : '';
+    return `<div class="blog">${band(page, t, title)}<div class="wrap idx"><div class="idx-grid"><div class="idx-main">${filters(lang, isCategory ? page.category : 'all', t)}${trending}${list}${pagerNav(page, link, t)}${rss}</div>${sidebar(lang, t)}</div></div></div>`;
   }
   const a = page.article;
   const c = firstCategory(a);
@@ -326,17 +355,24 @@ export function headParts(blog, page) {
     const url = origin + page.path;
     const items = breadcrumbItems(page).map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: origin + c.path }));
     const organization = { '@type': 'Organization', name: 'Melbees', url: `${origin}/` };
+    // The article's own picture (first image of the text, else the Short's thumbnail) heads the share card and the structured data.
+    const image = a.thumb ? (/^https?:/.test(a.thumb) ? a.thumb : origin + a.thumb) : a.video ? `https://i.ytimg.com/vi/${a.video}/hqdefault.jpg` : `${origin}/assets/og.jpg`;
+    const video = a.video ? { '@type': 'VideoObject', name: a.title, description: a.description, thumbnailUrl: [`https://i.ytimg.com/vi/${a.video}/hqdefault.jpg`], uploadDate: a.published, contentUrl: `https://www.youtube.com/watch?v=${a.video}`, inLanguage: htmlLang[lang] } : null;
+    extra.push(`<meta property="article:section" content="${escape(categoryName(a.categories[0], lang))}">`);
     extra.push(`<meta property="article:published_time" content="${a.published}">`, `<meta property="article:modified_time" content="${a.updated}">`);
     extra.push(jsonScript({
       '@context': 'https://schema.org',
       '@graph': [
-        { '@type': 'BlogPosting', '@id': `${url}#post`, headline: a.title, description: a.description, datePublished: a.published, dateModified: a.updated, inLanguage: htmlLang[lang], url, mainEntityOfPage: { '@type': 'WebPage', '@id': url }, image: [`${origin}/assets/og.jpg`], articleSection: a.categories.map(id => categoryName(id, lang)), author: organization, publisher: { ...organization, logo: { '@type': 'ImageObject', url: `${origin}/assets/icon-192.png` } } },
+        { '@type': 'BlogPosting', '@id': `${url}#post`, headline: a.title, description: a.description, datePublished: a.published, dateModified: a.updated, inLanguage: htmlLang[lang], url, mainEntityOfPage: { '@type': 'WebPage', '@id': url }, image: [image], keywords: a.categories.map(id => categoryName(id, lang)).join(', '), wordCount: a.body.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length, articleSection: a.categories.map(id => categoryName(id, lang)), author: organization, publisher: { ...organization, logo: { '@type': 'ImageObject', url: `${origin}/assets/icon-192.png` } } },
         { '@type': 'BreadcrumbList', itemListElement: items },
+        ...(video ? [video] : []),
       ],
     }));
     if (a.video) extra.push(`<script src="/assets/blog.js" defer></script>`);
-    return { title: `${a.title} · Melbees`, description: a.description, ogtype: 'article', extra: '\n' + extra.join('\n') };
+    return { title: `${a.title} · Melbees`, description: a.description, ogtype: 'article', image, extra: '\n' + extra.join('\n') };
   }
+  if (page.items.some(a => a.video) || page.featured?.some(a => a.video)) extra.push(`<script src="/assets/blog.js" defer></script>`);
+  if (page.items.length) extra.push(jsonScript({ '@context': 'https://schema.org', '@type': 'CollectionPage', name: page.kind === 'category' ? `${categoryName(page.category, lang)} · ${labels[lang].blog}` : labels[lang].blog, url: origin + page.path, inLanguage: htmlLang[lang], mainEntity: { '@type': 'ItemList', itemListElement: [...(page.featured || []), ...page.items].map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: origin + articlePath(a), name: a.title })) } }));
   const name = page.kind === 'category' ? `${categoryName(page.category, lang)} · ${labels[lang].blog}` : labels[lang].blog;
   const description = page.kind === 'category' ? `${categoryName(page.category, lang)}: ${t.intro}` : t.intro;
   return { title: `${name}${suffix} · Melbees`, description, ogtype: 'website', extra: '\n' + extra.join('\n') };

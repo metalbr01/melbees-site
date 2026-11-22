@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { origin, pages, byId, languages, htmlLang, labels, redirects, filename, escape } from './site.mjs';
 import { renderBoards } from './tabuleiros.mjs';
-import { loadBlog, planPages, hreflangs, selector, renderBody, headParts, renderFeed, sitemapEntries, blogBase, indexPath, feedPath } from './blog.mjs';
+import { loadBlog, planPages, hreflangs, selector, renderBody, headParts, renderFeed, sitemapEntries, blogBase, indexPath, feedPath, homeBlog } from './blog.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = p => fs.readFileSync(path.join(root, p), 'utf8');
@@ -20,7 +20,8 @@ const menuIds = ['jogo', 'professores', 'speedrun', 'imprensa', 'sobre', 'contat
 // Drafts never count: a language gets its Blog link only once it has a published article.
 const blog = loadBlog(path.join(root, '_fonte/conteudo'));
 const blogPages = planPages(blog);
-const menuFor = lang => blog.has(lang) ? [...menuIds.slice(0, 4), 'blog', ...menuIds.slice(4)] : menuIds;
+// Blog first (Owner, 22/11/2026): the content is what a visitor and a search engine should meet before anything else.
+const menuFor = lang => blog.has(lang) ? ['blog', ...menuIds] : menuIds;
 const textOnly = s => s.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 function links(ids, lang) {
   return ids.map(id => `<a class="keep-src" href="${id === 'blog' ? indexPath(lang) : byId[id].paths[lang]}">${labels[lang][id]}</a>`).join('');
@@ -42,7 +43,7 @@ function renderBlogPage(page) {
   return shell({
     lang: page.lang, title: escape(parts.title), description: escape(parts.description), canonical: origin + page.path,
     alternates: hreflangs(page).map(h => `<link rel="alternate" hreflang="${h.hreflang}" href="${h.href}">`).join('\n'),
-    adsense: adsenseTag(Boolean(page.empty)), robots: page.empty ? '<meta name="robots" content="noindex">' : '', image: origin + '/assets/og.jpg', extra: parts.extra, ogtype: parts.ogtype,
+    adsense: adsenseTag(Boolean(page.empty)), robots: page.empty ? '<meta name="robots" content="noindex">' : '', image: parts.image || origin + '/assets/og.jpg', extra: parts.extra, ogtype: parts.ogtype,
     body: renderBody(blog, page), langHrefs: selector(blog, page),
   });
 }
@@ -60,6 +61,9 @@ function render(page, lang, redirect) {
   if (draft) body = `<div class="wrap editorial"><h1>${t[page.id]}</h1><p class="draft">${escape(body)}</p></div>`;
   else if (!page.existing) body = `<article class="wrap editorial"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
   if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
+  const homeStrip = page.id === 'home' && !redirect && blog.has(lang);
+  // The blog strip sits right under the hero, before the games: content first.
+  if (homeStrip) { const at = body.indexOf('<section'); body = at < 0 ? body + '\n' + homeBlog(blog, lang) : body.slice(0, at) + homeBlog(blog, lang) + body.slice(at); }
   if (page.id === 'jogo' || (page.id === 'home' && !metadata[`home/${lang}`]?.recursos)) body += '\n' + resourceLinks(lang);
   if (page.id === 'desafios') body += '\n' + renderBoards(boardData, lang);
   if (page.id === 'estrategia') { const favos = boardData.boards.filter(b => b.lang === 'pt'); body = body.replace(/<!--FAVO:(\d)-->/g, (_, n) => `<figure class="board">${favos[n - 1].svg}</figure>`); }
@@ -77,6 +81,7 @@ function render(page, lang, redirect) {
     adsense: adsenseTag(noindex),
     image: origin + (page.id === 'professores' ? '/secret-of-bees/professores/og.jpg' : '/assets/og.jpg'),
     styles: metadata[`${page.id}/${lang}`]?.styles ? `<style>${metadata[`${page.id}/${lang}`].styles}</style>` : '',
+    extra: homeStrip ? '\n<link rel="stylesheet" href="/assets/blog.css">\n<script src="/assets/blog.js" defer></script>' : '',
   };
   // These redirects are aliases only. Language preferences never trigger navigation.
   const redirectScript = redirect ? `<script>(function(){var a=document.getElementById("redirect-target");a.href=${JSON.stringify(page.paths[lang])}+(location.search||${JSON.stringify(redirect.fallback)})+location.hash;location.replace(a.href)})();</script>` : '';

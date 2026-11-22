@@ -111,7 +111,7 @@ test('prohibited copy is absent from generated HTML', () => {
 test('every source fragment is rendered, and remaining draft markers stay literal', () => {
   for (const page of pages) for (const lang of languages) {
     const source = read(`_fonte/conteudo/${lang}/${page.id}.html`);
-    for (const part of source.trim().split(/<!--FAVO:\d-->/)) assert.ok(read(filename(page.paths[lang])).includes(part.trim()), `${page.id}/${lang}: source fragment`);
+    for (const part of source.trim().split(/<!--FAVO:\d-->/)) assert.ok(read(filename(page.paths[lang])).replace(/<section class="blog home-blog"[\s\S]*?<\/section>/, '').includes(part.trim()), `${page.id}/${lang}: source fragment`);
     if (source.startsWith('RASCUNHO:')) assert.equal(source, 'RASCUNHO: texto a caminho\n');
   }
 });
@@ -404,7 +404,8 @@ test('blog: a language without a published article has no index, menu item, foot
     const footer = /<footer>([\s\S]*?)<\/footer>/.exec(html)[1];
     for (const part of [menu, footer]) {
       assert.ok(part.includes(href), `${lang}: Blog link`);
-      assert.ok(part.indexOf(href) > part.indexOf(`href="${byId.imprensa.paths[lang]}"`) && part.indexOf(href) < part.indexOf(`href="${byId.sobre.paths[lang]}"`));
+      // Blog is the first item of the menu and of the footer links (Owner, 22/11/2026), before the game.
+      assert.ok(part.indexOf(href) >= 0 && part.indexOf(href) < part.indexOf(`href="${byId.jogo.paths[lang]}"`));
     }
   }
 });
@@ -628,7 +629,7 @@ test('blog: the gallery lists only declared pictures, in order, and never repeat
   assert.deepEqual([...gallery.matchAll(/<img src="([^"]+)"/g)].map(m => m[1]), ['/assets/blog/post/b.webp', '/assets/blog/post/c.png']);
   assert.ok(!gallery.includes('a.webp'));
   assert.match(gallery, /<figcaption>1 de 2<\/figcaption>/); assert.match(gallery, /tabindex="0"/);
-  const text = pageOf(site, '/blog/post/');
+  const text = /<main>[\s\S]*<\/main>/.exec(pageOf(site, '/blog/post/'))[0]; // the share image in <head> repeats the picture on purpose
   assert.equal(text.split('/assets/blog/post/a.webp').length - 1, 1, 'the picture appears once, in the text');
   assert.doesNotMatch(pageOf(site, '/blog/all/'), /class="gal"/, 'all repeated: no gallery');
   assert.doesNotMatch(pageOf(site, '/blog/none/'), /class="gal"/, 'none declared: no gallery');
