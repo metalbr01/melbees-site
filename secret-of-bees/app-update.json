@@ -92,6 +92,11 @@
       "build": 46,
       "update": "optional",
       "min_build": 1
+    },
+    {
+      "build": 47,
+      "update": "optional",
+      "min_build": 1
     }
   ],
   "ios": [
