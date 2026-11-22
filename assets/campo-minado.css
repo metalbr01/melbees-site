@@ -35,6 +35,8 @@
 
 .cm-play { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
 .cm-board { min-width: 0; }
+.cm-controls { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 12px 0 0; font-size: 15px; color: var(--ink2, var(--ink)); }
+.cm-ctl b { font-weight: 700; color: var(--ink); background: var(--honey-wash); border: 1px solid var(--honey-soft); border-radius: 8px; padding: 1px 8px; }
 .cm-grid { max-width: 100%; }
 .cm-hug { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: flex-start; }
 .cm-hug .cm-bubble { flex: 1 1 200px; }
@@ -47,7 +49,7 @@
 @media (min-width: 820px) {
   .cm-play { flex-direction: row; align-items: flex-start; gap: 20px; }
   .cm-play .cm-hug { flex: 0 0 250px; flex-direction: column; align-items: center; position: sticky; top: 16px; }
-  .cm-play .cm-board { flex: 1 1 0; }
+  .cm-play .cm-board { flex: 0 1 auto; }
   .cm-play .cm-hug { flex-wrap: nowrap; align-items: stretch; }
   .cm-play .cm-hug > * { flex: none; }
   .cm-play .cm-hug-face { align-self: center; }

@@ -634,6 +634,20 @@
     howBtn.addEventListener('click', function () { rules.hidden = !rules.hidden; howBtn.setAttribute('aria-expanded', String(!rules.hidden)); sizeBoard(); });
     hug.appendChild(avatarBtn); hug.appendChild(bubble); hug.appendChild(actions); hug.appendChild(rules);
 
+    var CTRL = {
+      pt: { mouse: ['Clique esquerdo', 'abre a casa', 'Clique direito', 'põe a bandeira'], touch: ['Toque', 'abre a casa', 'Segure o dedo', 'põe a bandeira'] },
+      en: { mouse: ['Left click', 'opens a cell', 'Right click', 'places a flag'], touch: ['Tap', 'opens a cell', 'Press and hold', 'places a flag'] },
+      es: { mouse: ['Clic izquierdo', 'abre la casilla', 'Clic derecho', 'pone la bandera'], touch: ['Toque', 'abre la casilla', 'Mantén pulsado', 'pone la bandera'] },
+      fr: { mouse: ['Clic gauche', 'ouvre la case', 'Clic droit', 'pose le drapeau'], touch: ['Toucher', 'ouvre la case', 'Appui long', 'pose le drapeau'] }
+    };
+    var controls = el('p', 'cm-controls');
+    function showControls(kind) {
+      var c = (CTRL[lang] || CTRL.pt)[kind]; controls.textContent = '';
+      [[c[0], c[1]], [c[2], c[3]]].forEach(function (p) { var s = el('span', 'cm-ctl'); s.appendChild(el('b', '', p[0])); s.appendChild(document.createTextNode(' ' + p[1])); controls.appendChild(s); });
+      controls.dataset.kind = kind;
+    }
+    try { showControls(window.matchMedia('(pointer: coarse)').matches ? 'touch' : 'mouse'); } catch (e) { showControls('mouse'); }
+    host.addEventListener('pointerdown', function (e) { var k = e.pointerType === 'mouse' ? 'mouse' : 'touch'; if (controls.dataset.kind !== k) showControls(k); });
     var status = el('p', 'cm-status'); status.setAttribute('role', 'status');
     var scroller = el('div', 'cm-scroll');
     var grid = el('div', 'cm-grid'); grid.setAttribute('role', 'grid'); grid.setAttribute('aria-label', T.boardLabel);
@@ -653,7 +667,7 @@
     var copyBtn = el('button', 'cm-link', T.copy); copyBtn.type = 'button';
     var copyMsg = el('span', 'cm-copied'); copyMsg.setAttribute('role', 'status');
     [replayBtn, copyBtn, copyMsg].forEach(function (x) { foot.appendChild(x); });
-    [bar, status, play, seedForm, foot].forEach(function (x) { host.appendChild(x); });
+    [bar, controls, status, play, seedForm, foot].forEach(function (x) { host.appendChild(x); });
 
     function say(title, paragraphs, note) {
       bTitle.textContent = title || '';
@@ -667,7 +681,8 @@
     }
     function sizeBoard() {
       // o tabuleiro inteiro cabe na largura e na altura da tela: sem barra de rolagem
-      var avail = Math.max(120, boardCol.clientWidth || host.clientWidth || 320) - 20;
+      var side = (window.innerWidth || 1024) >= 820;
+      var avail = Math.max(120, (host.clientWidth || 320) - (side ? 250 + 20 : 0) - 20);
       var byW = Math.floor(avail / game.w);
       var vh = window.innerHeight || 800;
       var byH = Math.floor((vh - 150) / game.h);
