@@ -7,7 +7,7 @@ import { origin, languages, htmlLang, labels, byId, filename, blogRoutes, blogCa
 export const PAGE_SIZE = 10;
 export const RSS_LIMIT = 50;
 export const STATES = ['rascunho', 'publicado'];
-const KEYS = new Set(['titulo', 'descricao', 'publicado', 'atualizado', 'categorias', 'balao', 'galeria', 'video', 'traducao', 'destaque', 'estado']);
+const KEYS = new Set(['titulo', 'descricao', 'publicado', 'atualizado', 'categorias', 'balao', 'galeria', 'video', 'traducao', 'destaque', 'autor', 'estado']);
 const IMAGE_FILE = /^[a-z0-9][a-z0-9._-]*\.(?:webp|png|jpe?g)$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const VIDEO = /^[A-Za-z0-9_-]{11}$/;
@@ -78,6 +78,7 @@ export function parseArticle(source, { lang, slug, file }) {
   const body = lines.slice(end + 1).join('\n').trim();
   if (!STATES.includes(meta.estado)) fail(`estado deve ser ${STATES.join(' ou ')}`);
   for (const key of ['publicado', 'atualizado']) if (meta[key] !== undefined && !realDate(meta[key])) fail(`${key} deve ser uma data real AAAA-MM-DD`);
+  if (meta.autor !== undefined && (!meta.autor || meta.autor.length > 60)) fail('autor deve ter de 1 a 60 caracteres (um codinome, nunca o nome verdadeiro)');
   if (meta.destaque !== undefined && !/^[1-9]\d?$/.test(meta.destaque)) fail('destaque deve ser a posição na faixa de destaques, de 1 a 99 (1 aparece primeiro)');
   if (meta.video !== undefined && !VIDEO.test(meta.video)) fail('video deve ser o id do YouTube (11 caracteres: letras, números, - e _)');
   const categories = (meta.categorias || '').split(',').map(c => c.trim()).filter(Boolean);
@@ -104,12 +105,12 @@ export function parseArticle(source, { lang, slug, file }) {
     if (!m || !languages.includes(m[1]) || m[1] === lang || !SLUG.test(m[2])) fail(`traducao "${item}": use idioma/slug de outro idioma (${languages.filter(l => l !== lang).join(', ')})`);
     return { lang: m[1], slug: m[2] };
   });
-  const article = { lang, slug, file, state: meta.estado, title: meta.titulo, description: meta.descricao, published: meta.publicado, updated: meta.atualizado, categories, balloon: meta.balao, gallery, video: meta.video, featured: meta.destaque === undefined ? undefined : Number(meta.destaque), translations, body };
+  const article = { lang, slug, file, state: meta.estado, title: meta.titulo, description: meta.descricao, published: meta.publicado, updated: meta.atualizado, categories, balloon: meta.balao, gallery, video: meta.video, featured: meta.destaque === undefined ? undefined : Number(meta.destaque), author: meta.autor, translations, body };
   if (meta.estado === 'publicado') {
     for (const [key, value] of [['titulo', meta.titulo], ['descricao', meta.descricao], ['publicado', meta.publicado], ['categorias', categories.length]]) if (!value) fail(`${key} é obrigatório em artigo publicado`);
     if (!body) fail('o corpo está vazio');
     checkBody(body, fail);
-    for (const [key, value] of [['titulo', meta.titulo], ['descricao', meta.descricao], ['balao', meta.balao || ''], ['galeria', meta.galeria || ''], ['corpo', body]]) { const hit = bannedCopy.exec(value); if (hit) fail(`${key} contém texto proibido (${hit[0]}); veja o README`); }
+    for (const [key, value] of [['titulo', meta.titulo], ['descricao', meta.descricao], ['autor', meta.autor || ''], ['balao', meta.balao || ''], ['galeria', meta.galeria || ''], ['corpo', body]]) { const hit = bannedCopy.exec(value); if (hit) fail(`${key} contém texto proibido (${hit[0]}); veja o README`); }
     const sources = imageSources(body);
     article.thumb = sources[0];
     // The gallery never repeats a picture that already appears in the text.
@@ -335,7 +336,7 @@ export function renderBody(blog, page) {
   const host = blogHosts[c.host];
   const chips = a.categories.map(id => { const k = blogCategories[id]; return `<a class="chip" href="${categoryPath(lang, id)}">${avatarImg(k.host)}${escape(k.name[lang])}</a>`; }).join('');
   const bubble = a.balloon ? `<div class="bub"><p>${escape(a.balloon)}</p><small>${escape(host.name[lang])}</small></div>` : '';
-  const hero = `<div class="hero-b" style="${colors(c)}"><div class="wrap"><div class="t">${crumbs(breadcrumbItems(page), t)}<div class="chips-a">${chips}</div><h1>${escape(a.title)}</h1><p class="lede">${escape(a.description)}</p><p class="meta">${t.by} <span class="author">${t.author}</span> · ${t.published} ${time(a.published, lang)} · ${t.updated} ${time(a.updated, lang)} · ${a.minutes} ${t.minRead}</p></div><div class="host">${bubble}${hostImg(c.host)}</div></div></div>`;
+  const hero = `<div class="hero-b" style="${colors(c)}"><div class="wrap"><div class="t">${crumbs(breadcrumbItems(page), t)}<div class="chips-a">${chips}</div><h1>${escape(a.title)}</h1><p class="lede">${escape(a.description)}</p><p class="meta">${t.by} <span class="author">${escape(a.author || t.author)}</span> · ${t.published} ${time(a.published, lang)} · ${t.updated} ${time(a.updated, lang)} · ${a.minutes} ${t.minRead}</p></div><div class="host">${bubble}${hostImg(c.host)}</div></div></div>`;
   // The Short box goes after the introduction (before the first h2), or first when the text has no h2.
   const cut = a.body.search(/<h2[\s>]/i);
   const video = a.video ? videoBlock(a, t) : '';
@@ -364,7 +365,7 @@ export function headParts(blog, page) {
     extra.push(jsonScript({
       '@context': 'https://schema.org',
       '@graph': [
-        { '@type': 'BlogPosting', '@id': `${url}#post`, headline: a.title, description: a.description, datePublished: a.published, dateModified: a.updated, inLanguage: htmlLang[lang], url, mainEntityOfPage: { '@type': 'WebPage', '@id': url }, image: [image], keywords: a.categories.map(id => categoryName(id, lang)).join(', '), wordCount: a.body.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length, articleSection: a.categories.map(id => categoryName(id, lang)), author: organization, publisher: { ...organization, logo: { '@type': 'ImageObject', url: `${origin}/assets/icon-192.png` } } },
+        { '@type': 'BlogPosting', '@id': `${url}#post`, headline: a.title, description: a.description, datePublished: a.published, dateModified: a.updated, inLanguage: htmlLang[lang], url, mainEntityOfPage: { '@type': 'WebPage', '@id': url }, image: [image], keywords: a.categories.map(id => categoryName(id, lang)).join(', '), wordCount: a.body.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length, articleSection: a.categories.map(id => categoryName(id, lang)), author: a.author ? { '@type': 'Person', name: a.author, worksFor: organization } : organization, publisher: { ...organization, logo: { '@type': 'ImageObject', url: `${origin}/assets/icon-192.png` } } },
         { '@type': 'BreadcrumbList', itemListElement: items },
         ...(video ? [video] : []),
       ],

@@ -62,3 +62,9 @@ Os artigos `exemplo-de-artigo` (pt) e `example-blog-article` (en) são fixtures 
 ## Ferramenta: Campo Minado
 
 Página `campo-minado` (`/ferramentas/campo-minado/`, `/en/tools/minesweeper/`, `/es/herramientas/buscaminas/`, `/fr/outils/demineur/`), fora do menu principal; o link está na faixa lateral do blog e nos recursos da home. O jogo é `assets/campo-minado.js` (UMD: no navegador monta a interface em `#campo-minado`, no Node exporta o núcleo) com `assets/campo-minado.css`, carregados só nessa página (`assets` em `site.mjs`). O texto da página fica em `_fonte/conteudo/<idioma>/campo-minado.html`; os textos da interface e das dicas do Hug estão em `TEXT` no JS (lê `<html lang>`). `?seed=` e `?level=beginner|intermediate|advanced` reproduzem tabuleiros. A dica do Hug nunca confia em bandeiras: só prova por contagem, subconjunto e enumeração das formas da borda (com o total de minas quando exato), e `tests/campo-minado.test.mjs` confere cada afirmação contra os tabuleiros reais e contra todas as disposições possíveis em tabuleiros pequenos. Não há espaço de anúncio na página além da tag do AdSense que o gerador já põe.
+
+### Chaves `destaque` e `autor` (22/11/2026)
+
+- `destaque: 1` a `99` põe o artigo na faixa "Em alta agora" da primeira página do índice (até 3, o menor número primeiro; o mais novo desempata) e na faixa do blog da home. Os destacados saem da lista abaixo da faixa.
+- `autor: Melby Dev` troca "Melbees" na linha de autoria do artigo e vira `Person` (trabalha na Melbees) no JSON-LD. Use um codinome (1 a 60 caracteres), nunca o nome verdadeiro do dono. Sem a chave, o autor é a organização Melbees.
+- Categoria `speedrun` (anfitrião Pow): o item "Speedrun" do menu leva à página dela assim que houver um artigo publicado nela; antes disso leva à página de speedrun do jogo.
