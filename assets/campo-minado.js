@@ -450,7 +450,7 @@
   var TEXT = {
     pt: {
       levels: { beginner: 'Iniciante 9×9 · 10 minas', intermediate: 'Intermediário 16×16 · 40 minas', advanced: 'Avançado 30×16 · 99 minas' },
-      level: 'Nível', mines: 'Minas', time: 'Tempo', newGame: 'Novo jogo', replay: 'Repetir este tabuleiro', flagMode: 'Modo bandeira', hint: 'Dica do Hug', seed: 'Semente', copy: 'Copiar link', copied: 'Link copiado',
+      level: 'Nível', mines: 'Minas', time: 'Tempo', newGame: 'Novo jogo', replay: 'Repetir este tabuleiro', flagMode: 'Modo bandeira', hint: 'Dica do Hug', seed: 'Seed (semente)', seedGo: 'Jogar com esta seed', seedCopy: 'Copiar seed', seedCopied: 'Seed copiada', seedBad: 'Digite uma seed: um número ou um texto de até 64 caracteres.', copy: 'Copiar link', copied: 'Link copiado',
       boardLabel: 'Tabuleiro do Campo Minado. Setas movem, Espaço abre, F marca uma bandeira.', row: 'linha', col: 'coluna', refRow: 'L', refCol: 'C',
       closed: 'fechada', flag: 'bandeira', empty: 'vazia', mine: 'mina', wrongFlag: 'bandeira errada', near: function (n) { return n + (n === 1 ? ' mina em volta' : ' minas em volta'); },
       ready: 'Abra uma casa para começar. O primeiro clique é sempre seguro.', playing: 'Jogo em andamento.', won: function (t) { return 'Você venceu em ' + t + ' s!'; }, lost: 'Era uma mina. O tabuleiro foi aberto: tente de novo.',
@@ -475,7 +475,7 @@
     },
     en: {
       levels: { beginner: 'Beginner 9×9 · 10 mines', intermediate: 'Intermediate 16×16 · 40 mines', advanced: 'Advanced 30×16 · 99 mines' },
-      level: 'Level', mines: 'Mines', time: 'Time', newGame: 'New game', replay: 'Replay this board', flagMode: 'Flag mode', hint: 'Hug’s hint', seed: 'Seed', copy: 'Copy link', copied: 'Link copied',
+      level: 'Level', mines: 'Mines', time: 'Time', newGame: 'New game', replay: 'Replay this board', flagMode: 'Flag mode', hint: 'Hug’s hint', seed: 'Seed', seedGo: 'Play this seed', seedCopy: 'Copy seed', seedCopied: 'Seed copied', seedBad: 'Type a seed: a number or text of up to 64 characters.', copy: 'Copy link', copied: 'Link copied',
       boardLabel: 'Minesweeper board. Arrow keys move, Space opens, F places a flag.', row: 'row', col: 'column', refRow: 'R', refCol: 'C',
       closed: 'closed', flag: 'flag', empty: 'empty', mine: 'mine', wrongFlag: 'wrong flag', near: function (n) { return n + (n === 1 ? ' mine nearby' : ' mines nearby'); },
       ready: 'Open a cell to start. The first click is always safe.', playing: 'Game in progress.', won: function (t) { return 'You won in ' + t + ' s!'; }, lost: 'That was a mine. The board is open: try again.',
@@ -500,7 +500,7 @@
     },
     es: {
       levels: { beginner: 'Principiante 9×9 · 10 minas', intermediate: 'Intermedio 16×16 · 40 minas', advanced: 'Avanzado 30×16 · 99 minas' },
-      level: 'Nivel', mines: 'Minas', time: 'Tiempo', newGame: 'Juego nuevo', replay: 'Repetir este tablero', flagMode: 'Modo bandera', hint: 'Pista de Hug', seed: 'Semilla', copy: 'Copiar enlace', copied: 'Enlace copiado',
+      level: 'Nivel', mines: 'Minas', time: 'Tiempo', newGame: 'Juego nuevo', replay: 'Repetir este tablero', flagMode: 'Modo bandera', hint: 'Pista de Hug', seed: 'Semilla (seed)', seedGo: 'Jugar con esta semilla', seedCopy: 'Copiar semilla', seedCopied: 'Semilla copiada', seedBad: 'Escribe una semilla: un número o un texto de hasta 64 caracteres.', copy: 'Copiar enlace', copied: 'Enlace copiado',
       boardLabel: 'Tablero del Buscaminas. Las flechas mueven, Espacio abre, F pone una bandera.', row: 'fila', col: 'columna', refRow: 'F', refCol: 'C',
       closed: 'cerrada', flag: 'bandera', empty: 'vacía', mine: 'mina', wrongFlag: 'bandera equivocada', near: function (n) { return n + (n === 1 ? ' mina alrededor' : ' minas alrededor'); },
       ready: 'Abre una casilla para empezar. El primer clic siempre es seguro.', playing: 'Partida en curso.', won: function (t) { return '¡Ganaste en ' + t + ' s!'; }, lost: 'Era una mina. El tablero quedó abierto: inténtalo de nuevo.',
@@ -525,7 +525,7 @@
     },
     fr: {
       levels: { beginner: 'Débutant 9×9 · 10 mines', intermediate: 'Intermédiaire 16×16 · 40 mines', advanced: 'Avancé 30×16 · 99 mines' },
-      level: 'Niveau', mines: 'Mines', time: 'Temps', newGame: 'Nouvelle partie', replay: 'Rejouer cette grille', flagMode: 'Mode drapeau', hint: 'Indice de Hug', seed: 'Graine', copy: 'Copier le lien', copied: 'Lien copié',
+      level: 'Niveau', mines: 'Mines', time: 'Temps', newGame: 'Nouvelle partie', replay: 'Rejouer cette grille', flagMode: 'Mode drapeau', hint: 'Indice de Hug', seed: 'Graine (seed)', seedGo: 'Jouer cette graine', seedCopy: 'Copier la graine', seedCopied: 'Graine copiée', seedBad: 'Saisissez une graine : un nombre ou un texte de 64 caractères au maximum.', copy: 'Copier le lien', copied: 'Lien copié',
       boardLabel: 'Grille du Démineur. Les flèches déplacent, Espace ouvre, F pose un drapeau.', row: 'ligne', col: 'colonne', refRow: 'L', refCol: 'C',
       closed: 'fermée', flag: 'drapeau', empty: 'vide', mine: 'mine', wrongFlag: 'drapeau erroné', near: function (n) { return n + (n === 1 ? ' mine autour' : ' mines autour'); },
       ready: 'Ouvrez une case pour commencer. Le premier clic est toujours sûr.', playing: 'Partie en cours.', won: function (t) { return 'Gagné en ' + t + ' s !'; }, lost: 'C’était une mine. La grille est ouverte : réessayez.',
@@ -633,12 +633,22 @@
     var scroller = el('div', 'cm-scroll');
     var grid = el('div', 'cm-grid'); grid.setAttribute('role', 'grid'); grid.setAttribute('aria-label', T.boardLabel);
     scroller.appendChild(grid);
-    var foot = el('div', 'cm-foot'); var seedText = el('span', 'cm-seed');
+    var play = el('div', 'cm-play'); var boardCol = el('div', 'cm-board'); boardCol.appendChild(scroller);
+    play.appendChild(boardCol); play.appendChild(hug);
+    var seedForm = el('form', 'cm-seedform'); seedForm.noValidate = true;
+    var seedLabel = el('label', 'cm-field cm-seedfield'); seedLabel.appendChild(el('span', '', T.seed));
+    var seedInput = el('input', 'cm-seedinput'); seedInput.type = 'text'; seedInput.maxLength = 64; seedInput.autocomplete = 'off'; seedInput.spellcheck = false; seedInput.setAttribute('autocapitalize', 'off');
+    seedLabel.appendChild(seedInput);
+    var seedGo = el('button', 'cm-btn', T.seedGo); seedGo.type = 'submit';
+    var seedCopy = el('button', 'cm-btn', T.seedCopy); seedCopy.type = 'button';
+    var seedMsg = el('span', 'cm-copied'); seedMsg.setAttribute('role', 'status');
+    [seedLabel, seedGo, seedCopy, seedMsg].forEach(function (x) { seedForm.appendChild(x); });
+    var foot = el('div', 'cm-foot');
     var replayBtn = el('button', 'cm-link', T.replay); replayBtn.type = 'button';
     var copyBtn = el('button', 'cm-link', T.copy); copyBtn.type = 'button';
     var copyMsg = el('span', 'cm-copied'); copyMsg.setAttribute('role', 'status');
-    [seedText, replayBtn, copyBtn, copyMsg].forEach(function (x) { foot.appendChild(x); });
-    [bar, hug, rules, status, scroller, foot].forEach(function (x) { host.appendChild(x); });
+    [replayBtn, copyBtn, copyMsg].forEach(function (x) { foot.appendChild(x); });
+    [bar, rules, status, play, seedForm, foot].forEach(function (x) { host.appendChild(x); });
 
     function say(title, paragraphs, note) {
       bTitle.textContent = title || '';
@@ -696,7 +706,6 @@
       var msg = game.status === 'won' ? T.won(elapsed) : game.status === 'lost' ? T.lost : game.status === 'ready' ? T.ready : T.playing;
       if (status.textContent !== msg) status.textContent = msg;
       status.className = 'cm-status ' + game.status;
-      seedText.textContent = T.seed + ': ' + seed;
     }
     function stopTimer() { if (tick) { clearInterval(tick); tick = null; } }
     function startTimer() {
@@ -726,7 +735,7 @@
         }
         grid.appendChild(row);
       }
-      sizeBoard(); setUrl(); copyMsg.textContent = '';
+      sizeBoard(); setUrl(); copyMsg.textContent = ''; seedMsg.textContent = ''; seedInput.value = String(seed);
       say(T.hugName, [T.hugHello], '');
       select.value = levelKey;
       paintAll();
@@ -820,6 +829,17 @@
     copyBtn.addEventListener('click', function () {
       var url = location.href, done = function () { copyMsg.textContent = T.copied; };
       try { navigator.clipboard.writeText(url).then(done, function () { copyMsg.textContent = url; }); } catch (e) { copyMsg.textContent = url; }
+    });
+    seedForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = parseSeed(seedInput.value);
+      if (v === null) { seedMsg.textContent = T.seedBad; seedInput.setAttribute('aria-invalid', 'true'); seedInput.focus(); return; }
+      seedInput.removeAttribute('aria-invalid');
+      seed = v; newGame(true);
+    });
+    seedCopy.addEventListener('click', function () {
+      var t = String(seed), done = function () { seedMsg.textContent = T.seedCopied; };
+      try { navigator.clipboard.writeText(t).then(done, function () { seedInput.select(); }); } catch (err) { seedInput.select(); }
     });
     window.addEventListener('resize', function () { if (game) sizeBoard(); });
 
