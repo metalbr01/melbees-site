@@ -8,3 +8,7 @@ sitemap.xml text eol=lf
 robots.txt text eol=lf
 _fonte/** text eol=lf
 tools/hooks/pre-push text eol=lf
+blog/feed.xml text eol=lf
+en/blog/feed.xml text eol=lf
+assets/blog.css text eol=lf
+assets/blog.js text eol=lf
