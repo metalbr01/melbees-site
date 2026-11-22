@@ -617,17 +617,22 @@
     var newBtn = el('button', 'cm-btn', T.newGame); newBtn.type = 'button';
     var flagBtn = el('button', 'cm-btn cm-toggle', T.flagMode); flagBtn.type = 'button'; flagBtn.setAttribute('aria-pressed', 'false');
     var hintBtn = el('button', 'cm-btn cm-hint', T.hint); hintBtn.type = 'button';
-    [levelLabel, minesBox, timeBox, newBtn, flagBtn, hintBtn].forEach(function (x) { bar.appendChild(x); });
+    [levelLabel, minesBox, timeBox, newBtn, flagBtn].forEach(function (x) { bar.appendChild(x); });
 
     var hug = el('div', 'cm-hug');
+    var avatarBtn = el('button', 'cm-hug-face'); avatarBtn.type = 'button'; avatarBtn.title = T.hint; avatarBtn.setAttribute('aria-label', T.hint);
     var avatar = el('img', 'cm-hug-img'); avatar.src = '/assets/blog/hosts/hug-avatar.webp'; avatar.alt = T.hugName; avatar.width = 96; avatar.height = 96; avatar.decoding = 'async';
     var bubble = el('div', 'cm-bubble'); bubble.setAttribute('role', 'status'); bubble.setAttribute('aria-live', 'polite');
     var bTitle = el('p', 'cm-bubble-title'), bText = el('div', 'cm-bubble-text'), bNote = el('p', 'cm-bubble-note');
     bubble.appendChild(bTitle); bubble.appendChild(bText); bubble.appendChild(bNote);
-    hug.appendChild(avatar); hug.appendChild(bubble);
-
-    var rules = el('details', 'cm-rules'); rules.appendChild(el('summary', '', T.rulesTitle));
+    avatarBtn.appendChild(avatar);
+    var HOW = { pt: 'Como jogar', en: 'How to play', es: 'Cómo jugar', fr: 'Comment jouer' };
+    var howBtn = el('button', 'cm-btn cm-how', HOW[lang] || HOW.pt); howBtn.type = 'button'; howBtn.setAttribute('aria-expanded', 'false');
+    var actions = el('div', 'cm-hug-actions'); actions.appendChild(hintBtn); actions.appendChild(howBtn);
+    var rules = el('div', 'cm-rules'); rules.hidden = true; rules.appendChild(el('p', 'cm-rules-title', T.rulesTitle));
     var ul = el('ul'); T.rules.forEach(function (r) { ul.appendChild(el('li', '', r)); }); rules.appendChild(ul);
+    howBtn.addEventListener('click', function () { rules.hidden = !rules.hidden; howBtn.setAttribute('aria-expanded', String(!rules.hidden)); sizeBoard(); });
+    hug.appendChild(avatarBtn); hug.appendChild(bubble); hug.appendChild(actions); hug.appendChild(rules);
 
     var status = el('p', 'cm-status'); status.setAttribute('role', 'status');
     var scroller = el('div', 'cm-scroll');
@@ -648,7 +653,7 @@
     var copyBtn = el('button', 'cm-link', T.copy); copyBtn.type = 'button';
     var copyMsg = el('span', 'cm-copied'); copyMsg.setAttribute('role', 'status');
     [replayBtn, copyBtn, copyMsg].forEach(function (x) { foot.appendChild(x); });
-    [bar, rules, status, play, seedForm, foot].forEach(function (x) { host.appendChild(x); });
+    [bar, status, play, seedForm, foot].forEach(function (x) { host.appendChild(x); });
 
     function say(title, paragraphs, note) {
       bTitle.textContent = title || '';
@@ -661,8 +666,12 @@
       try { var u = new URL(location.href); u.searchParams.set('seed', String(seed)); u.searchParams.set('level', levelKey); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) { /* sem histórico */ }
     }
     function sizeBoard() {
-      var avail = Math.max(200, scroller.clientWidth || host.clientWidth || 320);
-      var size = Math.max(22, Math.min(38, Math.floor(avail / game.w)));
+      // o tabuleiro inteiro cabe na largura e na altura da tela: sem barra de rolagem
+      var avail = Math.max(120, boardCol.clientWidth || host.clientWidth || 320) - 20;
+      var byW = Math.floor(avail / game.w);
+      var vh = window.innerHeight || 800;
+      var byH = Math.floor((vh - 150) / game.h);
+      var size = Math.max(10, Math.min(38, byW, Math.max(18, byH)));
       grid.style.setProperty('--cm-size', size + 'px');
       grid.style.setProperty('--cm-cols', String(game.w));
     }
@@ -826,6 +835,7 @@
     replayBtn.addEventListener('click', function () { newGame(true); });
     flagBtn.addEventListener('click', function () { flagMode = !flagMode; flagBtn.setAttribute('aria-pressed', String(flagMode)); flagBtn.classList.toggle('on', flagMode); });
     hintBtn.addEventListener('click', showHint);
+    avatarBtn.addEventListener('click', showHint);
     copyBtn.addEventListener('click', function () {
       var url = location.href, done = function () { copyMsg.textContent = T.copied; };
       try { navigator.clipboard.writeText(url).then(done, function () { copyMsg.textContent = url; }); } catch (e) { copyMsg.textContent = url; }

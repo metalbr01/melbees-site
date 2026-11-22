@@ -49,20 +49,25 @@
 <main>
 <article class="wrap editorial editorial-wide"><h1>Campo Minado online com dicas do Hug</h1><p class="lede">Oi, aqui é o Hug. O Campo Minado clássico roda direto no navegador, de graça e sem instalar nada. Cada número conta as minas vizinhas, e quando você travar eu mostro o raciocínio, sem pressa.</p>
 <div id="campo-minado" class="cm" data-cm><p class="cm-noscript">Este jogo precisa de JavaScript. Ative-o para jogar.</p></div>
+<aside class="cm-cta"><div><strong class="cm-cta-t">Gosta de Campo Minado?</strong><p>Que tal um Campo Minado com letras? Em <strong>Melbees: The Secret of Bees</strong> a Forca encontra o Campo Minado num favo de mel.</p></div><a class="cm-btn cm-cta-btn keep-src" href="/secret-of-bees/">Conhecer o jogo</a></aside>
 <div class="cm-prose">
-<h2>Como jogar</h2>
+<details class="cm-sec"><summary>Como jogar</summary>
 <p>O tabuleiro é uma grade de casas fechadas. Algumas escondem minas, e o seu trabalho é abrir todas as casas que não têm mina. Toque ou clique numa casa para abri-la. Se ela esconder uma mina, o jogo termina. Se não, ela mostra um número: quantas minas existem nas oito casas em volta dela. Uma casa vazia, sem número, não tem mina nenhuma por perto, e por isso o jogo abre sozinho todas as vizinhas dela, em cascata.</p>
 <p>Quando você descobrir que uma casa tem mina, marque-a com uma bandeira. No computador, use o botão direito do mouse. No celular, mantenha o dedo apertado sobre a casa (toque longo) ou ligue o botão "Modo bandeira" e toque normalmente. A bandeira só ajuda você a lembrar: ela não abre nem protege nada. O contador mostra as minas do tabuleiro menos as bandeiras que você pôs, e o cronômetro começa no primeiro clique. Com o teclado, use as setas para mover, Espaço para abrir e F para marcar.</p>
 <p>Há três níveis: Iniciante (9 por 9 com 10 minas), Intermediário (16 por 16 com 40) e Avançado (30 por 16 com 99). Cada tabuleiro nasce de uma semente. Se você abrir a página com <code>?seed=123</code> no endereço, vai ter sempre o mesmo tabuleiro para o mesmo nível e o mesmo primeiro clique, e dá para mandar o link a um amigo e comparar quem resolve mais rápido.</p>
-<h2>Estratégia básica</h2>
+</details>
+<details class="cm-sec"><summary>Estratégia básica</summary>
 <p>O primeiro clique é sempre seguro, e sempre abre uma clareira. O jogo só espalha as minas depois dele e deixa de fora a casa que você abriu e as oito em volta: esse bloco de 3 por 3 nasce limpo, a casa vira um zero e a vizinhança abre em cascata. Dali em diante, nada é sorte enquanto houver uma casa que a lógica prove.</p>
 <p>Comece pelos números mais fáceis de ler. Se um número tem exatamente tantas casas fechadas em volta quanto o valor dele, todas elas são minas. Se um número já tem as minas dele marcadas, as outras casas fechadas em volta são seguras. Só que isso vale se as bandeiras estiverem certas: o contador de minas só desconta as bandeiras que você pôs, não sabe se estão no lugar certo. Bandeira errada, conta errada.</p>
 <p>Depois olhe para dois números vizinhos. É a regra do subconjunto: quando as casas fechadas de um número cabem todas dentro das do outro, compare o que cada um ainda precisa. No padrão 1-1, o segundo olha as mesmas casas do primeiro e mais uma. A mina do primeiro já está nas casas em comum, então a casa extra é segura. No padrão 1-2, o segundo olha as mesmas casas do primeiro e mais uma, e precisa de uma mina a mais: a casa extra é mina.</p>
 <p>Às vezes nenhuma regra simples resolve. Aí vale testar as possibilidades: imaginar onde as minas poderiam estar e ver se alguma casa é segura, ou é mina, em todas elas. Se mesmo assim nada é certo, chegou a hora do palpite. Palpite não é lógica, é risco calculado: abra a casa de menor chance de mina na borda da área aberta, e aceite que às vezes ele falha.</p>
-<h2>As dicas do Hug</h2>
+</details>
+<details class="cm-sec"><summary>As dicas do Hug</summary>
 <p>Travou? Aperte "Dica do Hug". Eu procuro primeiro uma regra de contagem simples, depois a do subconjunto e, por último, tento contar as possibilidades de colocar as minas na borda. Se a posição for complexa demais para essa contagem, eu aviso. Só destaco uma casa quando ela é segura, ou é mina, em todas as possibilidades que consegui contar, e explico o porquê com palavras simples. Se não houver nada certo, eu digo, mostro a casa de menor risco e deixo claro que é palpite. Use a dica para aprender o raciocínio, não só para avançar.</p>
-<h2>O Campo Minado no Melbees</h2>
+</details>
+<details class="cm-sec"><summary>O Campo Minado no Melbees</summary>
 <p>O Melbees é um jogo de palavras onde a Forca encontra o Campo Minado num favo de mel: cada número conta as letras certas em volta, e a lógica que você treina aqui serve lá. Quer testar? Jogue o <a href="https://diario.melbees.games/?utm_source=site&amp;utm_medium=web&amp;utm_campaign=campo-minado" rel="noopener">Desafio diário</a> no navegador, ou leia a <a class="keep-src" href="/secret-of-bees/estrategia/">estratégia do Melbees</a>, que usa as mesmas ideias de contagem em favos de mel.</p>
+</details>
 </div></article>
 </main>
 <footer><div class="wrap"><span>© 2026 Melbee Games</span><nav aria-label="Rodapé"><a class="keep-src" href="/blog/">Blog</a><a class="keep-src" href="/secret-of-bees/">Jogo</a><a class="keep-src" href="/secret-of-bees/professores/">Professores</a><a class="keep-src" href="/secret-of-bees/speedrun/">Speedrun</a><a class="keep-src" href="/secret-of-bees/press/">Imprensa</a><a class="keep-src" href="/sobre/">Sobre</a><a class="keep-src" href="/contato/">Contato</a><a class="keep-src" href="/privacidade/">Privacidade</a><a class="keep-src" href="/termos/">Termos</a><a href="mailto:contact@melbees.games">contact@melbees.games</a></nav></div></footer>

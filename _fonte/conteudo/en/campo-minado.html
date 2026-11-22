@@ -1,17 +1,22 @@
 <p class="lede">Hi, Hug here. Classic Minesweeper runs right in your browser, free, nothing to install. Every number counts the neighboring mines, and when you get stuck I'll walk you through the reasoning, no rush.</p>
 <div id="campo-minado" class="cm" data-cm><p class="cm-noscript">This game needs JavaScript. Turn it on to play.</p></div>
+<aside class="cm-cta"><div><strong class="cm-cta-t">Like Minesweeper?</strong><p>How about Minesweeper with letters? In <strong>Melbees: The Secret of Bees</strong> Hangman meets Minesweeper on a honeycomb.</p></div><a class="cm-btn cm-cta-btn keep-src" href="/en/secret-of-bees/">Meet the game</a></aside>
 <div class="cm-prose">
-<h2>How to play</h2>
+<details class="cm-sec"><summary>How to play</summary>
 <p>The board is a grid of closed cells. Some of them hide mines, and your job is to open every cell that has no mine. Tap or click a cell to open it. If it hides a mine, the game ends. If not, it shows a number: how many mines sit in the eight cells around it. An empty cell, with no number, has no mine anywhere near, so the game opens all of its neighbors for you, in a cascade.</p>
 <p>When you work out that a cell holds a mine, mark it with a flag. On a computer, use the right mouse button. On a phone, hold your finger on the cell (a long press) or turn on the "Flag mode" button and tap as usual. A flag only helps you remember: it does not open or protect anything. The counter shows the board's mines minus the flags you placed, and the timer starts at your first click. With a keyboard, use the arrow keys to move, Space to open and F to flag.</p>
 <p>There are three levels: Beginner (9 by 9 with 10 mines), Intermediate (16 by 16 with 40) and Advanced (30 by 16 with 99). Every board grows from a seed. If you open the page with <code>?seed=123</code> in the address, you get the same board every time for the same level and the same first click, so you can send the link to a friend and compare who solves it faster.</p>
-<h2>Basic strategy</h2>
+</details>
+<details class="cm-sec"><summary>Basic strategy</summary>
 <p>Your first click is always safe, and it always opens a clearing. The game only places the mines after it and leaves out the cell you opened and the eight around it: that 3 by 3 block starts clean, the cell becomes a zero, and the neighborhood opens in a cascade. From there on, nothing is luck as long as there's a cell that logic can prove.</p>
 <p>Start with the numbers that are easiest to read. If a number has exactly as many closed cells around it as its value, all of them are mines. If a number already has its mines marked, the other closed cells around it are safe. That only holds if your flags are right, though: the mine counter just subtracts the flags you placed, it doesn't know whether they're in the right spot. Wrong flag, wrong math.</p>
 <p>Then look at two neighboring numbers. This is the subset rule: when the closed cells of one number all sit inside the closed cells of the other, compare what each one still needs. In the 1-1 pattern, the second number sees the same cells as the first, plus one more. The first one's mine is already among the shared cells, so the extra cell is safe. In the 1-2 pattern, the second number sees the same cells as the first, plus one more, and needs one more mine: the extra cell is a mine.</p>
 <p>Sometimes no simple rule works. Then it's worth testing the possibilities: picture where the mines could be and check whether some cell is safe, or a mine, in all of them. If nothing is certain even then, it's guess time. A guess isn't logic, it's calculated risk: open the lowest-risk cell along the edge of the opened area, and accept that sometimes it fails.</p>
-<h2>Hug's hints</h2>
+</details>
+<details class="cm-sec"><summary>Hug's hints</summary>
 <p>Stuck? Press "Hug's hint". I look for a simple counting rule first, then the subset rule, and last I try to count the possible ways to place the mines along the border. If the position is too complex for that count, I'll tell you. I only highlight a cell when it's safe, or a mine, in every possibility I managed to count, and I explain why in plain words. If nothing is certain, I say so, show you the lowest-risk cell and make clear it's a guess. Use the hint to learn the reasoning, not only to move forward.</p>
-<h2>Minesweeper inside Melbees</h2>
+</details>
+<details class="cm-sec"><summary>Minesweeper inside Melbees</summary>
 <p>Melbees is a word game where Hangman meets Minesweeper on a honeycomb: every number counts the right letters around it, and the logic you train here carries over. Want to try? Play the <a href="https://daily.melbees.games/?utm_source=site&amp;utm_medium=web&amp;utm_campaign=campo-minado" rel="noopener">Daily Challenge</a> in your browser, or read the <a class="keep-src" href="/en/secret-of-bees/strategy/">Melbees strategy guide</a>, which uses the same counting ideas on honeycombs.</p>
+</details>
 </div>
