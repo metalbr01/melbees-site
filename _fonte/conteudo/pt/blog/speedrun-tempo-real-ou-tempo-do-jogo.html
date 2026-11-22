@@ -1,23 +1,23 @@
 ---
 titulo: Tempo real ou tempo do jogo no speedrun: por que o cronômetro muda?
-descricao: Entenda a diferença entre tempo real, tempo sem carregamentos e tempo do jogo no speedrun. Com números do speedrun.com em Hollow Knight e Portal.
+descricao: O recorde de Hollow Knight tem 4 min 29 s num cronômetro e 6 min 38 s em outro. Entenda tempo real, sem carregamentos e do jogo, com números do speedrun.com.
 publicado: 2026-11-22
 atualizado: 2026-11-22
 categorias: speedrun, jogos
 balao: O mesmo recorde pode ter dois tempos, e os dois estão certos.
 estado: rascunho
 ---
-<p>Abra o quadro de líderes de Hollow Knight no speedrun.com e veja o recorde de Any%: 4 minutos e 29,34 segundos. Agora olhe os detalhes da mesma corrida: o tempo real, do início ao fim, foi de 6 minutos e 38 segundos. Os dois valores são verdadeiros. A diferença de 2 minutos e 8,66 segundos é o tempo que o jogo gastou carregando telas. Por isso cada quadro precisa decidir qual cronômetro vale, e é disso que trata este guia.</p>
+<p>O recorde de Any% de Hollow Knight no speedrun.com é de 4 min 29,34 s. Só que a mesma corrida, no relógio de parede, durou 6 min 38 s. Os dois tempos são verdadeiros: a diferença de 2 min 8,66 s é o quanto o jogo passou carregando telas. Por isso cada quadro precisa escolher um cronômetro, e essa escolha muda o número que vai para o topo.</p>
 
 <h2>Os três cronômetros mais comuns</h2>
 <ul>
-<li><strong>Tempo real (RTA):</strong> o relógio de parede, do primeiro ao último instante. É simples de entender e de verificar em vídeo.</li>
-<li><strong>Tempo real sem carregamentos:</strong> o mesmo relógio, mas parado enquanto o jogo carrega. Deixa de punir quem tem um computador ou console mais lento.</li>
-<li><strong>Tempo do jogo (in-game):</strong> o cronômetro que o próprio jogo mantém. É o que aparece na tela de resultados quando o título tem um.</li>
+<li><strong>Tempo real (RTA, de "real time attack"):</strong> o relógio de parede, do primeiro ao último instante.</li>
+<li><strong>Tempo real sem carregamentos:</strong> o mesmo relógio, parado enquanto o jogo carrega.</li>
+<li><strong>Tempo do jogo (in-game):</strong> o cronômetro que o próprio jogo mantém, nos títulos que têm um.</li>
 </ul>
 
-<h2>Quanto muda de verdade?</h2>
-<p>Medimos a diferença entre os dois tempos de alguns recordes mundiais, em 22 de novembro de 2026. O gráfico mostra que parte do tempo real é carregamento:</p>
+<h2>Quanto isso pesa de verdade</h2>
+<p>Comparamos os dois tempos de alguns recordes mundiais em 22 de novembro de 2026. O gráfico mostra que parte do tempo real é só carregamento:</p>
 <figure>
 <svg role="img" aria-label="Gráfico de barras com a parte do tempo real que é carregamento em seis recordes. Hollow Knight Any por cento 32,3 por cento; All Skills 30,0; True Ending 24,2; 107 por cento AB 19,8; Portal Out of Bounds 16,5; Portal Glitchless 0,7." viewBox="0 0 620 192" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect x="0" y="0" width="620" height="192" fill="#fff8e1"/>
@@ -36,32 +36,17 @@ estado: rascunho
 <li><strong>Portal, Out of Bounds:</strong> 300,735 s contra 360,363 s. Diferença de 59,628 s, 16,5%.</li>
 <li><strong>Portal, Glitchless:</strong> 863,43 s contra 869,86 s. Diferença de só 6,43 s, 0,7%.</li>
 </ul>
-<p>A lição está na comparação dos dois jogos. Num recorde de Hollow Knight, cerca de um terço do relógio é carregamento; em Portal, no Glitchless, quase nada. Se o quadro usasse só o tempo real, uma corrida com muitas trocas de tela perderia para outra com menos, não por falta de habilidade, mas por causa do disco. O tempo sem carregamentos tenta nivelar isso.</p>
+<p>Em Hollow Knight, quase um terço do relógio é carregamento. No glitchless de Portal, quase nada. Imagine, só de exemplo (não é um dado), dois corredores com a mesma habilidade, um com uma máquina em que cada carregamento leva 2 s e outro com uma em que leva 6 s. Se a corrida tem 20 carregamentos, são 40 s de diferença que não têm nada a ver com quem joga melhor. O tempo sem carregamentos existe para tirar esse peso da conta.</p>
 
-<h2>Qual cronômetro cada jogo usa?</h2>
+<h2>Quem usa qual</h2>
 <p>Olhamos a configuração de 10 quadros no speedrun.com:</p>
 <ul>
 <li><strong>Tempo real:</strong> Super Mario Bros., Super Mario 64, Ocarina of Time, Portal 2 e Mario Kart 64 (este também aceita o tempo do jogo).</li>
 <li><strong>Tempo real sem carregamentos:</strong> Hollow Knight e Portal.</li>
 <li><strong>Tempo do jogo:</strong> Celeste, Mario Kart Wii e Minecraft: Java Edition (os dois últimos também aceitam o tempo real).</li>
 </ul>
-<p>Nada nisso é regra universal: cada comunidade decide, e a nossa amostra de 10 jogos é pequena demais para tirar uma lei. O que ela mostra é que os três cronômetros convivem.</p>
+<p>Portal 2 tem um detalhe. A API marca o tempo como real, mas as regras da comunidade (rules.portal2.sr) dizem que a maioria das corridas é cronometrada pela demonstração, o arquivo que o jogo grava, e o plugin SAR reproduz essa contagem. Ou seja: o campo da API diz uma coisa, e a prática do quadro é outra. É um bom motivo para ler as regras do quadro antes de comparar dois recordes.</p>
+<p>Em Celeste, os recordes que consultamos vieram só com o tempo do jogo, e o campo de tempo real estava vazio. Por isso não calculamos diferença para ele.</p>
 
-<h2>O que checar antes de comparar dois recordes</h2>
-<ol>
-<li>Qual cronômetro o quadro usa? Comparar um tempo real com um tempo sem carregamentos é comparar coisas diferentes.</li>
-<li>A categoria é a mesma? Veja o nosso guia sobre <a href="/blog/speedrun-any-100-glitchless-por-que-recordes-diferentes/">Any%, 100% e glitchless</a>.</li>
-<li>Há mais de uma subcategoria? Alguns quadros separam o mesmo jogo por plataforma ou por versão.</li>
-</ol>
-
-<details>
-<summary>Por que não usar sempre o tempo real?</summary>
-<p>Porque o tempo real depende da máquina de cada corredor. Um carregamento de 2 segundos em um computador pode levar 6 em outro, e o recorde passa a medir hardware tanto quanto habilidade. Em contrapartida, o tempo real é o mais fácil de verificar em vídeo, e por isso alguns quadros o preferem.</p>
-</details>
-<details>
-<summary>O tempo do jogo pode ser diferente do tempo real em Celeste?</summary>
-<p>Pode, e o speedrun.com guarda os dois quando o corredor informa ambos. Na nossa consulta, os recordes de Celeste trazem só o tempo do jogo; o campo de tempo real veio vazio. Por isso não calculamos diferença para esse jogo.</p>
-</details>
-
-<p>Esperar um carregamento também é uma forma de tempo, e o Desafio diário do Melbees não faz você esperar: abre direto no navegador, grátis, com uma partida nova por dia: <a href="https://diario.melbees.games/">diario.melbees.games</a>.</p>
+<p>Se o assunto agora é espera, o <a href="https://diario.melbees.games/">Desafio diário</a> do Melbees é o contrário: abre direto no navegador e a partida do dia já está lá.</p>
 <p>Dados: speedrun.com, consultados em 22/11/2026.</p>
