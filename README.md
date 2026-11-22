@@ -66,5 +66,5 @@ Página `campo-minado` (`/ferramentas/campo-minado/`, `/en/tools/minesweeper/`, 
 ### Chaves `destaque` e `autor` (22/11/2026)
 
 - `destaque: 1` a `99` põe o artigo na faixa "Em alta agora" da primeira página do índice (até 3, o menor número primeiro; o mais novo desempata) e na faixa do blog da home. Os destacados saem da lista abaixo da faixa.
-- `autor: Melby Dev` troca "Melbees" na linha de autoria do artigo e vira `Person` (trabalha na Melbees) no JSON-LD. Use um codinome (1 a 60 caracteres), nunca o nome verdadeiro do dono. Sem a chave, o autor é a organização Melbees.
+- `autor: Melbees Dev` troca "Melbees" na linha de autoria do artigo e vira `Person` (trabalha na Melbees) no JSON-LD. Use um codinome (1 a 60 caracteres), nunca o nome verdadeiro do dono. Sem a chave, o autor é a organização Melbees.
 - Categoria `speedrun` (anfitrião Pow): o item "Speedrun" do menu leva à página dela assim que houver um artigo publicado nela; antes disso leva à página de speedrun do jogo.
