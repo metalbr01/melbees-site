@@ -635,15 +635,15 @@
     hug.appendChild(avatarBtn); hug.appendChild(bubble); hug.appendChild(actions); hug.appendChild(rules);
 
     var CTRL = {
-      pt: { mouse: ['Clique esquerdo', 'abre a casa', 'Clique direito', 'põe a bandeira'], touch: ['Toque', 'abre a casa', 'Segure o dedo', 'põe a bandeira'] },
-      en: { mouse: ['Left click', 'opens a cell', 'Right click', 'places a flag'], touch: ['Tap', 'opens a cell', 'Press and hold', 'places a flag'] },
-      es: { mouse: ['Clic izquierdo', 'abre la casilla', 'Clic derecho', 'pone la bandera'], touch: ['Toque', 'abre la casilla', 'Mantén pulsado', 'pone la bandera'] },
-      fr: { mouse: ['Clic gauche', 'ouvre la case', 'Clic droit', 'pose le drapeau'], touch: ['Toucher', 'ouvre la case', 'Appui long', 'pose le drapeau'] }
+      pt: { mouse: ['Clique esquerdo', 'Clique direito'], touch: ['Toque', 'Segure o dedo'], open: 'abre a casa', flag: 'põe a bandeira' },
+      en: { mouse: ['Left click', 'Right click'], touch: ['Tap', 'Press and hold'], open: 'opens a cell', flag: 'places a flag' },
+      es: { mouse: ['Clic izquierdo', 'Clic derecho'], touch: ['Toque', 'Mantén pulsado'], open: 'abre la casilla', flag: 'pone la bandera' },
+      fr: { mouse: ['Clic gauche', 'Clic droit'], touch: ['Toucher', 'Appui long'], open: 'ouvre la case', flag: 'pose le drapeau' }
     };
     var controls = el('p', 'cm-controls');
     function showControls(kind) {
-      var c = (CTRL[lang] || CTRL.pt)[kind]; controls.textContent = '';
-      [[c[0], c[1]], [c[2], c[3]]].forEach(function (p) { var s = el('span', 'cm-ctl'); s.appendChild(el('b', '', p[0])); s.appendChild(document.createTextNode(' ' + p[1])); controls.appendChild(s); });
+      var C = CTRL[lang] || CTRL.pt, c = C[kind]; controls.textContent = '';
+      [[c[0], flagMode ? C.flag : C.open], [c[1], flagMode ? C.open : C.flag]].forEach(function (p) { var s = el('span', 'cm-ctl'); s.appendChild(el('b', '', p[0])); s.appendChild(document.createTextNode(' ' + p[1])); controls.appendChild(s); });
       controls.dataset.kind = kind;
     }
     try { showControls(window.matchMedia('(pointer: coarse)').matches ? 'touch' : 'mouse'); } catch (e) { showControls('mouse'); }
@@ -771,7 +771,12 @@
       if (game.state[i] === 2) return;
       if (game.open(i)) afterMove();
     }
-    function secondary(i) { if (game.toggleFlag(i)) afterMove(); }
+    function secondary(i) {
+      if (!flagMode) { if (game.toggleFlag(i)) afterMove(); return; }
+      if (game.state[i] === 1) { if (game.chord(i)) afterMove(); return; }
+      if (game.state[i] === 2) return;
+      if (game.open(i)) afterMove();
+    }
     function cellOf(target) { var c = target && target.closest ? target.closest('.cm-cell') : null; return c ? Number(c.dataset.i) : -1; }
     function moveFocus(i) {
       var old = focus; focus = Math.max(0, Math.min(game.n - 1, i));
@@ -848,7 +853,7 @@
     select.addEventListener('change', function () { levelKey = select.value; newGame(false); });
     newBtn.addEventListener('click', function () { newGame(false); });
     replayBtn.addEventListener('click', function () { newGame(true); });
-    flagBtn.addEventListener('click', function () { flagMode = !flagMode; flagBtn.setAttribute('aria-pressed', String(flagMode)); flagBtn.classList.toggle('on', flagMode); });
+    flagBtn.addEventListener('click', function () { flagMode = !flagMode; flagBtn.setAttribute('aria-pressed', String(flagMode)); flagBtn.classList.toggle('on', flagMode); showControls(controls.dataset.kind); });
     hintBtn.addEventListener('click', showHint);
     avatarBtn.addEventListener('click', showHint);
     copyBtn.addEventListener('click', function () {
