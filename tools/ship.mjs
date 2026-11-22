@@ -21,7 +21,7 @@ const git = (root, ...args) => run('git', ['-C', root, ...args]);
 /** What must pass on the exact commit before it is stamped: the generator, then the tests. */
 export const STEPS = [
   ['node', ['_fonte/gerar.mjs']],
-  ['node', ['--test', 'tests/play.test.mjs', 'tests/site.test.mjs', 'tests/guard.test.mjs']],
+  ['node', ['--test', 'tests/play.test.mjs', 'tests/site.test.mjs', 'tests/guard.test.mjs', 'tests/campo-minado.test.mjs']],
   ['node', ['tests/http.test.mjs']]
 ];
 

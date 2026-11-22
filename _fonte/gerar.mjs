@@ -59,7 +59,7 @@ function render(page, lang, redirect) {
   const title = page.id === '404' ? 'Melbees · 404' : page.id === 'home' ? 'Melbees' : page.id === 'jogo' ? 'Melbees: The Secret of Bees' : `${t[page.id]} · Melbees`;
   // The body files are trusted, reviewed HTML fragments. Draft markers stay literal.
   if (draft) body = `<div class="wrap editorial"><h1>${t[page.id]}</h1><p class="draft">${escape(body)}</p></div>`;
-  else if (!page.existing) body = `<article class="wrap editorial"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
+  else if (!page.existing) body = `<article class="wrap editorial${page.tool ? ' editorial-wide' : ''}"><h1>${escape(metadata[`${page.id}/${lang}`]?.title || t[page.id])}</h1>${body}</article>`;
   if (page.id === 'home' && metadata[`home/${lang}`]?.recursos) body += '\n' + metadata[`home/${lang}`].recursos;
   const homeStrip = page.id === 'home' && !redirect && blog.has(lang);
   // The blog strip sits right under the hero, before the games: content first.
@@ -81,7 +81,7 @@ function render(page, lang, redirect) {
     adsense: adsenseTag(noindex),
     image: origin + (page.id === 'professores' ? '/secret-of-bees/professores/og.jpg' : '/assets/og.jpg'),
     styles: metadata[`${page.id}/${lang}`]?.styles ? `<style>${metadata[`${page.id}/${lang}`].styles}</style>` : '',
-    extra: homeStrip ? '\n<link rel="stylesheet" href="/assets/blog.css">\n<script src="/assets/blog.js" defer></script>' : '',
+    extra: (homeStrip ? '\n<link rel="stylesheet" href="/assets/blog.css">\n<script src="/assets/blog.js" defer></script>' : '') + (page.assets ? `\n<link rel="stylesheet" href="${page.assets.css}">\n<script src="${page.assets.js}" defer></script>` : ''),
   };
   // These redirects are aliases only. Language preferences never trigger navigation.
   const redirectScript = redirect ? `<script>(function(){var a=document.getElementById("redirect-target");a.href=${JSON.stringify(page.paths[lang])}+(location.search||${JSON.stringify(redirect.fallback)})+location.hash;location.replace(a.href)})();</script>` : '';

@@ -282,6 +282,7 @@ function sidebar(lang, t) {
     [`${daily[lang]}${utm}`, t.side.duel, true],
     [byId['como-jogar'].paths[lang], t.side.how, false],
     [byId.professores.paths[lang], t.side.teachers, false],
+    [byId['campo-minado'].paths[lang], t.side.mines, false],
   ].map(([href, [title, text], external]) => `<li><a ${external ? 'rel="noopener" ' : 'class="keep-src" '}href="${href}"><strong>${escape(title)}</strong><span>${escape(text)}</span></a></li>`).join('');
   return `<aside class="lateral" aria-labelledby="lateral-t">${hostImg('mel', 'lateral-mel')}<h2 id="lateral-t">${t.side.title}</h2><ul>${items}</ul><a class="btn" lang="${htmlLang[lang]}" href="${daily[lang]}${utm}" rel="noopener">${t.play}</a></aside>`;
 }

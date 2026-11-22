@@ -786,7 +786,7 @@ test('blog: sitemap and RSS are well-formed and list exactly the published pages
   const blogLocs = locs.filter(l => /\/blog\//.test(l)).map(l => l.slice(origin.length)).sort();
   const expected = ['/blog/', '/blog/categoria/news/', '/blog/categoria/jogos/', ...Array.from({ length: 12 }, (_, i) => `/blog/post-${pad(i + 1)}/`), '/en/blog/', '/en/blog/category/news/', '/en/blog/category/puzzle/', '/en/blog/post-one/', '/en/blog/post-two/'].sort();
   assert.deepEqual(blogLocs, expected);
-  assert.equal(locs.length - blogLocs.length, 48, 'the 48 existing entries are unchanged');
+  assert.equal(locs.length - blogLocs.length, 52, 'the 52 page entries (13 pages with the Minesweeper tool, 4 languages) are unchanged');
   for (const e of entries.filter(e => /\/blog\//.test(e))) assert.match(e, /<\/loc><lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/);
   assert.ok(sitemap.includes(`<loc>${origin}/blog/post-01/</loc><lastmod>2026-11-15</lastmod>`), 'article lastmod = updated');
   assert.ok(sitemap.includes(`<loc>${origin}/blog/post-02/</loc><lastmod>2026-11-02</lastmod>`), 'updated defaults to published');
