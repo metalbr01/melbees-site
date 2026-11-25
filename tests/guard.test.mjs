@@ -60,7 +60,7 @@ test('the hook keys on the remote ref (the probe line shape), refuses deleting m
   assert.match(bypass.stderr, /NOT checked/);
 });
 
-test('the sh wrapper has no CR, and without node it refuses main, passes other refs and honors the bypass', () => {
+test('the sh wrapper has no CR, and without node it refuses every push: the media guard fails closed, the bypass does not switch it off', () => {
   assert.ok(!fs.readFileSync(wrapper, 'utf8').includes('\r'), 'a CR in the shebang line breaks sh');
   const exec = gitOut(root, '--exec-path');
   const sh = [path.resolve(exec, '../../../usr/bin/sh.exe'), path.resolve(exec, '../../../bin/sh.exe'), '/bin/sh'].find((p) => fs.existsSync(p));
@@ -71,8 +71,10 @@ test('the sh wrapper has no CR, and without node it refuses main, passes other r
   assert.equal(refused.status, 1);
   assert.match(refused.stderr, /node not found/);
   assert.doesNotMatch(refused.stderr, /no ship stamp for/, 'the fail-closed line is not the stamp refusal the probe reads');
-  assert.equal(go(`refs/heads/x ${sha} refs/heads/y ${zero}\n`).status, 0);
-  assert.equal(go(`refs/heads/x ${sha} refs/heads/main ${zero}\n`, { MELBEES_SITE_ALLOW_UNGATED_PUSH: '1' }).status, 0);
+  const other = go(`refs/heads/x ${sha} refs/heads/y ${zero}\n`);
+  assert.equal(other.status, 1, 'E-84 item 8: without node the media guard cannot run, so other refs are refused too');
+  assert.match(other.stderr, /media guard/);
+  assert.equal(go(`refs/heads/x ${sha} refs/heads/main ${zero}\n`, { MELBEES_SITE_ALLOW_UNGATED_PUSH: '1' }).status, 1, 'the Owner override is the ship stamp\'s, never the media guard\'s');
 });
 
 /** A bare remote, a primary with core.hooksPath = tools/hooks (relative) and a linked worktree on a mission branch. */
@@ -149,9 +151,32 @@ test('the wrapper with node present, run by a relative path, refuses an unstampe
   const exec = gitOut(root, '--exec-path');
   const sh = [path.resolve(exec, '../../../usr/bin/sh.exe'), path.resolve(exec, '../../../bin/sh.exe'), '/bin/sh'].find((p) => fs.existsSync(p));
   if (!sh) return;
-  const r = spawnSync(sh, ['tools/hooks/pre-push', 'origin', 'url'], { cwd: root, input: `refs/heads/x ${sha} refs/heads/main ${zero}\n`, encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '' } });
+  // A real commit the remote lacks (the media guard fails closed on an unknown sha), text only, so the stamp check answers.
+  const { wt } = fixture();
+  const head = gitOut(wt, 'rev-parse', 'HEAD');
+  const r = spawnSync(sh, ['tools/hooks/pre-push', 'origin', 'url'], { cwd: wt, input: `refs/heads/x ${head} refs/heads/main ${zero}\n`, encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '' } });
   assert.equal(r.status, 1);
-  assert.match(r.stderr, /no ship stamp for aaaaaaaaaa/);
+  assert.match(r.stderr, new RegExp(`no ship stamp for ${head.slice(0, 10)}`));
+});
+
+test('the media guard (E-84 item 8) runs first: a new image is refused on any ref, even with the Owner override; text passes', () => {
+  const { remote, wt } = fixture();
+  fs.writeFileSync(path.join(wt, 'b.txt'), 'text\n');
+  git(wt, 'add', '-A');
+  git(wt, 'commit', '-q', '-m', 'text');
+  assert.equal(git(wt, 'push', 'origin', 'HEAD:refs/heads/side').status, 0, 'a text-only push to another ref goes');
+  fs.writeFileSync(path.join(wt, 'zz_media_probe.png'), 'not really a png\n');
+  git(wt, 'add', '-A');
+  git(wt, 'commit', '-q', '-m', 'image');
+  const head = gitOut(wt, 'rev-parse', 'HEAD');
+  const refused = git(wt, 'push', 'origin', 'HEAD:refs/heads/side');
+  assert.notEqual(refused.status, 0);
+  assert.match(refused.stderr, /media_guard: push recusado[\s\S]*zz_media_probe\.png/);
+  const override = spawnSync('git', ['-C', wt, 'push', 'origin', 'HEAD:main'], { encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '1' } });
+  assert.notEqual(override.status, 0, 'the Owner override does not switch the media guard off');
+  assert.match(override.stderr, /zz_media_probe\.png/);
+  assert.notEqual(gitOut(remote, 'rev-parse', 'refs/heads/side'), head);
+  assert.notEqual(gitOut(remote, 'rev-parse', 'main'), head);
 });
 
 test('bootstrap: without any core.hooksPath the ship still runs the worktree\'s own hook for its push', () => {

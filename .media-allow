@@ -1,0 +1,5 @@
+# Excecoes da trava de midia (E-84 item 8, C:/Melbees_Arts/docs/ASSETS.md, Melbees_Arts#95).
+# Uma linha por glob: <glob>  # <motivo>, ate AAAA-MM-DD. Sem data, ou vencida, nao vale.
+assets/**  # imagens do site e do blog servidas pelo deploy, ate o deploy ler de fora do Git, ate 2026-12-31
+secret-of-bees/**  # imagens, imprensa e PDF das paginas do jogo, ate 2026-12-31
+kit/**  # kit de imprensa, ate 2026-12-31
