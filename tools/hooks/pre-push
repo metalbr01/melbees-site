@@ -4,6 +4,8 @@
 # over 1 MiB goes to GitHub unless a dated glob in .media-allow keeps it. git's stdin is read once, byte for byte; the
 # shared media_guard.mjs judges it, then the ship-stamp check below gets the same bytes. It fails closed: without node,
 # or without the script, every push is refused, and no variable switches it off (the Owner override is the stamp's only).
+# A pipe's status below is its consumer's, even under a bash that inherited pipefail (exported SHELLOPTS).
+(set +o pipefail) 2>/dev/null && set +o pipefail
 nl='
 '
 stdin=
