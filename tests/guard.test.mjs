@@ -172,11 +172,32 @@ test('the media guard (E-84 item 8) runs first: a new image is refused on any re
   const refused = git(wt, 'push', 'origin', 'HEAD:refs/heads/side');
   assert.notEqual(refused.status, 0);
   assert.match(refused.stderr, /media_guard: push recusado[\s\S]*zz_media_probe\.png/);
+  assert.match(refused.stderr, /pre-push: refused push\. the media guard/, 'a pre-push line, so ship never reads it as main moving');
+  const toMain = git(wt, 'push', 'origin', 'HEAD:main');
+  assert.notEqual(toMain.status, 0);
+  assert.match(toMain.stderr, /zz_media_probe\.png/);
+  assert.doesNotMatch(toMain.stderr, /no ship stamp for/, 'the media guard answers before the stamp check');
   const override = spawnSync('git', ['-C', wt, 'push', 'origin', 'HEAD:main'], { encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '1' } });
   assert.notEqual(override.status, 0, 'the Owner override does not switch the media guard off');
   assert.match(override.stderr, /zz_media_probe\.png/);
   assert.notEqual(gitOut(remote, 'rev-parse', 'refs/heads/side'), head);
   assert.notEqual(gitOut(remote, 'rev-parse', 'main'), head);
+});
+
+test('the wrapper hands git\'s stdin and arguments to the stamp check byte for byte after the media guard', () => {
+  const exec = gitOut(root, '--exec-path');
+  const sh = [path.resolve(exec, '../../../usr/bin/sh.exe'), path.resolve(exec, '../../../bin/sh.exe'), '/bin/sh'].find((p) => fs.existsSync(p));
+  if (!sh) return;
+  const { wt } = fixture();
+  const head = gitOut(wt, 'rev-parse', 'HEAD');
+  const dump = path.join(wt, '..', 'stdin.json');
+  fs.writeFileSync(path.join(wt, 'tools', 'hooks', 'pre-push.mjs'), `import fs from 'node:fs';\nfs.writeFileSync(${JSON.stringify(dump)}, JSON.stringify([fs.readFileSync(0, 'utf8'), process.argv.slice(2)]));\n`);
+  for (const input of [`refs/heads/a ${head} refs/heads/a ${zero}\nrefs/heads/b ${head} refs/heads/b ${zero}\n`, '', `refs/heads/a ${head} refs/heads/a ${zero}`]) {
+    fs.rmSync(dump, { force: true });
+    const r = spawnSync(sh, ['tools/hooks/pre-push', 'origin', 'the url'], { cwd: wt, input, encoding: 'utf8', env: { ...process.env, MELBEES_SITE_ALLOW_UNGATED_PUSH: '' } });
+    assert.equal(r.status, 0, r.stderr);
+    assert.deepEqual(JSON.parse(fs.readFileSync(dump, 'utf8')), [input, ['origin', 'the url']]);
+  }
 });
 
 test('bootstrap: without any core.hooksPath the ship still runs the worktree\'s own hook for its push', () => {

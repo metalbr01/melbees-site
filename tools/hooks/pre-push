@@ -1,16 +1,16 @@
 #!/bin/sh
 # Git pre-push hook (core.hooksPath = tools/hooks). The logic lives in pre-push.mjs.
 # Media guard first (E-84 item 8, Melbees_Arts#95, C:/Melbees_Arts/docs/ASSETS.md): no new image, sound, video or blob
-# over 1 MiB goes to GitHub unless a dated glob in .media-allow keeps it. git's stdin is read once; the shared
-# media_guard.mjs judges it, then the ship-stamp check below gets the same lines. It fails closed: without node, or
-# without the script, every push is refused, and no variable switches it off (the Owner override is the stamp's only).
+# over 1 MiB goes to GitHub unless a dated glob in .media-allow keeps it. git's stdin is read once, byte for byte; the
+# shared media_guard.mjs judges it, then the ship-stamp check below gets the same bytes. It fails closed: without node,
+# or without the script, every push is refused, and no variable switches it off (the Owner override is the stamp's only).
 nl='
 '
 stdin=
-while IFS= read -r line || [ -n "$line" ]; do
+while IFS= read -r line; do
   stdin="$stdin$line$nl"
 done
-stdin=${stdin%"$nl"}
+stdin="$stdin$line"
 media_guard=C:/Melbees_Arts/tools/hooks/media_guard.mjs
 if ! command -v node >/dev/null 2>&1; then
   echo "pre-push: refused push. node not found, the media guard (E-84) cannot run and fails closed" >&2
@@ -20,7 +20,10 @@ if [ ! -f "$media_guard" ]; then
   echo "pre-push: refused push. $media_guard not found, the media guard (E-84) cannot run and fails closed" >&2
   exit 1
 fi
-printf '%s\n' "$stdin" | node "$media_guard" "$1" "$2" || exit 1
+if ! printf '%s' "$stdin" | node "$media_guard" "$1" "$2"; then
+  echo "pre-push: refused push. the media guard (E-84) refused it, see above" >&2
+  exit 1
+fi
 # Ship-stamp check. Without node it fails CLOSED for pushes to main (the stamp cannot be checked) and open for every
 # other ref (the media guard above already refuses every push when node is missing).
 if ! command -v node >/dev/null 2>&1; then
@@ -28,16 +31,14 @@ if ! command -v node >/dev/null 2>&1; then
     echo "pre-push: node not found and MELBEES_SITE_ALLOW_UNGATED_PUSH=1, ship stamp NOT checked (Owner override)" >&2
     exit 0
   fi
-  while read -r _local _lsha rref _rsha; do
+  printf '%s' "$stdin" | while read -r _local _lsha rref _rsha; do
     if [ "$rref" = "refs/heads/main" ]; then
       echo "pre-push: refused push to main. node not found, the ship stamp cannot be checked" >&2
       exit 1
     fi
-  done <<EOF
-$stdin
-EOF
+  done || exit 1
   exit 0
 fi
-exec node "$(dirname "$0")/pre-push.mjs" "$@" <<EOF
-$stdin
-EOF
+printf '%s' "$stdin" | {
+  exec node "$(dirname "$0")/pre-push.mjs" "$@"
+}
