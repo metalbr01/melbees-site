@@ -1,13 +1,13 @@
 ---
 titulo: Tempo real ou tempo do jogo no speedrun: por que o cronômetro muda?
-descricao: O recorde de Hollow Knight tem 4 min 29 s num cronômetro e 6 min 38 s em outro. Entenda tempo real, sem carregamentos e do jogo, com números do speedrun.com.
+descricao: O recorde de Hollow Knight tem 4 min 29 s num cronômetro e 6 min 38 s em outro, e os dois estão certos. Tempo real, sem carregamentos e do jogo, com os números.
 publicado: 2026-11-22
-atualizado: 2026-11-22
+atualizado: 2026-11-28
 categorias: speedrun, jogos
 balao: O mesmo recorde pode ter dois tempos, e os dois estão certos.
 estado: rascunho
 ---
-<p>O recorde de Any% de Hollow Knight no speedrun.com é de 4 min 29,34 s. Só que a mesma corrida, no relógio de parede, durou 6 min 38 s. Os dois tempos são verdadeiros: a diferença de 2 min 8,66 s é o quanto o jogo passou carregando telas. Por isso cada quadro precisa escolher um cronômetro, e essa escolha muda o número que vai para o topo.</p>
+<p>O recorde de Any% de Hollow Knight no speedrun.com é de 4 min 29,34 s. No relógio de parede, a mesma corrida durou 6 min 38 s. Os dois tempos são verdadeiros: os 2 min 8,66 s de diferença são o jogo carregando tela. E descontar isso é o certo, porque tela de loading não é habilidade. Só que cada quadro escolhe o seu cronômetro, e essa escolha muda o número que vai para o topo.</p>
 
 <h2>Os três cronômetros mais comuns</h2>
 <ul>
@@ -16,8 +16,8 @@ estado: rascunho
 <li><strong>Tempo do jogo (in-game):</strong> o cronômetro que o próprio jogo mantém, nos títulos que têm um.</li>
 </ul>
 
-<h2>Quanto isso pesa de verdade</h2>
-<p>Comparamos os dois tempos de alguns recordes mundiais em 22 de novembro de 2026. O gráfico mostra que parte do tempo real é só carregamento:</p>
+<h2>Quanto isso pesa</h2>
+<p>Em alguns recordes mundiais, o carregamento come um pedaço enorme do relógio:</p>
 <figure>
 <svg role="img" aria-label="Gráfico de barras com a parte do tempo real que é carregamento em seis recordes. Hollow Knight Any por cento 32,3 por cento; All Skills 30,0; True Ending 24,2; 107 por cento AB 19,8; Portal Out of Bounds 16,5; Portal Glitchless 0,7." viewBox="0 0 620 192" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect x="0" y="0" width="620" height="192" fill="#fff8e1"/>
@@ -28,7 +28,7 @@ estado: rascunho
 <text x="6" y="140" font-size="12" fill="#3b2a00">Portal, Out of Bounds</text><rect x="200" y="126" width="141" height="20" rx="3" fill="#b45f06"/><text x="347" y="141" font-size="12" fill="#3b2a00">16,5%</text>
 <text x="6" y="168" font-size="12" fill="#3b2a00">Portal, Glitchless</text><rect x="200" y="154" width="6" height="20" rx="3" fill="#b45f06"/><text x="212" y="169" font-size="12" fill="#3b2a00">0,7%</text>
 </svg>
-<figcaption>Parte do tempo real que desaparece quando os carregamentos são descontados, em seis recordes mundiais. Dados: speedrun.com, 22/11/2026.</figcaption>
+<figcaption>Parte do tempo real que some quando os carregamentos saem da conta, em seis recordes mundiais, em 22/11/2026.</figcaption>
 </figure>
 <ul>
 <li><strong>Hollow Knight, Any%:</strong> 269,34 s sem carregamentos contra 398 s de tempo real. Diferença de 128,66 s, 32,3% do tempo real.</li>
@@ -36,17 +36,18 @@ estado: rascunho
 <li><strong>Portal, Out of Bounds:</strong> 300,735 s contra 360,363 s. Diferença de 59,628 s, 16,5%.</li>
 <li><strong>Portal, Glitchless:</strong> 863,43 s contra 869,86 s. Diferença de só 6,43 s, 0,7%.</li>
 </ul>
-<p>Em Hollow Knight, quase um terço do relógio é carregamento. No glitchless de Portal, quase nada. Imagine, só de exemplo (não é um dado), dois speedrunners com a mesma habilidade, um com uma máquina em que cada carregamento leva 2 s e outro com uma em que leva 6 s. Se a corrida tem 20 carregamentos, são 40 s de diferença que não têm nada a ver com quem joga melhor. O tempo sem carregamentos existe para tirar esse peso da conta.</p>
+<p>Em Hollow Knight, quase um terço do relógio é carregamento. No glitchless de Portal, quase nada.</p>
+<p>Agora imagina dois speedrunners igualmente bons: um com uma máquina que carrega cada tela em 2 s, outro numa que leva 6 s. Numa corrida com 20 carregamentos, são 40 s de diferença que não têm nada a ver com quem joga melhor. O tempo sem carregamentos existe para tirar esse peso da conta.</p>
 
 <h2>Quem usa qual</h2>
-<p>Olhamos a configuração de 10 quadros no speedrun.com:</p>
+<p>Em 10 quadros grandes do speedrun.com:</p>
 <ul>
 <li><strong>Tempo real:</strong> Super Mario Bros., Super Mario 64, Ocarina of Time, Portal 2 e Mario Kart 64 (este também aceita o tempo do jogo).</li>
 <li><strong>Tempo real sem carregamentos:</strong> Hollow Knight e Portal.</li>
 <li><strong>Tempo do jogo:</strong> Celeste, Mario Kart Wii e Minecraft: Java Edition (os dois últimos também aceitam o tempo real).</li>
 </ul>
-<p>Portal 2 tem um detalhe. A API marca o tempo como real, mas as regras da comunidade (rules.portal2.sr) dizem que a maioria das corridas é cronometrada pela demonstração, o arquivo que o jogo grava, e o plugin SAR reproduz essa contagem. Ou seja: o campo da API diz uma coisa, e a prática do quadro é outra. É um bom motivo para ler as regras do quadro antes de comparar dois recordes.</p>
-<p>Em Celeste, os recordes que consultamos vieram só com o tempo do jogo, e o campo de tempo real estava vazio. Por isso não calculamos diferença para ele.</p>
+<p>Portal 2 é pegadinha. O quadro marca tempo real, mas na prática a maioria das corridas é cronometrada pela demonstração, o arquivo que o jogo grava, e o plugin SAR reproduz essa contagem. Moral: lê as regras do quadro antes de comparar dois recordes.</p>
+<p>Celeste ficou fora do gráfico porque os recordes dele só têm o tempo do jogo, sem tempo real para comparar.</p>
 
 <p>Se o assunto agora é espera, o <a href="https://diario.melbees.games/">Desafio diário</a> do Melbees é o contrário: abre direto no navegador e a partida do dia já está lá.</p>
-<p>Dados: speedrun.com, consultados em 22/11/2026.</p>
+<p>Fontes: speedrun.com, <a href="https://rules.portal2.sr/" rel="noopener">regras da comunidade de Portal 2</a>.</p>
